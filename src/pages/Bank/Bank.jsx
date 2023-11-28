@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import { config } from "../../utils/config";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import BankTable from "./BankTable";
 import { useQuery } from "@tanstack/react-query";
-
+import UseExportToPdf from "../../hooks/UseExportToPdf";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 const Bank = () => {
   const token = localStorage.getItem("token");
   const bankApi = config?.result?.endpoint?.Bank;
   const [searchId, setSearchId] = useState();
-
+  const [transactionCode,setTransactionCode] = useState('')
+  const { exportPdf } = UseExportToPdf();
+  const tableRef = useRef(null);
   const { data, refetch } = useQuery({
     queryKey: ["bankData"],
     queryFn: async () => {
@@ -98,8 +101,13 @@ const Bank = () => {
                       </div>
                       <div className="col-md-6 text-right">
                         <div className="d-inline-block">
+                        <DownloadTableExcel
+                          filename="Bank"
+                          sheet="Bank"
+                          currentTableRef={tableRef.current}
+                        >
                           <div
-                            id="export_1700893714545"
+                            id="export_1699264657226"
                             className="d-inline-block"
                           >
                             <button
@@ -109,7 +117,12 @@ const Bank = () => {
                               <i className="fas fa-file-excel"></i>
                             </button>
                           </div>
-                          <button type="button" className="btn btn-danger">
+                        </DownloadTableExcel>
+                          <button
+                            onClick={() =>
+                              exportPdf("#bank", "bank.pdf")
+                            }
+                          type="button" className="btn btn-danger">
                             <i className="fas fa-file-pdf"></i>
                           </button>
                         </div>
@@ -120,6 +133,7 @@ const Bank = () => {
                         >
                           <div className="d-inline-block form-group form-group-feedback form-group-feedback-right">
                             <input
+                             onChange={(e)=>setTransactionCode( e.target.value)}
                               type="password"
                               name="masterPassword"
                               placeholder="Transaction Code"
@@ -129,17 +143,7 @@ const Bank = () => {
                               aria-invalid="false"
                             />
                           </div>
-                          {/*    <!--  */}
-                          <div className="d-inline-block">
-                            <button
-                              type="submit"
-                              id="transferSubmit"
-                              className="btn btn-primary"
-                            >
-                              Transfer All
-                            </button>
-                          </div>
-                          {/* --> */}
+                        
                         </form>
                       </div>
                     </div>
@@ -170,7 +174,7 @@ const Bank = () => {
                     </div>
                   </div>
                   <div className="table-responsive mb-0">
-                    <BankTable data={data} />
+                    <BankTable data={data} transactionCode={transactionCode} refetch={refetch}  tableRef={tableRef} />
                   </div>
                   <div className="row pt-3">
                     <div className="col">

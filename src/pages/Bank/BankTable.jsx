@@ -2,18 +2,32 @@ import { useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 
-const BankTable = ({ data }) => {
-  const [clientPnls, setClientPnls] = useState(Array(data?.length).fill(""));
+const BankTable = ({ data: tableData, transactionCode,refetch,tableRef }) => {
+  const [clientPnls, setClientPnls] = useState(
+    Array(tableData?.length).fill("")
+  );
   const downLineEdit = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("token");
-  const [errorMsg, setErrorMsg] = useState(Array(data?.length).fill(""));
-  const [successMsg, setSuccessMsg] = useState(Array(data?.length).fill(""));
+  const [errorMsg, setErrorMsg] = useState(Array(tableData?.length).fill(""));
+  const [successMsg, setSuccessMsg] = useState(
+    Array(tableData?.length).fill("")
+  );
   const [lastClickedIndex, setLastClickedIndex] = useState(null);
-
-
+  const [transactionErr, setTransactionErr] = useState(
+    Array(tableData?.length).fill("")
+  );
 
   const handleSubmit = async (i, username) => {
     setLastClickedIndex(i);
+    setErrorMsg(Array(tableData?.length).fill(""));
+    setTransactionErr(Array(tableData?.length).fill(""));
+    setSuccessMsg(Array(tableData?.length).fill(""));
+
+    if (transactionCode?.length === 0) {
+      console.log("object");
+      return setTransactionErr("Please enter master password");
+    }
+
     let newClientPnls = [...clientPnls];
     const res = await axios.post(
       downLineEdit,
@@ -21,7 +35,7 @@ const BankTable = ({ data }) => {
         downlineId: username,
         amount: newClientPnls[i],
         type: "bankTransfer",
-        mpassword: 123456,
+        mpassword: transactionCode,
       },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -30,10 +44,13 @@ const BankTable = ({ data }) => {
 
     const data = res.data;
     if (data?.success) {
+      refetch()
+      setErrorMsg(Array(tableData?.length).fill(""));
+      setSuccessMsg(Array(tableData?.length).fill(""));
       setSuccessMsg(data?.result?.message);
-      console.log(data);
     } else {
-      console.log(data);
+      setSuccessMsg(Array(tableData?.length).fill(""));
+      setErrorMsg(Array(tableData?.length).fill(""));
       setErrorMsg(data?.error?.status[0]?.description);
     }
   };
@@ -41,7 +58,8 @@ const BankTable = ({ data }) => {
   return (
     <div className="table no-footer table-hover table-responsive-sm">
       <table
-        id="eventsListTbl"
+      ref={tableRef}
+        id="bank"
         role="table"
         aria-busy="false"
         aria-colcount="9"
@@ -111,9 +129,9 @@ const BankTable = ({ data }) => {
         </thead>
         <tbody role="rowgroup">
           {/*    <!----> */}
-          {data &&
-            data?.length > 0 &&
-            data?.map(
+          {tableData &&
+            tableData?.length > 0 &&
+            tableData?.map(
               (
                 { accountType, availablePts, exposure, pnl, pts, username },
                 i
@@ -164,7 +182,7 @@ const BankTable = ({ data }) => {
                         name="amount"
                         placeholder="0"
                         className="form-control form-control-sm transfer-amt"
-                        value={clientPnls[i]}
+                        value={clientPnls[i] * -1}
                         onChange={(e) => {
                           const newClientPnls = [...clientPnls];
                           newClientPnls[i] = e.target.value;
@@ -182,9 +200,12 @@ const BankTable = ({ data }) => {
                       {lastClickedIndex === i ? (
                         <span
                           className={`${
-                            successMsg.length > 1 ? "text-success" : "text-danger"
-                          }`}
+                            successMsg.length > 1 ? "text-success" : ""
+                          } ${errorMsg.length > 1 ? "text-danger" : ""}
+                          ${transactionErr.length > 1 ? "text-danger" : ""}
+                          `}
                         >
+                          {transactionErr ? transactionErr : null}
                           {errorMsg ? errorMsg : null}
                           {successMsg ? successMsg : null}
                         </span>
