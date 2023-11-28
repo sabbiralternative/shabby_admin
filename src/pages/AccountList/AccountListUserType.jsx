@@ -27,7 +27,7 @@ const AccountListUserType = () => {
         }
       );
 
-      const data = res.data;
+      const data = res.data?.result;
       return data;
     },
   });
@@ -180,7 +180,7 @@ const AccountListUserType = () => {
                                 (Click to sort ascending)
                               </span>
                             </th>
-                            <th
+                            {/* <th
                               role="columnheader"
                               scope="col"
                               tabIndex="0"
@@ -192,7 +192,7 @@ const AccountListUserType = () => {
                               <span className="sr-only">
                                 (Click to sort ascending)
                               </span>
-                            </th>
+                            </th> */}
                             <th
                               role="columnheader"
                               scope="col"
@@ -286,7 +286,7 @@ const AccountListUserType = () => {
 
                         <tbody role="rowgroup">
                           {/*        <!----> */}
-                          {data?.result?.map((downLineData, i) => {
+                          {data?.map((downLineData, i) => {
                             return (
                               <tr key={i} role="row" className="">
                                 <td
@@ -301,11 +301,11 @@ const AccountListUserType = () => {
                                     {downLineData?.username}
                                   </span>
                                 </td>
-                                <td aria-colindex="2" role="cell" className="">
+                                {/* <td aria-colindex="2" role="cell" className="">
                                   <p className="text-right mb-0 cp text-warning">
                                     {downLineData?.creditReferance}
                                   </p>
-                                </td>
+                                </td> */}
                                 <td aria-colindex="3" role="cell" className="">
                                   <p className="text-right mb-0">
                                     {downLineData?.balance}
@@ -405,6 +405,11 @@ const AccountListUserType = () => {
                             );
                           })}
 
+{
+                          data?.length === 0 && (
+                            <tr role="row" className="b-table-empty-row"><td colSpan="12" role="cell" className=""><div role="alert" aria-live="polite"><div className="text-center my-2">There are no records to show</div></div></td></tr>
+                          )
+                         }
                           {/*  <!----><!----> */}
                         </tbody>
 

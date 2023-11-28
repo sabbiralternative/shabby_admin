@@ -1,3 +1,7 @@
-.react-datepicker-wrapper{
-    display: block !important ;
+.rs-picker-toggle-read-only {
+  opacity: initial !important;
+}
+
+body {
+  font-family: Poppins, sans-serif !important;
 }

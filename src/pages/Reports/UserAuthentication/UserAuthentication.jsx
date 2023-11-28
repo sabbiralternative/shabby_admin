@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 const UserAuthentication = () => {
-  const tableRef = useRef(null)
+  const tableRef = useRef(null);
   const userAuthenticationApi = config?.result?.endpoint?.userAuthentication;
   const token = localStorage.getItem("token");
   const [users, setUsers] = useState([]);
@@ -57,7 +57,7 @@ const UserAuthentication = () => {
                   <div className="row mb-3">
                     <div className="col-md-12">
                       <div className="d-inline-block">
-                      <DownloadTableExcel
+                        <DownloadTableExcel
                           filename="User Authentication"
                           sheet="User"
                           currentTableRef={tableRef.current}
@@ -75,10 +75,12 @@ const UserAuthentication = () => {
                           </div>
                         </DownloadTableExcel>
                         <button
-                           onClick={() =>
+                          onClick={() =>
                             exportPdf("#user-authentication", "user.pdf")
                           }
-                        type="button" className="btn btn-danger">
+                          type="button"
+                          className="btn btn-danger"
+                        >
                           <i className="fas fa-file-pdf"></i>
                         </button>
                       </div>
@@ -126,7 +128,7 @@ const UserAuthentication = () => {
                   <div className="table-responsive mb-0">
                     <div className="table no-footer table-hover table-responsive-sm">
                       <table
-                      ref={tableRef}
+                        ref={tableRef}
                         id="user-authentication"
                         role="table"
                         aria-busy="false"
@@ -168,7 +170,7 @@ const UserAuthentication = () => {
                         </thead>
                         <tbody role="rowgroup">
                           {/*   <!----> */}
-                          {users?.map(({ authentication, username }, i) => {
+                          {users?.length > 0 && users?.map(({ authentication, username }, i) => {
                             return (
                               <tr
                                 key={i}
@@ -185,6 +187,20 @@ const UserAuthentication = () => {
                               </tr>
                             );
                           })}
+
+                          {users?.length === 0 && (
+                            <tr role="row" className="">
+                              <td colSpan='2' role="cell" className="">
+                                <div role="alert" aria-live="polite">
+                                  <div className="text-center my-2">
+                                    There are no records to show
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+
+
                         </tbody>
                         {/*   <!----> */}
                       </table>

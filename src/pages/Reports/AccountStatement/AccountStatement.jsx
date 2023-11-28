@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import UseDatePicker from "../../../hooks/UseDatePicker";
 import UseSearchUser from "../../../hooks/UseSearchUser";
 import AccountStatementTable from "./AccountStatementTable";
@@ -8,7 +8,6 @@ import axios from "axios";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { DateRangePicker } from "rsuite";
-
 
 const AccountStatement = () => {
   const tableRef = useRef(null);
@@ -24,7 +23,7 @@ const AccountStatement = () => {
     setShowSearchId,
     showSearchId,
     users,
-    setSearchUser
+    setSearchUser,
   } = UseSearchUser();
 
   const { formattedEndDate, formattedStartDate, onChange } = UseDatePicker();
@@ -52,6 +51,10 @@ const AccountStatement = () => {
       setStatementData(data?.result);
     }
   };
+
+
+
+
 
   return (
     <div data-v-b00d14ae="" className="page-content">
@@ -115,10 +118,9 @@ const AccountStatement = () => {
                                   style={{ display: "none" }}
                                 ></div>
                                 <input
-                                  onChange={(e) =>{
-                                    setSearchUser(e.target.value)
-                               
-                                 }}
+                                  onChange={(e) => {
+                                    setSearchUser(e.target.value);
+                                  }}
                                   name="text"
                                   type="text"
                                   autoComplete="off"
@@ -131,7 +133,7 @@ const AccountStatement = () => {
                                     position: "absolute",
                                     padding: "0px",
                                   }}
-                                  // value={searchId}
+                                  value={searchId ? searchId : searchUser}
                                 />
                                 {/*   <!----> */}
                               </div>
@@ -195,7 +197,6 @@ const AccountStatement = () => {
                           <div className="mb-3 mx-datepicker mx-datepicker-range">
                             <div className="mx-input-wrapper">
                               <DateRangePicker
-                                // className="mx-input block"
                                 editable
                                 onChange={onChange}
                                 defaultValue={[
@@ -291,6 +292,7 @@ const AccountStatement = () => {
                               setSearchId("");
                               // setStartDate("");
                               // setEndDate("");
+                              setSearchUser("");
                               setShowStatement("");
                             }}
                             type="button"

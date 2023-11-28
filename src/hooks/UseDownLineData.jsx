@@ -23,12 +23,12 @@ const UseDownLineData = () => {
         }
       );
 
-      const data = res.data;
+      const data = res?.data?.result;
       return data;
     },
   });
 
-  return [data, refetchDownLine,setSearchUser];
+  return [data, refetchDownLine,setSearchUser,searchUser];
 };
 
 export default UseDownLineData;

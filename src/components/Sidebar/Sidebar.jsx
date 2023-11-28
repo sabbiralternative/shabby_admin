@@ -143,7 +143,7 @@ const Sidebar = () => {
                                 General Lock
                               </Link>
                             </li>
-                            <li>
+                            {/* <li>
                               <Link 
                               to='/ourCasinoResult'
                               className="side-nav-link-ref">
@@ -156,7 +156,7 @@ const Sidebar = () => {
                               className="side-nav-link-ref">
                                 Live Casino Result
                               </Link>
-                            </li>
+                            </li> */}
                             <li>
                               <Link 
                               to='/turnOver'
@@ -182,13 +182,16 @@ const Sidebar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link to="/virtualCasino" className="side-nav-link-ref">
+                        <a 
+                        // to="/virtualCasino" 
+
+                        className="side-nav-link-ref">
                           <span className="badge badge-pill badge-success float-right">
                             New
                           </span>
                           <i className="mdi mdi-cards-playing-outline"></i>
                           <span>Virtual Casino</span>
-                        </Link>
+                        </a>
                       </li>
 
                       {/* Event */}

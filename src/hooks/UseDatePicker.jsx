@@ -9,8 +9,8 @@ const UseDatePicker = () => {
   const onChange = (dates) => {
     setDateRange((prevState) => ({
       ...prevState,
-      startDate: dates[0],
-      endDate: dates[1],
+      startDate: dates ? dates[0]:null,
+      endDate: dates ? dates[1]:null,
     }));
   };
 

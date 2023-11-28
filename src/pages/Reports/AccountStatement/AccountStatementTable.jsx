@@ -143,6 +143,12 @@ const AccountStatementTable = ({ tableRef,statementData }) => {
               );
             }
           )}
+
+{
+                          statementData?.length === 0 && (
+                            <tr role="row" className="b-table-empty-row"><td colSpan="12" role="cell" className=""><div role="alert" aria-live="polite"><div className="text-center my-2">There are no records to show</div></div></td></tr>
+                          )
+                         }
         </tbody>
       </table>
     </div>

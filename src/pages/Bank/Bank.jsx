@@ -77,6 +77,7 @@ const Bank = () => {
                               onChange={(e) => setSearchId(e.target.value)}
                               type="text"
                               name="searchKey"
+                              value={searchId}
                               placeholder="Search User"
                               className="form-control"
                             />
@@ -90,6 +91,7 @@ const Bank = () => {
                               Load
                             </button>
                             <button
+                            onClick={()=> setSearchId('')}
                               type="button"
                               id="reset"
                               className="btn btn-light"

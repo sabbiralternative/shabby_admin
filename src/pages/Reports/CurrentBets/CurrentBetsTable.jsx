@@ -1,8 +1,8 @@
-const CurrentBetsTable = ({ betsType, filteredBetsData,tableRef }) => {
+const CurrentBetsTable = ({ betsType, filteredBetsData, tableRef }) => {
   return (
     <div className="table no-footer table-responsive-sm">
       <table
-      ref={tableRef}
+        ref={tableRef}
         id="current-bets"
         role="table"
         aria-busy="false"
@@ -309,6 +309,21 @@ const CurrentBetsTable = ({ betsType, filteredBetsData,tableRef }) => {
 
         {/* Casino T-Body */}
         {betsType === "casino" && (
+          <tbody role="rowgroup">
+            {/* <!----> */}
+            <tr role="row" className="b-table-empty-row">
+              <td colSpan="9" role="cell" className="">
+                <div role="alert" aria-live="polite">
+                  <div className="text-center my-2">
+                    There are no records to show
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        )}
+        {/* Casino T-Body */}
+        {betsType === "sports" && filteredBetsData?.length === 0 && (
           <tbody role="rowgroup">
             {/* <!----> */}
             <tr role="row" className="b-table-empty-row">

@@ -24,7 +24,7 @@ const AccountList = () => {
     setMoreModalErrNotify,
   } = UseContextState();
   const [creditRefModal, setCreditRefModal] = useState(false);
-  const [creditRefAccountType, setCreditRefAccountType] = useState("");
+  // const [creditRefAccountType, setCreditRefAccountType] = useState("");
   const [depositModal, setDepositModal] = useState(false);
   const [depositAccountType, setDepositAccountType] = useState("");
   const [withdrawModal, setWithdrawModal] = useState(false);
@@ -36,7 +36,7 @@ const AccountList = () => {
   const [creditSuccessNotify, setCreditSuccessNotify] = useState(false);
   const [creditErrorNotify, setCreditErrorNotify] = useState(false);
   const [moreModalAccountType, setMoreModalAccountType] = useState("");
-  const [data, refetchDownLine, setSearchUser] = UseDownLineData();
+  const [data, refetchDownLine, setSearchUser,searchUser] = UseDownLineData();
   const { exportPdf } = UseExportToPdf();
 
   const handleRefetchDownLine = (downLine) => {
@@ -92,6 +92,7 @@ const AccountList = () => {
                             type="text"
                             name="searchKey"
                             placeholder="Search User"
+                            value={searchUser}
                             className="form-control"
                           />
                         </div>
@@ -104,6 +105,8 @@ const AccountList = () => {
                             Load
                           </button>
                           <button
+
+                          onClick={()=> setSearchUser('')}
                             type="button"
                             id="reset"
                             className="btn btn-light"
@@ -203,7 +206,7 @@ const AccountList = () => {
                                 (Click to sort ascending)
                               </span>
                             </th>
-                            <th
+                           {/*  <th
                               role="columnheader"
                               scope="col"
                               tabIndex="0"
@@ -215,7 +218,7 @@ const AccountList = () => {
                               <span className="sr-only">
                                 (Click to sort ascending)
                               </span>
-                            </th>
+                            </th> */}
                             <th
                               role="columnheader"
                               scope="col"
@@ -324,11 +327,11 @@ const AccountList = () => {
                                     {downLineData?.username}
                                   </span>
                                 </td>
-                                <td aria-colindex="2" role="cell" className="">
+                              {/*   <td aria-colindex="2" role="cell" className="">
                                   <p className="text-right mb-0 cp text-warning">
                                     {downLineData?.creditReferance}
                                   </p>
-                                </td>
+                                </td> */}
                                 <td aria-colindex="3" role="cell" className="">
                                   <p className="text-right mb-0">
                                     {downLineData?.balance}
@@ -404,7 +407,7 @@ const AccountList = () => {
                                 </td>
                                 <td aria-colindex="12" role="cell" className="">
                                   <div role="group" className="btn-group">
-                                    <button
+                                    {/* <button
                                       onClick={() => {
                                         setCreditRefModal(!creditRefModal);
                                         setCreditRefAccountType(
@@ -415,7 +418,7 @@ const AccountList = () => {
                                       className="btn btn-warning"
                                     >
                                       C
-                                    </button>
+                                    </button> */}
 
                                     <button
                                       onClick={() => {
@@ -459,6 +462,13 @@ const AccountList = () => {
                               </tr>
                             );
                           })}
+
+                         {
+                          data?.length === 0 && (
+                            <tr role="row" className="b-table-empty-row"><td colSpan="12" role="cell" className=""><div role="alert" aria-live="polite"><div className="text-center my-2">There are no records to show</div></div></td></tr>
+                          )
+                         }
+
                         </tbody>
                       </table>
                     </div>
@@ -570,7 +580,7 @@ const AccountList = () => {
           setCreditRefModal={setCreditRefModal}
           setCreditSuccessNotify={setCreditSuccessNotify}
           setCreditErrorNotify={setCreditErrorNotify}
-          creditRefAccountType={creditRefAccountType}
+          // creditRefAccountType={creditRefAccountType}
         />
       )}
       {creditSuccessNotify && (
