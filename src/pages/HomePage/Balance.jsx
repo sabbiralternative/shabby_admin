@@ -1,90 +1,79 @@
-import { useEffect, useState } from "react";
-import { config } from "../../utils/config";
-import axios from "axios";
+import UseBalance from "../../hooks/UseBalance";
 
 const Balance = () => {
-  const balanceApi = config?.result?.endpoint?.balance;
-  const token = localStorage.getItem("token");
-  const [balance, setBalance] = useState({});
-
-  useEffect(() => {
-    const getBalanceData = async () => {
-      const res = await axios.get(balanceApi, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = res.data;
-      setBalance(data?.result);
-    };
-    getBalanceData();
-  }, [balanceApi,token]);
-
+  const [balance] = UseBalance()
   return (
     <div className="row row5">
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
-            <p className="text-muted fw-medium">Upper Level Credit Referance</p>
-            <h4>{balance?.upperLevelCreditReferance}</h4>
+            <p className="text-muted fw-medium">Balance</p>
+            <h4 
+            style={{fontWeight:'500',lineHeight:'3.2rem',fontSize:'1.3rem'}}
+            >{balance?.balance}</h4>
           </div>
         </div>
       </div>
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
-            <p className="text-muted fw-medium">Down level Occupy Balance</p>
-            <h4>{balance?.downLevelOccupyBalance}</h4>
+            <p className="text-muted fw-medium">Exposure</p>
+            <h4
+              style={{fontWeight:'500',lineHeight:'3.2rem',fontSize:'1.3rem'}}
+            >{balance?.exposure
+            }</h4>
           </div>
         </div>
       </div>
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
-            <p className="text-muted fw-medium">Down Level Credit Referance</p>
-            <h4>{balance?.downLevelCreditReferance}</h4>
+            <p className="text-muted fw-medium">Credit Pts</p>
+            <h4
+              style={{fontWeight:'500',lineHeight:'3.2rem',fontSize:'1.3rem'}}
+            >{balance?.creditPts}</h4>
           </div>
         </div>
       </div>
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
-            <p className="text-muted fw-medium">Total Master Balance</p>
-            <h4>{balance?.totalMasterBalance}</h4>
+            <p className="text-muted fw-medium">All Pts</p>
+            <h4
+              style={{fontWeight:'500',lineHeight:'3.2rem',fontSize:'1.3rem'}}
+            >{balance?.allPts}</h4>
           </div>
         </div>
       </div>
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
-            <p className="text-muted fw-medium">Upper Level</p>
-            <h4>{balance?.getUpperLevel}</h4>
+            <p className="text-muted fw-medium">Settlement Pts</p>
+            <h4
+              style={{fontWeight:'500',lineHeight:'3.2rem',fontSize:'1.3rem'}}
+            >{balance?.settlementPts}</h4>
           </div>
         </div>
       </div>
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
-            <p className="text-muted fw-medium">Down Level Profit/Loss</p>
-            <h4>{balance?.getDownLevelProfitLoss}</h4>
+            <p className="text-muted fw-medium">Upper Pts</p>
+            <h4
+              style={{fontWeight:'500',lineHeight:'3.2rem',fontSize:'1.3rem'}}
+            >{balance?.upperPts
+            }</h4>
           </div>
         </div>
       </div>
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
-            <p className="text-muted fw-medium">Available Balance</p>
-            <h4>{balance?.getAvailableBalance}</h4>
-          </div>
-        </div>
-      </div>
-      <div className="col-6 col-md-3">
-        <div className="card mini-stats-wid">
-          <div className="card-body">
-            <p className="text-muted fw-medium">
-              Available Balance With Profit/Loss
-            </p>
-            <h4>{balance?.getAvailableBalanceWithProfitLoss}</h4>
+            <p className="text-muted fw-medium">Down Pts</p>
+            <h4
+              style={{fontWeight:'500',lineHeight:'3.2rem',fontSize:'1.3rem'}}
+            >{balance?.downPts
+            }</h4>
           </div>
         </div>
       </div>

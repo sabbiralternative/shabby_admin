@@ -6,6 +6,7 @@ import BankTable from "./BankTable";
 import { useQuery } from "@tanstack/react-query";
 import UseExportToPdf from "../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
+
 const Bank = () => {
   const token = localStorage.getItem("token");
   const bankApi = config?.result?.endpoint?.Bank;
@@ -13,6 +14,7 @@ const Bank = () => {
   const [transactionCode,setTransactionCode] = useState('')
   const { exportPdf } = UseExportToPdf();
   const tableRef = useRef(null);
+ 
   const { data, refetch } = useQuery({
     queryKey: ["bankData"],
     queryFn: async () => {

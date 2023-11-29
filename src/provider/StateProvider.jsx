@@ -7,20 +7,26 @@ const StateProvider = ({ children }) => {
   const [searchId, setSearchId] = useState("");
   const [moreModalCount, setMoreModalCount] = useState("profile");
   const [moreModal, setMoreModal] = useState(false);
-  const [moreModalSuccessNotify,setMoreModalSuccessNotify] = useState('')
-  const [moreModalErrNotify,setMoreModalErrNotify] = useState('')
-  const [changePassNotify,setChangePassNotify] = useState('')
-
+  const [moreModalSuccessNotify, setMoreModalSuccessNotify] = useState("");
+  const [moreModalErrNotify, setMoreModalErrNotify] = useState("");
+  const [changePassNotify, setChangePassNotify] = useState("");
   const stateInfo = {
     loginSuccess,
     setLoginSuccess,
-    downLineId, setDownLineId,
-    searchId, setSearchId,
-    moreModalCount, setMoreModalCount,
-    moreModal, setMoreModal,
-    moreModalSuccessNotify,setMoreModalSuccessNotify,
-    moreModalErrNotify,setMoreModalErrNotify,
-    changePassNotify,setChangePassNotify
+    downLineId,
+    setDownLineId,
+    searchId,
+    setSearchId,
+    moreModalCount,
+    setMoreModalCount,
+    moreModal,
+    setMoreModal,
+    moreModalSuccessNotify,
+    setMoreModalSuccessNotify,
+    moreModalErrNotify,
+    setMoreModalErrNotify,
+    changePassNotify,
+    setChangePassNotify,
   };
   return (
     <StateContext.Provider value={stateInfo}>{children}</StateContext.Provider>

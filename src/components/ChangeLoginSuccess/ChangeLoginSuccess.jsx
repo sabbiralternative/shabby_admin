@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
 import { config } from "../../utils/config";
+import { useEffect } from "react";
 
 const ChangeLoginSuccess = () => {
   const transactionPassword = localStorage.getItem("transactionPassword");
   const URL = config?.result?.settings?.URL;
+  const pageTitle = config?.result?.settings?.siteTitle;
+useEffect(() => {
+  document.title = pageTitle;
+}, [pageTitle]);
 
   return (
     <div className="vertical-collpsed">

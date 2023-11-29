@@ -55,7 +55,6 @@
       "auraCasino": "https://cache.api7.live/api/exchange/diamond/auraCasino",
       "activityLogs": "https://api7.live/api/exchange/diamond/activityLogs",
       "ipDetails": "https://api7.live/api/exchange/diamond/ipDetails",
-      "settledBets": "https://api7.live/api/exchange/diamond/settledBets",
       "exposure": "https://api7.live/api/exchange/diamond/exposure",
       "searchEvent": "https://api7.live/api/exchange/diamond/searchEvent",
       "virtualCasino": " https://cache.api7.live/api/exchange/diamond/virtualCasino",
@@ -73,7 +72,10 @@
       "userHistory": "https://admin.api7.live/api/userHistory",
       "userAuthentication": "https://admin.api7.live/api/userAuthentication",
       "searchUser": "https://admin.api7.live/api/searchUser",
-      "Bank": "https://admin.api7.live/api/bank"
+      "Bank": "https://admin.api7.live/api/bank",
+      "marketAnalysis": "https://admin.api7.live/api/marketAnalysis",
+      "settledBets": "https://admin.api7.live/api/settledBets"
+
     }
   },
   "success": true

@@ -38,7 +38,9 @@ const Sidebar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link className="side-nav-link-ref">
+                        <Link
+                        to='/market-analysis'
+                        className="side-nav-link-ref">
                           <i className="bx bxs-bar-chart-alt-2"></i>
                           <span>Market Analysis</span>
                         </Link>
@@ -182,8 +184,8 @@ const Sidebar = () => {
                         </Link>
                       </li>
                       <li>
-                        <a 
-                        // to="/virtualCasino" 
+                        <Link
+                        to="/virtualCasino" 
 
                         className="side-nav-link-ref">
                           <span className="badge badge-pill badge-success float-right">
@@ -191,7 +193,7 @@ const Sidebar = () => {
                           </span>
                           <i className="mdi mdi-cards-playing-outline"></i>
                           <span>Virtual Casino</span>
-                        </a>
+                        </Link>
                       </li>
 
                       {/* Event */}

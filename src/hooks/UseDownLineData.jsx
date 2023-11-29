@@ -28,7 +28,7 @@ const UseDownLineData = () => {
     },
   });
 
-  return [data, refetchDownLine,setSearchUser,searchUser];
+  return [data, refetchDownLine, setSearchUser, searchUser];
 };
 
 export default UseDownLineData;

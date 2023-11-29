@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
+import UseBalance from '../../hooks/UseBalance'
 
 const Deposit = ({
   depositModal,
@@ -22,6 +23,7 @@ const Deposit = ({
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
   const [,refetchDownLine] = UseDownLineData();
+  const [,refetchBalance] = UseBalance()
   useEffect(() => {
     const getReferenceData = async () => {
       const res = await axios.post(
@@ -78,6 +80,7 @@ const Deposit = ({
     const data = res.data;
 
     if (data.success) {
+      refetchBalance()
       setDepositSuccessNotify(data?.result?.message);
       setDepositModal(!depositModal);
       refetchDownLine()

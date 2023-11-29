@@ -21,8 +21,9 @@ import UserHistory from '../../src/pages/Reports/UserHistory/UserHistory'
 import ChangeLoginPassword from '../components/ChangeLoginPassword/ChangeLoginPassword'
 import ChangeLoginSuccess from '../components/ChangeLoginSuccess/ChangeLoginSuccess'
 import Bank from '../../src/pages/Bank/Bank'
-import MultiLoginAccount from '../../src/pages/MultiLoginAccount/MultiLoginAccount.jsx'
+import MultiLoginAccount from '../../src/pages/MultiLoginAccount/MultiLoginAccount'
 import SecureAuth from '../../src/pages/SecureAuth/SecureAuth'
+import MarketAnalysis from '../../src/pages/MarketAnalysis/MarketAnalysis'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
       {
         path:'/secureAuth',
         element:<SecureAuth/>
+      },
+      {
+        path:'/market-analysis',
+        element:<MarketAnalysis/>
       }
     ],
   },

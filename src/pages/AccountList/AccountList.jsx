@@ -51,7 +51,7 @@ const AccountList = () => {
     e.preventDefault();
     refetchDownLine();
   };
-
+console.log(data);
   return (
     <div data-v-b00d14ae="" className="page-content">
       {/*   <!----> */}
@@ -312,7 +312,7 @@ const AccountList = () => {
 
                         <tbody role="rowgroup">
                           {/*        <!----> */}
-                          {data?.result?.map((downLineData, i) => {
+                          {data?.map((downLineData, i) => {
                             return (
                               <tr key={i} role="row" className="">
                                 <td

@@ -27,6 +27,7 @@ const UseSearchUser = () => {
         const data = res.data;
         if (data?.success) {
           setUsers(data);
+          console.log(data);
           setShowSearchId(true);
         } else {
           setErrSearchId(

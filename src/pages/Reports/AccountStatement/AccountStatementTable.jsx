@@ -1,5 +1,11 @@
-const AccountStatementTable = ({ tableRef,statementData }) => {
+import { useState } from "react";
+import BetsDetails from "../../../components/Modal/BetsDetails";
+
+const AccountStatementTable = ({ tableRef, statementData }) => {
+  const [showBetsModal,setShowBetsModal] = useState(false)
+  const [marketId,setMarketId] = useState('')
   return (
+   <>
     <div className="table no-footer table-hover table-responsive-sm">
       <table
         ref={tableRef}
@@ -103,14 +109,30 @@ const AccountStatementTable = ({ tableRef,statementData }) => {
         <tbody role="rowgroup">
           {/*   <!----> */}
           {statementData?.map(
-            ({ credit, date, debit, fromto, pts, remark }, i) => {
+            (
+              { credit, date, debit, fromto, pts, remark, statementType,marketId
+              },
+              i
+            ) => {
+         
+              const handleSettledBets = (statementType) => {
+           
+                if(statementType === 'pnl'){
+                  setMarketId(marketId)
+                  setShowBetsModal(true)
+                }
+              };
               return (
                 <tr
+                  onClick={() => handleSettledBets(statementType)}
                   key={i}
                   role="row"
                   tabIndex="0"
                   aria-rowindex="1"
                   className="nocursor"
+                  style={{
+                    cursor: `${statementType === "pnl" ? "pointer" : ""}`,
+                  }}
                 >
                   <td aria-colindex="1" role="cell" className="">
                     {date}
@@ -144,14 +166,26 @@ const AccountStatementTable = ({ tableRef,statementData }) => {
             }
           )}
 
-{
-                          statementData?.length === 0 && (
-                            <tr role="row" className="b-table-empty-row"><td colSpan="12" role="cell" className=""><div role="alert" aria-live="polite"><div className="text-center my-2">There are no records to show</div></div></td></tr>
-                          )
-                         }
+          {statementData?.length === 0 && (
+            <tr role="row" className="b-table-empty-row">
+              <td colSpan="12" role="cell" className="">
+                <div role="alert" aria-live="polite">
+                  <div className="text-center my-2">
+                    There are no records to show
+                  </div>
+                </div>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
+  {
+    showBetsModal && (
+      <BetsDetails setShowBetsModal={setShowBetsModal} marketId={marketId}/>
+    )
+  }
+   </>
   );
 };
 

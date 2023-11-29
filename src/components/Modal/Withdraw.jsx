@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { config } from "../../utils/config.js";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData.jsx";
+import UseBalance from "../../hooks/UseBalance.jsx";
 
 const Withdraw = ({
   withdrawModal,
   setWithdrawModal,
   setWithdrawSuccessNotify,
   setWithdrawErrorNotify,
-  withdrawAccountType
+  withdrawAccountType,
 }) => {
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
@@ -21,7 +22,8 @@ const Withdraw = ({
   const [withdrawAmount, SetWithdrawAmount] = useState("");
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
-  const [,refetchDownLine] = UseDownLineData();
+  const [, refetchDownLine] = UseDownLineData();
+  const [, refetchBalance] = UseBalance();
   useEffect(() => {
     const getReferenceData = async () => {
       const res = await axios.post(
@@ -79,9 +81,10 @@ const Withdraw = ({
     const data = res.data;
 
     if (data.success) {
+      refetchBalance();
       setWithdrawSuccessNotify(data?.result?.message);
       setWithdrawModal(!withdrawModal);
-     refetchDownLine()
+      refetchDownLine();
     } else {
       setWithdrawErrorNotify(data?.error?.status[0]?.description);
     }

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
+import UseBalance from "../../hooks/UseBalance";
 
 const BankTable = ({ data: tableData, transactionCode,refetch,tableRef }) => {
+  const [, refetchBalance] = UseBalance();
   const [clientPnls, setClientPnls] = useState(
     Array(tableData?.length).fill("")
   );
@@ -44,6 +46,7 @@ const BankTable = ({ data: tableData, transactionCode,refetch,tableRef }) => {
 
     const data = res.data;
     if (data?.success) {
+      refetchBalance()
       refetch()
       setErrorMsg(Array(tableData?.length).fill(""));
       setSuccessMsg(Array(tableData?.length).fill(""));

@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import Rules from "../Modal/Rules";
 import ChangePasswordDropdown from "../Modal/ChangePasswordDropdown";
+import UseBalance from "../../hooks/UseBalance";
 
 const Navbar = ({ toggleSidebar, setToggleSidebar }) => {
   const role = localStorage.getItem("loginName");
   const [showDropdown, setShowDropdown] = useState(false);
   const [showRules, setShowRules] = useState(false);
   const [changePassDropdown, setChangePassDropdown] = useState(false);
+  const [balance] = UseBalance();
   return (
     <header data-v-b00d14ae="" id="page-topbar">
       <div className="navbar-header">
@@ -190,7 +192,7 @@ const Navbar = ({ toggleSidebar, setToggleSidebar }) => {
               <span className="balance nowrap">
                 Pts:{" "}
                 <span className="balance-value">
-                  <b>7,900.00</b>
+                  <b>{balance?.balance}</b>
                 </span>
               </span>
             </button>

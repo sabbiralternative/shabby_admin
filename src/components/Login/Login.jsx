@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { config } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 import Error from "../Notification/Error";
@@ -11,6 +11,11 @@ const Login = () => {
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
   const { setLoginSuccess } = UseContextState();
+
+  const pageTitle = config?.result?.settings?.siteTitle;
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
@@ -26,6 +31,7 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data?.success) {
           localStorage.setItem("token", data?.result?.token);
           localStorage.setItem("loginName", data?.result?.loginname);
@@ -37,15 +43,16 @@ const Login = () => {
           localStorage.setItem("modal", JSON.stringify(modal));
           if (
             localStorage.getItem("token") &&
-            localStorage.getItem("loginName") && data?.result?.changePassword === false
+            localStorage.getItem("loginName") &&
+            data?.result?.changePassword === false
           ) {
             setLoginSuccess("Login Success");
             navigate("/");
-          }
-          else if(
+          } else if (
             localStorage.getItem("token") &&
-            localStorage.getItem("loginName") && data?.result?.changePassword === true
-          ){
+            localStorage.getItem("loginName") &&
+            data?.result?.changePassword === true
+          ) {
             navigate("/change-password-login");
           }
         } else {
@@ -60,7 +67,7 @@ const Login = () => {
         <section className="login-mn">
           <div className="log-logo m-b-20">
             <img
-              src="https://sitethemedata.com/sitethemes/shabby247.com/front/logo.png"
+              src="/logo.png"
               style={{
                 maxWidth: "250px",
                 maxHeight: "100px",

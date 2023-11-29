@@ -2,11 +2,16 @@ import axios from "axios";
 import { config } from "../../utils/config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const ChangeLoginPassword = () => {
   const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const pageTitle = config?.result?.settings?.siteTitle;
+useEffect(() => {
+  document.title = pageTitle;
+}, [pageTitle]);
 
   const onSubmit = async ({ confirmPassword, oldPassword, password }) => {
     const res = await axios.post(
