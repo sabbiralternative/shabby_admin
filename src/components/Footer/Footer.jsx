@@ -7,9 +7,7 @@ const Footer = () => {
   useEffect(() => {
     const hasModalBeenShown = localStorage.getItem("hasModalBeenShown");
     if (!hasModalBeenShown) {
-      setTimeout(() => {
-        setShowModal(true);
-      }, 5000);
+      setShowModal(true);
     }
   }, []);
 

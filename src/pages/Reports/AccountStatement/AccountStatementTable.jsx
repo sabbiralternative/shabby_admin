@@ -146,7 +146,7 @@ const AccountStatementTable = ({ tableRef, statementData }) => {
                     </div>
                   </td>
                   <td aria-colindex="4" role="cell" className="">
-                    <div className="text-right">
+                    <div className="text-right text-danger">
                       <span>{debit}</span>
                     </div>
                   </td>

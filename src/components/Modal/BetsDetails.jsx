@@ -48,7 +48,6 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
 
   console.log(filteredData);
 
-
   /* Close dropdown click outside the dropdown */
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -107,13 +106,13 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
               </div>
               <div className="mt-1">
                 <div className="row">
-                  <div className="col-6">Winner: 13</div>
-                  <div className="col-6 text-right">
+                  <div className="col-6">Winner: {filteredData[0]?.winner}</div>
+                  {/* <div className="col-6 text-right">
                     Game Time:
                     <div className="text-right">
                       {filteredData[0]?.placeDate}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div>
@@ -222,7 +221,6 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
                     </thead>
                     <tbody>
                       {filteredData?.map((data, i) => {
-                        console.log(data);
                         return (
                           <tr
                             key={i}
@@ -242,13 +240,19 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
                               <div>{data?.userRate}</div>
                             </td>
                             <td className="text-right bet-user-rate">
-                              <div>90</div>
+                              <div>{data?.bhav}</div>
                             </td>
                             <td className="text-right bet-amount">
                               <div>{data?.amount}</div>
                             </td>
                             <td className="text-right bet-amount">
-                              <div className="text-danger">-100.00</div>
+                              <div
+                                className={`${
+                                  data?.win > 0 ? "text-success" : "text-danger"
+                                }`}
+                              >
+                                {data?.win}
+                              </div>
                             </td>
                             <td className="bet-date">
                               <div>{data?.placeDate}</div>

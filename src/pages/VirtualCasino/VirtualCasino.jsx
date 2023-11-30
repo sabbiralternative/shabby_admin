@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { config } from "../../utils/config";
-import { Link } from "react-router-dom";
+
 
 const VirtualCasino = () => {
   const virtualGamesApi = config?.result?.endpoint?.virtualCasino;
@@ -47,12 +47,12 @@ const VirtualCasino = () => {
               {virtualGames?.map((virtualGame, i) => {
                 return (
                   <div key={i} className="casino-banner-item">
-                    <Link
-                      to={`/our-virtual/${virtualGame?.eventId}/${virtualGame?.eventTypeId}`}
+                    <a
+                      // to={`/our-virtual/${virtualGame?.eventId}/${virtualGame?.eventTypeId}`}
                       className=""
                     >
                       <img className="img-fluid" src={virtualGame?.image} />
-                    </Link>
+                    </a>
                   </div>
                 );
               })}
