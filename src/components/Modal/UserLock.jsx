@@ -4,15 +4,15 @@ import axios from "axios";
 import UseContextState from "../../hooks/UseContextState";
 import UseDownLineData from "../../hooks/UseDownlineData";
 
-const UserLock = ({ profileData,moreModalAccountType }) => {
+const UserLock = ({ profileData, moreModalAccountType }) => {
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [betLock, setBetLock] = useState(false);
   const [userLock, setUserLock] = useState(false);
   const [transactionCode, setTransactionCode] = useState("");
   const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
     UseContextState();
-    const [,refetchDownLine] = UseDownLineData();
+  const [, refetchDownLine] = UseDownLineData();
   useEffect(() => {
     profileData?.length > 0 &&
       profileData.map(({ betLock, userLock }) => {
@@ -37,7 +37,7 @@ const UserLock = ({ profileData,moreModalAccountType }) => {
     const res = await axios.post(
       downLineEditApi,
       {
-        downlineId:moreModalAccountType,
+        downlineId: moreModalAccountType,
         type: "userLock",
         betLock: betLock ? 1 : 0,
         userLock: userLock ? 1 : 0,
@@ -54,10 +54,9 @@ const UserLock = ({ profileData,moreModalAccountType }) => {
     if (data?.success) {
       setMoreModalSuccessNotify(data?.result?.message);
       setMoreModal(false);
-      refetchDownLine()
+      refetchDownLine();
     } else {
       setMoreModalErrNotify(data?.error?.status[0]?.description);
-  
     }
   };
 

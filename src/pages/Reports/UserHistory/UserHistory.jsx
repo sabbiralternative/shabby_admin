@@ -10,7 +10,7 @@ import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DateRangePicker } from "rsuite";
 const UserHistory = () => {
   const tableRef = useRef(null);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const userHistoryApi = config?.result?.endpoint?.userHistory;
   const [userHistoryTab, setUserHistoryTab] = useState("login");
   const [searchId, setSearchId] = useState("");
@@ -49,7 +49,6 @@ const UserHistory = () => {
       setUserHistoryData(data?.result);
     }
   };
-
 
   return (
     <div data-v-b00d14ae="" className="page-content">
@@ -172,10 +171,9 @@ const UserHistory = () => {
                                     style={{ display: "none" }}
                                   ></div>
                                   <input
-                                    onChange={(e) =>{
-                                      setSearchUser(e.target.value)
-                                    
-                                     } }
+                                    onChange={(e) => {
+                                      setSearchUser(e.target.value);
+                                    }}
                                     name="text"
                                     type="text"
                                     autoComplete="off"
@@ -188,7 +186,7 @@ const UserHistory = () => {
                                       position: "absolute",
                                       padding: "0px",
                                     }}
-                                    value={searchId ? searchId:searchUser}
+                                    value={searchId ? searchId : searchUser}
                                   />
                                   {/*   <!----> */}
                                 </div>
@@ -263,12 +261,10 @@ const UserHistory = () => {
                                     ]}
                                     block
                                   />
-                                  
                                 </div>
-                            
                               </div>
                             </div>
-                     
+
                             <div className="form-group col-xl-6">
                               <button type="submit" className="btn btn-primary">
                                 Load
@@ -276,7 +272,7 @@ const UserHistory = () => {
                               <button
                                 onClick={() => {
                                   setSearchId("");
-                                  setSearchUser('')
+                                  setSearchUser("");
                                   setDateRange((prevState) => ({
                                     ...prevState,
                                     startDate: new Date(

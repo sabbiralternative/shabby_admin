@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { config } from "../../utils/config";
 
-
 const VirtualCasino = () => {
   const virtualGamesApi = config?.result?.endpoint?.virtualCasino;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [virtualGames, setVirtualGames] = useState([]);
 
   useEffect(() => {

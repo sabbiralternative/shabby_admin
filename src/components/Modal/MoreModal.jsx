@@ -14,7 +14,7 @@ const MoreModal = ({ moreModalAccountType }) => {
     UseContextState();
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [profileData, setProfileData] = useState();
 
   /* Get profile data */

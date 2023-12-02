@@ -8,7 +8,7 @@ import { DownloadTableExcel } from "react-export-table-to-excel";
 const PartyWinLoss = () => {
   const tableRef = useRef(null);
   const partyWinLossApi = config?.result?.endpoint?.partyWinLoss;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const { register, handleSubmit } = useForm();
   const [partyWinLossData, setPartyWinLossData] = useState([]);
   const { exportPdf } = UseExportToPdf();
@@ -104,8 +104,12 @@ const PartyWinLoss = () => {
                           </div>
                         </DownloadTableExcel>
                         <button
-                        onClick={()=>exportPdf('#party-winLoss','partyWinLoss.pdf')}
-                        type="button" className="btn btn-danger">
+                          onClick={() =>
+                            exportPdf("#party-winLoss", "partyWinLoss.pdf")
+                          }
+                          type="button"
+                          className="btn btn-danger"
+                        >
                           <i className="fas fa-file-pdf"></i>
                         </button>
                       </div>
@@ -132,7 +136,7 @@ const PartyWinLoss = () => {
                   </div>
                   <div className="table-responsive mb-0">
                     <table
-                     ref={tableRef}
+                      ref={tableRef}
                       id="party-winLoss"
                       role="table"
                       aria-busy="false"

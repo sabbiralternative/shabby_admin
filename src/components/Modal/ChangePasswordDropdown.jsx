@@ -15,7 +15,7 @@ const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
   } = useForm();
   const [error, setError] = useState("");
   const changePasswordApi = config?.result?.endpoint?.changePassword;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const { changePassNotify, setChangePassNotify } = UseContextState();
   const navigate = useNavigate();
   const [passChangeErr, setPassChangeErr] = useState("");

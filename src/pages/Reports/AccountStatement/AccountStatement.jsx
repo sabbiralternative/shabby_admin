@@ -11,7 +11,7 @@ import { DateRangePicker } from "rsuite";
 
 const AccountStatement = () => {
   const tableRef = useRef(null);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const accountStatementApi = config?.result?.endpoint?.accountStatement;
   const [searchId, setSearchId] = useState("");
   const [showStatement, setShowStatement] = useState("1");
@@ -47,7 +47,7 @@ const AccountStatement = () => {
       }
     );
     const data = res.data;
-console.log(data);
+    console.log(data);
     if (data?.success) {
       setStatementData(data?.result);
     }

@@ -33,7 +33,7 @@ const Login = () => {
       .then((data) => {
         console.log(data);
         if (data?.success) {
-          localStorage.setItem("token", data?.result?.token);
+          localStorage.setItem("adminToken", data?.result?.token);
           localStorage.setItem("loginName", data?.result?.loginname);
           localStorage.setItem("role", data?.result?.role);
           const modal = [
@@ -42,14 +42,14 @@ const Login = () => {
           ];
           localStorage.setItem("modal", JSON.stringify(modal));
           if (
-            localStorage.getItem("token") &&
+            localStorage.getItem("adminToken") &&
             localStorage.getItem("loginName") &&
             data?.result?.changePassword === false
           ) {
             setLoginSuccess("Login Success");
             navigate("/");
           } else if (
-            localStorage.getItem("token") &&
+            localStorage.getItem("adminToken") &&
             localStorage.getItem("loginName") &&
             data?.result?.changePassword === true
           ) {

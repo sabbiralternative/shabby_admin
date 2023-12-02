@@ -33,7 +33,7 @@ const userType = [
 const CreateAccount = () => {
   const createDownLineApi = config?.result?.endpoint?.createDownLine;
   const userCheckNameApi = config?.result?.endpoint?.checkUsername;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const role = localStorage.getItem("role");
   const [user, setUser] = useState("");
   const [validUser, setValidUser] = useState(false);

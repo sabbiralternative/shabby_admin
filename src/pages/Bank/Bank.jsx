@@ -8,13 +8,13 @@ import UseExportToPdf from "../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const Bank = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const bankApi = config?.result?.endpoint?.Bank;
   const [searchId, setSearchId] = useState();
-  const [transactionCode,setTransactionCode] = useState('')
+  const [transactionCode, setTransactionCode] = useState("");
   const { exportPdf } = UseExportToPdf();
   const tableRef = useRef(null);
- 
+
   const { data, refetch } = useQuery({
     queryKey: ["bankData"],
     queryFn: async () => {
@@ -93,7 +93,7 @@ const Bank = () => {
                               Load
                             </button>
                             <button
-                            onClick={()=> setSearchId('')}
+                              onClick={() => setSearchId("")}
                               type="button"
                               id="reset"
                               className="btn btn-light"
@@ -105,28 +105,28 @@ const Bank = () => {
                       </div>
                       <div className="col-md-6 text-right">
                         <div className="d-inline-block">
-                        <DownloadTableExcel
-                          filename="Bank"
-                          sheet="Bank"
-                          currentTableRef={tableRef.current}
-                        >
-                          <div
-                            id="export_1699264657226"
-                            className="d-inline-block"
+                          <DownloadTableExcel
+                            filename="Bank"
+                            sheet="Bank"
+                            currentTableRef={tableRef.current}
                           >
-                            <button
-                              type="button"
-                              className="btn mr-1 btn-success"
+                            <div
+                              id="export_1699264657226"
+                              className="d-inline-block"
                             >
-                              <i className="fas fa-file-excel"></i>
-                            </button>
-                          </div>
-                        </DownloadTableExcel>
+                              <button
+                                type="button"
+                                className="btn mr-1 btn-success"
+                              >
+                                <i className="fas fa-file-excel"></i>
+                              </button>
+                            </div>
+                          </DownloadTableExcel>
                           <button
-                            onClick={() =>
-                              exportPdf("#bank", "bank.pdf")
-                            }
-                          type="button" className="btn btn-danger">
+                            onClick={() => exportPdf("#bank", "bank.pdf")}
+                            type="button"
+                            className="btn btn-danger"
+                          >
                             <i className="fas fa-file-pdf"></i>
                           </button>
                         </div>
@@ -137,7 +137,9 @@ const Bank = () => {
                         >
                           <div className="d-inline-block form-group form-group-feedback form-group-feedback-right">
                             <input
-                             onChange={(e)=>setTransactionCode( e.target.value)}
+                              onChange={(e) =>
+                                setTransactionCode(e.target.value)
+                              }
                               type="password"
                               name="masterPassword"
                               placeholder="Transaction Code"
@@ -147,7 +149,6 @@ const Bank = () => {
                               aria-invalid="false"
                             />
                           </div>
-                        
                         </form>
                       </div>
                     </div>
@@ -178,7 +179,12 @@ const Bank = () => {
                     </div>
                   </div>
                   <div className="table-responsive mb-0">
-                    <BankTable data={data} transactionCode={transactionCode} refetch={refetch}  tableRef={tableRef} />
+                    <BankTable
+                      data={data}
+                      transactionCode={transactionCode}
+                      refetch={refetch}
+                      tableRef={tableRef}
+                    />
                   </div>
                   <div className="row pt-3">
                     <div className="col">

@@ -13,12 +13,12 @@ const CreditReference = ({
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [newCredit, setNewCredit] = useState("");
   const [transactionCode, setTransactionCode] = useState("");
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
-  const [,refetchDownLine] = UseDownLineData();
+  const [, refetchDownLine] = UseDownLineData();
   useEffect(() => {
     const getReferenceData = async () => {
       const res = await axios.post(
@@ -65,8 +65,7 @@ const CreditReference = ({
     if (data.success) {
       setCreditSuccessNotify(data?.result?.message);
       setCreditRefModal(!creditRefModal);
-      refetchDownLine()
-
+      refetchDownLine();
     } else {
       setCreditErrorNotify(data?.error?.status[0]?.description);
     }

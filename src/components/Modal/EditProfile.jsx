@@ -4,17 +4,16 @@ import UseContextState from "../../hooks/UseContextState";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 
-const EditProfile = ({ profileData,moreModalAccountType }) => {
+const EditProfile = ({ profileData, moreModalAccountType }) => {
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [changePasswordLock, setChangePasswordLock] = useState(false);
   const [favoriteMaster, setFavoriteMaster] = useState(false);
   const [name, setName] = useState("");
   const [transactionCode, setTransactionCode] = useState("");
   const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
     UseContextState();
-    const [,refetchDownLine] = UseDownLineData();
-
+  const [, refetchDownLine] = UseDownLineData();
 
   useEffect(() => {
     profileData?.length > 0 &&
@@ -56,10 +55,9 @@ const EditProfile = ({ profileData,moreModalAccountType }) => {
     if (data?.success) {
       setMoreModalSuccessNotify(data?.result?.message);
       setMoreModal(false);
-      refetchDownLine()
+      refetchDownLine();
     } else {
       setMoreModalErrNotify(data?.error?.status[0]?.description);
-    
     }
   };
   return (

@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 const MarketAnalysis = () => {
   const marketAnalysisApi = config?.result?.endpoint?.marketAnalysis;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [loading, setLoading] = useState(false);
 
   const { data: marketAnalysisData, refetch: refetchMarketAnalysis } = useQuery(
@@ -46,10 +46,9 @@ const MarketAnalysis = () => {
                     onClick={refetchMarketAnalysisData}
                     title="Refresh Data"
                     className="text-dark pl-2"
-                    style={{cursor:'pointer'}}
+                    style={{ cursor: "pointer" }}
                   >
-                    <i
-                     className={`fa fa-sync ${loading ? "fa-spin" : ""}`}></i>
+                    <i className={`fa fa-sync ${loading ? "fa-spin" : ""}`}></i>
                   </a>
                 </h4>
                 <div className="page-title-right">

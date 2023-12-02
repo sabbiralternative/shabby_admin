@@ -4,15 +4,15 @@ import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 
-const ChangePassword = ({ moreModalAccountType}) => {
+const ChangePassword = ({ moreModalAccountType }) => {
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
     UseContextState();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [transactionCode, setTransactionCode] = useState("");
-  const [,refetchDownLine] = UseDownLineData();
+  const [, refetchDownLine] = UseDownLineData();
   const handleChangePassword = async (e) => {
     e.preventDefault();
     const res = await axios.post(
@@ -34,11 +34,9 @@ const ChangePassword = ({ moreModalAccountType}) => {
     if (data?.success) {
       setMoreModalSuccessNotify(data?.result?.message);
       setMoreModal(false);
-      refetchDownLine()
-      
+      refetchDownLine();
     } else {
       setMoreModalErrNotify(data?.error?.status[0]?.description);
-
     }
   };
   return (

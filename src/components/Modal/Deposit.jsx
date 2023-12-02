@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
-import UseBalance from '../../hooks/UseBalance'
+import UseBalance from "../../hooks/UseBalance";
 
 const Deposit = ({
   depositModal,
@@ -14,7 +14,7 @@ const Deposit = ({
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
   const [amountOne, setAmountOne] = useState("");
   const [amountTwo, setAmountTwo] = useState("");
@@ -22,8 +22,8 @@ const Deposit = ({
   const [depositAmount, SetDepositAmount] = useState("");
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
-  const [,refetchDownLine] = UseDownLineData();
-  const [,refetchBalance] = UseBalance()
+  const [, refetchDownLine] = UseDownLineData();
+  const [, refetchBalance] = UseBalance();
   useEffect(() => {
     const getReferenceData = async () => {
       const res = await axios.post(
@@ -80,10 +80,10 @@ const Deposit = ({
     const data = res.data;
 
     if (data.success) {
-      refetchBalance()
+      refetchBalance();
       setDepositSuccessNotify(data?.result?.message);
       setDepositModal(!depositModal);
-      refetchDownLine()
+      refetchDownLine();
     } else {
       setDepositErrorNotify(data?.error?.status[0]?.description);
     }

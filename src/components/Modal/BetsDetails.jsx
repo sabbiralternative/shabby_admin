@@ -3,7 +3,7 @@ import { config } from "../../utils/config";
 import axios from "axios";
 const BetsDetails = ({ setShowBetsModal, marketId }) => {
   const settledBetsApi = config?.result?.endpoint?.settledBets;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [betsType, setBetsType] = useState("all");

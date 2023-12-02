@@ -3,13 +3,13 @@ import { config } from "../../utils/config";
 import axios from "axios";
 import UseBalance from "../../hooks/UseBalance";
 
-const BankTable = ({ data: tableData, transactionCode,refetch,tableRef }) => {
+const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
   const [, refetchBalance] = UseBalance();
   const [clientPnls, setClientPnls] = useState(
     Array(tableData?.length).fill("")
   );
   const downLineEdit = config?.result?.endpoint?.downLineEdit;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [errorMsg, setErrorMsg] = useState(Array(tableData?.length).fill(""));
   const [successMsg, setSuccessMsg] = useState(
     Array(tableData?.length).fill("")
@@ -46,8 +46,8 @@ const BankTable = ({ data: tableData, transactionCode,refetch,tableRef }) => {
 
     const data = res.data;
     if (data?.success) {
-      refetchBalance()
-      refetch()
+      refetchBalance();
+      refetch();
       setErrorMsg(Array(tableData?.length).fill(""));
       setSuccessMsg(Array(tableData?.length).fill(""));
       setSuccessMsg(data?.result?.message);
@@ -61,7 +61,7 @@ const BankTable = ({ data: tableData, transactionCode,refetch,tableRef }) => {
   return (
     <div className="table no-footer table-hover table-responsive-sm">
       <table
-      ref={tableRef}
+        ref={tableRef}
         id="bank"
         role="table"
         aria-busy="false"

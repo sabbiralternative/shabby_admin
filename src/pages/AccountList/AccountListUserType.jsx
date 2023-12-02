@@ -8,7 +8,7 @@ const AccountListUserType = () => {
   const downLineApi = config?.result?.endpoint?.downline;
   const { downLineId, setDownLineId, searchId, setSearchId } =
     UseContextState();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const { userType } = useParams();
 
   const { data = [], refetch } = useQuery({
@@ -405,11 +405,17 @@ const AccountListUserType = () => {
                             );
                           })}
 
-{
-                          data?.length === 0 && (
-                            <tr role="row" className="b-table-empty-row"><td colSpan="12" role="cell" className=""><div role="alert" aria-live="polite"><div className="text-center my-2">There are no records to show</div></div></td></tr>
-                          )
-                         }
+                          {data?.length === 0 && (
+                            <tr role="row" className="b-table-empty-row">
+                              <td colSpan="12" role="cell" className="">
+                                <div role="alert" aria-live="polite">
+                                  <div className="text-center my-2">
+                                    There are no records to show
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
                           {/*  <!----><!----> */}
                         </tbody>
 

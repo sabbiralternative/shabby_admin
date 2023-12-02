@@ -8,7 +8,7 @@ import UseExportToPdf from "../../../hooks/UseExportToPdf";
 const UserAuthentication = () => {
   const tableRef = useRef(null);
   const userAuthenticationApi = config?.result?.endpoint?.userAuthentication;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [users, setUsers] = useState([]);
   const { exportPdf } = UseExportToPdf();
   useEffect(() => {
@@ -170,27 +170,36 @@ const UserAuthentication = () => {
                         </thead>
                         <tbody role="rowgroup">
                           {/*   <!----> */}
-                          {users?.length > 0 && users?.map(({ authentication, username }, i) => {
-                            return (
-                              <tr
-                                key={i}
-                                role="row"
-                                aria-rowindex="1"
-                                className=""
-                              >
-                                <td aria-colindex="1" role="cell" className="">
-                                  {username}
-                                </td>
-                                <td aria-colindex="2" role="cell" className="">
-                                  {authentication}
-                                </td>
-                              </tr>
-                            );
-                          })}
+                          {users?.length > 0 &&
+                            users?.map(({ authentication, username }, i) => {
+                              return (
+                                <tr
+                                  key={i}
+                                  role="row"
+                                  aria-rowindex="1"
+                                  className=""
+                                >
+                                  <td
+                                    aria-colindex="1"
+                                    role="cell"
+                                    className=""
+                                  >
+                                    {username}
+                                  </td>
+                                  <td
+                                    aria-colindex="2"
+                                    role="cell"
+                                    className=""
+                                  >
+                                    {authentication}
+                                  </td>
+                                </tr>
+                              );
+                            })}
 
                           {users?.length === 0 && (
                             <tr role="row" className="">
-                              <td colSpan='2' role="cell" className="">
+                              <td colSpan="2" role="cell" className="">
                                 <div role="alert" aria-live="polite">
                                   <div className="text-center my-2">
                                     There are no records to show
@@ -199,8 +208,6 @@ const UserAuthentication = () => {
                               </td>
                             </tr>
                           )}
-
-
                         </tbody>
                         {/*   <!----> */}
                       </table>

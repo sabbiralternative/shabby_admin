@@ -7,7 +7,7 @@ const OurCasinoPage = () => {
   const diamondCasinoUrl = config?.result?.endpoint?.diamondCasino;
   const auraCasinoApi = config?.result?.endpoint?.auraCasino;
   const casinoType = config?.result?.settings?.casino;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [data, setData] = useState([]);
   const [casino_list, setCasino_list] = useState([]);
   const [categories, setCategories] = useState([]);

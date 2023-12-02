@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const UseDownLineData = () => {
   const downLineApi = config?.result?.endpoint?.downline;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [searchUser, setSearchUser] = useState("");
   const { data = [], refetch: refetchDownLine } = useQuery({
     queryKey: ["downLineData"],

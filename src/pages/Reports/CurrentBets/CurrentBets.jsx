@@ -9,7 +9,7 @@ const CurrentBets = () => {
   const tableRef = useRef(null);
   const { exportPdf } = UseExportToPdf();
   const currentBetsApi = config?.result?.endpoint?.currentBets;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [betsType, setBetsType] = useState("sports");
   const [betsData, setBetsData] = useState([]);
   const [filteredBetsData, setFilteredBetsData] = useState([]);
@@ -224,10 +224,12 @@ const CurrentBets = () => {
                           </div>
                         </DownloadTableExcel>
                         <button
-                         onClick={() =>
-                          exportPdf("#current-bets", "currentBets.pdf")
-                        }
-                        type="button" className="btn btn-danger">
+                          onClick={() =>
+                            exportPdf("#current-bets", "currentBets.pdf")
+                          }
+                          type="button"
+                          className="btn btn-danger"
+                        >
                           <i className="fas fa-file-pdf"></i>
                         </button>
                       </div>

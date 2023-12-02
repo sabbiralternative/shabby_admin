@@ -5,7 +5,7 @@ import axios from "axios";
 const UseSearchUser = () => {
   const [searchUser, setSearchUser] = useState("");
   const searchUserApi = config?.result?.endpoint?.searchUser;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const [users, setUsers] = useState([]);
   const [errSearchId, setErrSearchId] = useState("");
   const [showSearchId, setShowSearchId] = useState(false);

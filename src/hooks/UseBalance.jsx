@@ -4,7 +4,7 @@ import { config } from "../utils/config";
 
 const UseBalance = () => {
   const balanceApi = config?.result?.endpoint?.balance;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const { data: balance, refetch: refetchBalance } = useQuery({
     queryKey: ["balance"],
     queryFn: async () => {
