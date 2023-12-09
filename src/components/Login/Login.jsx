@@ -34,23 +34,23 @@ const Login = () => {
         console.log(data);
         if (data?.success) {
           localStorage.setItem("adminToken", data?.result?.token);
-          localStorage.setItem("loginName", data?.result?.loginname);
-          localStorage.setItem("role", data?.result?.role);
+          localStorage.setItem("adminName", data?.result?.loginname);
+          localStorage.setItem("adminRole", data?.result?.role);
           const modal = [
             { banner: data?.result?.banner },
             { bannerTitle: data?.result?.bannerTitle },
           ];
-          localStorage.setItem("modal", JSON.stringify(modal));
+          localStorage.setItem("adminModal", JSON.stringify(modal));
           if (
             localStorage.getItem("adminToken") &&
-            localStorage.getItem("loginName") &&
+            localStorage.getItem("adminName") &&
             data?.result?.changePassword === false
           ) {
             setLoginSuccess("Login Success");
             navigate("/");
           } else if (
             localStorage.getItem("adminToken") &&
-            localStorage.getItem("loginName") &&
+            localStorage.getItem("adminName") &&
             data?.result?.changePassword === true
           ) {
             navigate("/change-password-login");

@@ -3,9 +3,9 @@ import BannerModal from "./BannerModal";
 
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
-  const modal = JSON.parse(localStorage.getItem("modal"));
+  const modal = JSON.parse(localStorage.getItem("adminModal"));
   useEffect(() => {
-    const hasModalBeenShown = localStorage.getItem("hasModalBeenShown");
+    const hasModalBeenShown = localStorage.getItem("hasAdminModalBeenShown");
     if (!hasModalBeenShown) {
       setShowModal(true);
     }
@@ -13,7 +13,7 @@ const Footer = () => {
 
   const closeModal = () => {
     setShowModal(false);
-    localStorage.setItem("hasModalBeenShown", "true");
+    localStorage.setItem("hasAdminModalBeenShown", "true");
   };
   return (
     <footer data-v-b00d14ae="" className="footer">

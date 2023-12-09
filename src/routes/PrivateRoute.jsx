@@ -4,7 +4,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   const token = localStorage.getItem("adminToken");
-  const loginName = localStorage.getItem("loginName");
+  const loginName = localStorage.getItem("adminName");
   if (loginName && token) {
     return children;
   }

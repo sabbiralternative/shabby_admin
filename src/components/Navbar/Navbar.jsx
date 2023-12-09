@@ -6,7 +6,7 @@ import ChangePasswordDropdown from "../Modal/ChangePasswordDropdown";
 import UseBalance from "../../hooks/UseBalance";
 
 const Navbar = ({ toggleSidebar, setToggleSidebar }) => {
-  const role = localStorage.getItem("loginName");
+  const role = localStorage.getItem("adminName");
   const [showDropdown, setShowDropdown] = useState(false);
   const [showRules, setShowRules] = useState(false);
   const [changePassDropdown, setChangePassDropdown] = useState(false);

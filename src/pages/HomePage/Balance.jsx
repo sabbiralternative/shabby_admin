@@ -25,7 +25,7 @@ const Balance = () => {
           </div>
         </div>
       </div>
-      <div className="col-6 col-md-3">
+      {/* <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">
             <p className="text-muted fw-medium">Credit Pts</p>
@@ -44,7 +44,7 @@ const Balance = () => {
             >{balance?.allPts}</h4>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="col-6 col-md-3">
         <div className="card mini-stats-wid">
           <div className="card-body">

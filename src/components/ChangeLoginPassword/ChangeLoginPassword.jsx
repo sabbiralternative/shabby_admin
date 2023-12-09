@@ -56,6 +56,9 @@ const ChangeLoginPassword = () => {
             className="form-horizontal"
           >
             <div id="input-group-1" role="group" className="form-group">
+              <label className="form-label text-start w-100">
+                Old Password:
+              </label>
               <div>
                 <input
                   {...register("oldPassword", { required: true })}
@@ -68,6 +71,9 @@ const ChangeLoginPassword = () => {
               </div>
             </div>
             <div id="input-group-2" role="group" className="form-group">
+              <label className="form-label text-start w-100">
+                New Password:
+              </label>
               <div>
                 <input
                   {...register("password", { required: true })}
@@ -81,6 +87,9 @@ const ChangeLoginPassword = () => {
             </div>
 
             <div id="input-group-3" role="group" className="form-group">
+              <label className="form-label text-start w-100">
+                Confirm Password:
+              </label>
               <div>
                 <input
                   {...register("confirmPassword", { required: true })}
