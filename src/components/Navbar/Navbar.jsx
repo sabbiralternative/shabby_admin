@@ -1,16 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import Rules from "../Modal/Rules";
 import ChangePasswordDropdown from "../Modal/ChangePasswordDropdown";
 import UseBalance from "../../hooks/UseBalance";
 
-const Navbar = ({ toggleSidebar, setToggleSidebar }) => {
+const Navbar = () => {
   const role = localStorage.getItem("adminName");
   const [showDropdown, setShowDropdown] = useState(false);
   const [showRules, setShowRules] = useState(false);
   const [changePassDropdown, setChangePassDropdown] = useState(false);
   const [balance] = UseBalance();
+  const [sidebarMobile, setSidebarMobile] = useState(false);
+  const [sidebarDesktop, setSidebarDesktop] = useState(false);
+
+  const handleButtonClick = () => {
+    if (window.innerWidth > 1000) {
+      setSidebarDesktop(!sidebarDesktop);
+    } else {
+      setSidebarMobile(!sidebarMobile);
+    }
+  };
+
+  useEffect(() => {
+    const body = document.body;
+    if (window.innerWidth > 1000) {
+      if (sidebarDesktop) {
+        body.classList.remove("vertical-collpsed");
+        body.classList.add("sidebar-enable");
+      } else {
+        body.classList.remove("sidebar-enable");
+        body.classList.add("vertical-collpsed");
+      }
+    } else if (window.innerWidth < 1000) {
+      if (sidebarMobile) {
+        body.classList.remove("sidebar-enable");
+        body.classList.add("sidebar-enable");
+      } else {
+        body.classList.remove("vertical-collpsed");
+        body.classList.remove("sidebar-enable");
+      }
+    }
+  }, [sidebarMobile, sidebarDesktop]);
+
   return (
     <header data-v-b00d14ae="" id="page-topbar">
       <div className="navbar-header">
@@ -27,7 +59,7 @@ const Navbar = ({ toggleSidebar, setToggleSidebar }) => {
             </Link>
           </div>
           <button
-            onClick={() => setToggleSidebar(!toggleSidebar)}
+            onClick={handleButtonClick}
             id="vertical-menu-btn"
             type="button"
             className="btn btn-sm px-3 font-size-16 header-item"
@@ -222,6 +254,8 @@ const Navbar = ({ toggleSidebar, setToggleSidebar }) => {
               setShowDropdown={setShowDropdown}
               changePassDropdown={changePassDropdown}
               setChangePassDropdown={setChangePassDropdown}
+              showRules={showRules}
+              setShowRules={setShowRules}
             />
             {/* Rules */}
             {showRules && (
