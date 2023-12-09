@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Dropdown = ({
@@ -8,27 +7,12 @@ const Dropdown = ({
   showRules,
   setShowRules,
 }) => {
-  const dropdownRef = useRef();
-  /* Close dropdown click outside the dropdown */
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (!dropdownRef.current.contains(e.target)) {
-        setShowDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [setShowDropdown]);
-
   const handleLogout = () => {
     localStorage.clear();
   };
 
   return (
     <ul
-      ref={dropdownRef}
       role="menu"
       tabIndex="-1"
       className={`dropdown-menu dropdown-menu-right ${

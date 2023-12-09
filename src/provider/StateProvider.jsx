@@ -10,6 +10,7 @@ const StateProvider = ({ children }) => {
   const [moreModalSuccessNotify, setMoreModalSuccessNotify] = useState("");
   const [moreModalErrNotify, setMoreModalErrNotify] = useState("");
   const [changePassNotify, setChangePassNotify] = useState("");
+  const [sidebarMobile, setSidebarMobile] = useState(false);
   const stateInfo = {
     loginSuccess,
     setLoginSuccess,
@@ -27,6 +28,8 @@ const StateProvider = ({ children }) => {
     setMoreModalErrNotify,
     changePassNotify,
     setChangePassNotify,
+    sidebarMobile,
+    setSidebarMobile,
   };
   return (
     <StateContext.Provider value={stateInfo}>{children}</StateContext.Provider>

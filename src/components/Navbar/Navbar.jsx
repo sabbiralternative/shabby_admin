@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import Rules from "../Modal/Rules";
 import ChangePasswordDropdown from "../Modal/ChangePasswordDropdown";
 import UseBalance from "../../hooks/UseBalance";
+import UseContextState from "../../hooks/UseContextState";
 
 const Navbar = () => {
   const role = localStorage.getItem("adminName");
@@ -11,8 +12,9 @@ const Navbar = () => {
   const [showRules, setShowRules] = useState(false);
   const [changePassDropdown, setChangePassDropdown] = useState(false);
   const [balance] = UseBalance();
-  const [sidebarMobile, setSidebarMobile] = useState(false);
   const [sidebarDesktop, setSidebarDesktop] = useState(false);
+  const { sidebarMobile, setSidebarMobile } = UseContextState();
+  const dropdownRef = useRef();
 
   const handleButtonClick = () => {
     if (window.innerWidth > 1000) {
@@ -42,6 +44,22 @@ const Navbar = () => {
       }
     }
   }, [sidebarMobile, sidebarDesktop]);
+
+  /* Close dropdown click outside the dropdown */
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (
+        !dropdownRef.current.contains(e.target) &&
+        e.target.id !== "dropDownRef"
+      ) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [setShowDropdown]);
 
   return (
     <header data-v-b00d14ae="" id="page-topbar">
@@ -231,6 +249,7 @@ const Navbar = () => {
           </div>
 
           <div
+            ref={dropdownRef}
             className={`dropdown b-dropdown btn-group ${
               showDropdown ? "show" : ""
             }`}
@@ -238,17 +257,21 @@ const Navbar = () => {
           >
             {/*  <!-- show --> */}
             <button
-              onClick={() => setShowDropdown(!showDropdown)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDropdown(!showDropdown);
+              }}
               aria-haspopup="menu"
               aria-expanded="false"
               type="button"
               className="btn dropdown-toggle btn-black header-item"
-              id="__BVID__18__BV_toggle_"
+              id="dropDownRef"
             >
               <span className="ml-1">{role}</span>
               <i className="mdi mdi-chevron-down"></i>
             </button>
             {/* Dropdown */}
+
             <Dropdown
               showDropdown={showDropdown}
               setShowDropdown={setShowDropdown}
@@ -257,6 +280,7 @@ const Navbar = () => {
               showRules={showRules}
               setShowRules={setShowRules}
             />
+
             {/* Rules */}
             {showRules && (
               <Rules showRules={showRules} setShowRules={setShowRules} />

@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { config } from "../../utils/config";
 import { token } from "../../utils/localStorage";
+import UseContextState from "../../hooks/UseContextState";
 
 const Event = () => {
   const [toggleEvent, setToggleEvent] = useState(false);
   const [menu, setMenu] = useState([]);
   const menuApi = config?.result?.endpoint?.menu;
+
 
   useEffect(() => {
     const getAllMenuApi = async () => {
@@ -30,7 +32,7 @@ const Event = () => {
       <a
         onClick={() => setToggleEvent(!toggleEvent)}
         className="has-arrow"
-       style={{cursor:'pointer'}}
+        style={{ cursor: "pointer" }}
       >
         <i className="bx bxs-calendar-event"></i>
         <span>Events</span>
@@ -59,7 +61,7 @@ export const Menu = ({ eventTypeName, menu, singleEvent, length }) => {
   return (
     <li className={`menu-box ${isOpen ? "mm-active" : ""}`}>
       <a
-       style={{cursor:'pointer'}}
+        style={{ cursor: "pointer" }}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
@@ -93,7 +95,8 @@ export const Competitions = ({ competitions, menu, singleEvent }) => {
 
   return (
     <li className={`menu-box text-dark ${showLinks ? "mm-active" : ""}`}>
-      <a style={{cursor:'pointer'}}
+      <a
+        style={{ cursor: "pointer" }}
         onClick={() => {
           showLink(competitions.competitionName);
           setShowLinks(!showLinks);
@@ -123,11 +126,13 @@ export const Competitions = ({ competitions, menu, singleEvent }) => {
 
 export const Links = ({ eventName, singleEvent, competitions }) => {
   const navigate = useNavigate();
+  const { sidebarMobile, setSidebarMobile } = UseContextState();
   const getSingleGame = (name) => {
     const filter = competitions.events.find((ev) => ev.eventName === name);
     const evenTypeId = singleEvent.eventTypeId;
     const eventId = filter.eventId;
     navigate(`/game-details/${evenTypeId}/${eventId}`);
+    setSidebarMobile(!sidebarMobile)
   };
 
   return (
