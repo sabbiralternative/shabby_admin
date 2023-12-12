@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         element: <AccountList />,
       },
       {
-        path: "/admin/user/:userType",
+        path: "/user/:userType",
         element: <AccountListUserType />,
       },
       {

@@ -199,13 +199,15 @@
 }
 
 .swal2-container {
+  
     display: flex;
     position: fixed;
     z-index: 1060;
     top: 0;
     right: 0;
-    bottom: 0;
-    left: 0;
+   height: 100px;
+   width: 200px;
+   
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -2274,8 +2276,8 @@ transform: rotateY(90deg);
     z-index: 1060;
     top: 0;
     right: 0;
-    bottom: 0;
-    left: 0;
+  
+
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -3945,8 +3947,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
     z-index: 1060;
     top: 0;
     right: 0;
-    bottom: 0;
-    left: 0;
+ 
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -6015,8 +6016,7 @@ transform: rotateY(90deg);
     z-index: 1060;
     top: 0;
     right: 0;
-    bottom: 0;
-    left: 0;
+  
     flex-direction: row;
     align-items: center;
     justify-content: center;

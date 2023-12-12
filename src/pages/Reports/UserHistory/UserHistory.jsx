@@ -8,6 +8,7 @@ import UseDatePicker from "../../../hooks/UseDatePicker";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DateRangePicker } from "rsuite";
+import UseContextState from "../../../hooks/UseContextState";
 const UserHistory = () => {
   const tableRef = useRef(null);
   const token = localStorage.getItem("adminToken");
@@ -26,7 +27,7 @@ const UserHistory = () => {
   } = UseSearchUser();
   const { formattedEndDate, formattedStartDate, onChange, setDateRange } =
     UseDatePicker();
-
+    const {generatedToken} = UseContextState()
   /* Handle user history */
   const handleUserHistory = async (e) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ const UserHistory = () => {
         type: userHistoryTab,
         fromdate: formattedStartDate,
         todate: formattedEndDate,
+        token:generatedToken
       },
       {
         headers: {

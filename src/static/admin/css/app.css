@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap);
-.swal2-popup.swal2-toast {
+/* .swal2-popup.swal2-toast {
   flex-direction: row;
   align-items: center;
   width: auto;
@@ -156,18 +156,20 @@
   animation: swal2-toast-hide 0.1s forwards;
 }
 .swal2-container {
+  float: right;
+  border: 4px solid red;
   display: flex;
   position: fixed;
   z-index: 1060;
   top: 0;
   right: 0;
-  bottom: 0;
-  left: 0;
+
   height: 100px;
+  width: 200px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0.625em;
+  padding: 4.625em;
   overflow-x: hidden;
   transition: background-color 0.1s;
   -webkit-overflow-scrolling: touch;
@@ -1412,7 +1414,14 @@ body.swal2-toast-column .swal2-toast .swal2-input {
 }
 body.swal2-toast-column .swal2-toast .swal2-validation-message {
   font-size: 1em;
-}
+} */
+
+
+
+/* Swal */
+
+
+
 fieldset[disabled] .multiselect {
   pointer-events: none;
 }

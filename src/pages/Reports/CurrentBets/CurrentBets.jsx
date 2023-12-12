@@ -5,6 +5,7 @@ import { config } from "../../../utils/config";
 import axios from "axios";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
+import UseContextState from "../../../hooks/UseContextState";
 const CurrentBets = () => {
   const tableRef = useRef(null);
   const { exportPdf } = UseExportToPdf();
@@ -14,12 +15,13 @@ const CurrentBets = () => {
   const [betsData, setBetsData] = useState([]);
   const [filteredBetsData, setFilteredBetsData] = useState([]);
   const [filterBetsType, setFilterBetsType] = useState("all");
-
+  const {generatedToken} = UseContextState()
   const handleCurrentBets = async () => {
     const res = await axios.post(
       currentBetsApi,
       {
         type: betsType,
+        token:generatedToken
       },
       {
         headers: {

@@ -8,6 +8,7 @@ import axios from "axios";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { DateRangePicker } from "rsuite";
+import UseContextState from "../../../hooks/UseContextState";
 
 const AccountStatement = () => {
   const tableRef = useRef(null);
@@ -25,7 +26,7 @@ const AccountStatement = () => {
     users,
     setSearchUser,
   } = UseSearchUser();
-
+  const {generatedToken} = UseContextState()
   const { formattedEndDate, formattedStartDate, onChange } = UseDatePicker();
   const { exportPdf } = UseExportToPdf();
 
@@ -39,6 +40,7 @@ const AccountStatement = () => {
         todate: formattedEndDate,
         type: showStatement,
         statement: statement,
+        token:generatedToken
       },
       {
         headers: {

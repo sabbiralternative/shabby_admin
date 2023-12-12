@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import UseContextState from "../../hooks/UseContextState";
 const AccountListUserType = () => {
   const downLineApi = config?.result?.endpoint?.downline;
-  const { downLineId, setDownLineId, searchId, setSearchId } =
+  const { downLineId, setDownLineId, searchId, setSearchId,generatedToken } =
     UseContextState();
   const token = localStorage.getItem("adminToken");
   const { userType } = useParams();
@@ -19,6 +19,7 @@ const AccountListUserType = () => {
         {
           downlineId: userType,
           searchId: searchId,
+          token:generatedToken
         },
         {
           headers: {

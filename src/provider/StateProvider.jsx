@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const StateContext = createContext(null);
 const StateProvider = ({ children }) => {
@@ -11,6 +11,20 @@ const StateProvider = ({ children }) => {
   const [moreModalErrNotify, setMoreModalErrNotify] = useState("");
   const [changePassNotify, setChangePassNotify] = useState("");
   const [sidebarMobile, setSidebarMobile] = useState(false);
+  const [generatedToken, setGeneratedToken] = useState("");
+
+  useEffect(() => {
+    const getGeneratedTime = () => {
+      const currentTimestamp = Math.floor(new Date().getTime() / 1000);
+      const multipliedTimestamp = currentTimestamp * 274;
+      const randomSixDigitNumber = Math.floor(100000 + Math.random() * 900000);
+      const finalToken = `${randomSixDigitNumber}${multipliedTimestamp}`;
+      setGeneratedToken(finalToken);
+    };
+    getGeneratedTime();
+    const intervalId = setInterval(getGeneratedTime, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
   const stateInfo = {
     loginSuccess,
     setLoginSuccess,
@@ -30,6 +44,7 @@ const StateProvider = ({ children }) => {
     setChangePassNotify,
     sidebarMobile,
     setSidebarMobile,
+    generatedToken,
   };
   return (
     <StateContext.Provider value={stateInfo}>{children}</StateContext.Provider>

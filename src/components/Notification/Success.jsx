@@ -11,9 +11,10 @@ const Success = ({ message, setMessage }) => {
     }
   }, [message, setMessage]);
   return (
-    <div
+
+     <div
       className="swal2-container swal2-top-end "
-      style={{ overflowY: "auto" }}
+     
     >
       <div
         aria-labelledby="swal2-title"
@@ -145,6 +146,7 @@ const Success = ({ message, setMessage }) => {
         </div>
       </div>
     </div>
+  
   );
 };
 

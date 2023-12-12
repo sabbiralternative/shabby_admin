@@ -7,7 +7,7 @@ import UseDownLineData from "../../hooks/UseDownlineData";
 const ChangePassword = ({ moreModalAccountType }) => {
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify,generatedToken } =
     UseContextState();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,6 +23,7 @@ const ChangePassword = ({ moreModalAccountType }) => {
         password: password,
         confirmPassword: confirmPassword,
         mpassword: transactionCode,
+        token:generatedToken
       },
       {
         headers: {

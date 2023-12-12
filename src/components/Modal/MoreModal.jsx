@@ -10,7 +10,7 @@ import { config } from "../../utils/config";
 import axios from "axios";
 
 const MoreModal = ({ moreModalAccountType }) => {
-  const { moreModalCount, setMoreModalCount, moreModal, setMoreModal } =
+  const { moreModalCount, setMoreModalCount, moreModal, setMoreModal,generatedToken } =
     UseContextState();
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
@@ -31,6 +31,7 @@ const MoreModal = ({ moreModalAccountType }) => {
           {
             downlineId: moreModalAccountType,
             type: moreModalCount,
+            token:generatedToken
           },
           {
             headers: {

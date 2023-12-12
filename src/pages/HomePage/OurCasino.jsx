@@ -3,19 +3,21 @@ import { config } from "../../utils/config";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { token } from "../../utils/localStorage";
+import UseContextState from "../../hooks/UseContextState";
 
 const OurCasino = () => {
   const isCasino = config?.result?.settings.casino;
   const auraCasinoApi = config?.result?.endpoint?.auraCasino;
   const diamondCasinoApi = config?.result?.endpoint?.diamondCasino;
   const [casino_list, setCasino_list] = useState([]);
+  const {generatedToken} = UseContextState()
 
   useEffect(() => {
     const getAuraCasino = async () => {
-      const res = await axios.get(
+      const res = await axios.post(
         `${isCasino == "aura" ? auraCasinoApi : ""} ${
           isCasino == "diamond" ? diamondCasinoApi : ""
-        }`,
+        }`,{  token:generatedToken},
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { config } from "../utils/config";
 import axios from "axios";
+import UseContextState from "./UseContextState";
 
 const UseSearchUser = () => {
   const [searchUser, setSearchUser] = useState("");
@@ -9,6 +10,7 @@ const UseSearchUser = () => {
   const [users, setUsers] = useState([]);
   const [errSearchId, setErrSearchId] = useState("");
   const [showSearchId, setShowSearchId] = useState(false);
+  const {generatedToken} = UseContextState()
 
   useEffect(() => {
     const handleSearchUser = async () => {
@@ -17,6 +19,7 @@ const UseSearchUser = () => {
           searchUserApi,
           {
             type: searchUser,
+            token:generatedToken
           },
           {
             headers: {

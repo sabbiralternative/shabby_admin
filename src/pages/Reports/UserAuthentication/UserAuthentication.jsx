@@ -5,15 +5,19 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
+import UseContextState from "../../../hooks/UseContextState";
 const UserAuthentication = () => {
   const tableRef = useRef(null);
   const userAuthenticationApi = config?.result?.endpoint?.userAuthentication;
   const token = localStorage.getItem("adminToken");
   const [users, setUsers] = useState([]);
   const { exportPdf } = UseExportToPdf();
+  const {generatedToken} = UseContextState()
   useEffect(() => {
     const getAllUser = async () => {
-      const res = await axios.get(userAuthenticationApi, {
+      const res = await axios.post(userAuthenticationApi,{
+        token:generatedToken
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

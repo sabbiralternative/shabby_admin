@@ -16,7 +16,7 @@ const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
   const [error, setError] = useState("");
   const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
-  const { changePassNotify, setChangePassNotify } = UseContextState();
+  const { changePassNotify, setChangePassNotify,generatedToken } = UseContextState();
   const navigate = useNavigate();
   const [passChangeErr, setPassChangeErr] = useState("");
 
@@ -37,6 +37,7 @@ const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
         confirmPassword: newPasswordConfirm,
         mpassword: transactionCode,
         type: "panel",
+        token:generatedToken
       },
       {
         headers: { Authorization: `Bearer ${token}` },

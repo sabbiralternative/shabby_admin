@@ -21,10 +21,9 @@ const AccountList = () => {
     moreModalSuccessNotify,
     setMoreModalSuccessNotify,
     moreModalErrNotify,
-    setMoreModalErrNotify,
+    setMoreModalErrNotify
   } = UseContextState();
   const [creditRefModal, setCreditRefModal] = useState(false);
-  // const [creditRefAccountType, setCreditRefAccountType] = useState("");
   const [depositModal, setDepositModal] = useState(false);
   const [depositAccountType, setDepositAccountType] = useState("");
   const [withdrawModal, setWithdrawModal] = useState(false);
@@ -39,6 +38,7 @@ const AccountList = () => {
   const [data, refetchDownLine, setSearchUser,searchUser] = UseDownLineData();
   const { exportPdf } = UseExportToPdf();
 
+
   const handleRefetchDownLine = (downLine) => {
     if (downLine.hasDownline) {
       setDownLineId(downLine?.username);
@@ -51,7 +51,7 @@ const AccountList = () => {
     e.preventDefault();
     refetchDownLine();
   };
-console.log(data);
+
   return (
     <div data-v-b00d14ae="" className="page-content">
       {/*   <!----> */}

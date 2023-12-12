@@ -11,7 +11,7 @@ const EditProfile = ({ profileData, moreModalAccountType }) => {
   const [favoriteMaster, setFavoriteMaster] = useState(false);
   const [name, setName] = useState("");
   const [transactionCode, setTransactionCode] = useState("");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify,generatedToken } =
     UseContextState();
   const [, refetchDownLine] = UseDownLineData();
 
@@ -44,6 +44,7 @@ const EditProfile = ({ profileData, moreModalAccountType }) => {
         changePasswordLock: changePasswordLock ? 1 : 0,
         favoriteMaster: favoriteMaster ? 1 : 0,
         mpassword: transactionCode,
+        token:generatedToken
       },
       {
         headers: {

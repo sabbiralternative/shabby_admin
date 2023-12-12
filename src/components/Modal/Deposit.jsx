@@ -3,6 +3,7 @@ import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseBalance from "../../hooks/UseBalance";
+import UseContextState from "../../hooks/UseContextState";
 
 const Deposit = ({
   depositModal,
@@ -14,6 +15,7 @@ const Deposit = ({
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
+  const {generatedToken} = UseContextState()
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
   const [amountOne, setAmountOne] = useState("");
@@ -31,6 +33,7 @@ const Deposit = ({
         {
           downlineId: depositAccountType,
           type: "balance",
+          token:generatedToken
         },
         {
           headers: {
@@ -70,6 +73,7 @@ const Deposit = ({
         mpassword: transactionCode,
         amount: depositAmount,
         remark: remark,
+        token:generatedToken
       },
       {
         headers: {

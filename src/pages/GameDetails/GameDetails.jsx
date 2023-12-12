@@ -9,6 +9,7 @@ import Bookmaker from "../../components/OddsSection/Bookmaker";
 import FancyOne from "../../components/OddsSection/FancyOne";
 import Normal from "../../components/OddsSection/Normal";
 import { useQuery } from "@tanstack/react-query";
+import UseContextState from "../../hooks/UseContextState";
 
 const GameDetails = () => {
   const { evenTypeId, eventId } = useParams();
@@ -18,15 +19,14 @@ const GameDetails = () => {
   const [data, setData] = useState([]);
   const [match_odds, setMatch_odds] = useState([]);
   const [bookmarker, setBookmarker] = useState([]);
-  // const [bookmarker2, setBookmarker2] = useState([]);
   const [normal, setNormal] = useState([]);
   const [fancy1, setFancy1] = useState([]);
-  // const [overByOver, setOverByOver] = useState([]);
+  const {generatedToken} = UseContextState()
 
   /* Get game details */
   useEffect(() => {
     const getGameDetails = async () => {
-      const res = await axios.get(`${oddsApi}/${evenTypeId}/${eventId}`, {
+      const res = await axios.post(`${oddsApi}/${evenTypeId}/${eventId}`,{  token:generatedToken}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -83,6 +83,7 @@ const GameDetails = () => {
         `${currentBetsApi}`,
         {
           type: eventId,
+          token:generatedToken
         },
         {
           headers: {

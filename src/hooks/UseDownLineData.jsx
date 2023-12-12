@@ -2,11 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { config } from "../utils/config";
 import axios from "axios";
 import { useState } from "react";
+import UseContextState from "./UseContextState";
 
 const UseDownLineData = () => {
   const downLineApi = config?.result?.endpoint?.downline;
   const token = localStorage.getItem("adminToken");
   const [searchUser, setSearchUser] = useState("");
+  const {generatedToken} = UseContextState()
   const { data = [], refetch: refetchDownLine } = useQuery({
     queryKey: ["downLineData"],
     queryFn: async () => {
@@ -15,6 +17,7 @@ const UseDownLineData = () => {
         {
           downlineId: "",
           searchId: searchUser,
+          token:generatedToken
         },
         {
           headers: {

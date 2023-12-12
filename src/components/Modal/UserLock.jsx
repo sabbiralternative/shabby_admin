@@ -10,7 +10,7 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
   const [betLock, setBetLock] = useState(false);
   const [userLock, setUserLock] = useState(false);
   const [transactionCode, setTransactionCode] = useState("");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify,generatedToken } =
     UseContextState();
   const [, refetchDownLine] = UseDownLineData();
   useEffect(() => {
@@ -42,6 +42,8 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
         betLock: betLock ? 1 : 0,
         userLock: userLock ? 1 : 0,
         mpassword: transactionCode,
+        token:generatedToken
+
       },
       {
         headers: {

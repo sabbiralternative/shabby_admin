@@ -3,6 +3,7 @@ import { config } from "../../utils/config.js";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData.jsx";
 import UseBalance from "../../hooks/UseBalance.jsx";
+import UseContextState from "../../hooks/UseContextState.jsx";
 
 const Withdraw = ({
   withdrawModal,
@@ -24,6 +25,7 @@ const Withdraw = ({
   const [inputIsValid, setInputIsValid] = useState(false);
   const [, refetchDownLine] = UseDownLineData();
   const [, refetchBalance] = UseBalance();
+  const {generatedToken} = UseContextState()
   useEffect(() => {
     const getReferenceData = async () => {
       const res = await axios.post(
@@ -31,6 +33,7 @@ const Withdraw = ({
         {
           downlineId: withdrawAccountType,
           type: "balance",
+          token:generatedToken
         },
         {
           headers: {
@@ -71,6 +74,7 @@ const Withdraw = ({
         mpassword: transactionCode,
         amount: withdrawAmount,
         remark: remark,
+        token:generatedToken
       },
       {
         headers: {

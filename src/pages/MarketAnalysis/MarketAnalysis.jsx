@@ -3,16 +3,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import UseContextState from "../../hooks/UseContextState";
 const MarketAnalysis = () => {
   const marketAnalysisApi = config?.result?.endpoint?.marketAnalysis;
   const token = localStorage.getItem("adminToken");
   const [loading, setLoading] = useState(false);
-
+  const {generatedToken} = UseContextState()
   const { data: marketAnalysisData, refetch: refetchMarketAnalysis } = useQuery(
     {
       queryKey: ["marketAnalysis"],
       queryFn: async () => {
-        const res = await axios.get(marketAnalysisApi, {
+        const res = await axios.post(marketAnalysisApi,{  token:generatedToken}, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

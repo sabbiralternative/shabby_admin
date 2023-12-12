@@ -2,6 +2,7 @@ import { useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import UseBalance from "../../hooks/UseBalance";
+import UseContextState from "../../hooks/UseContextState";
 
 const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
   const [, refetchBalance] = UseBalance();
@@ -18,6 +19,7 @@ const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
   const [transactionErr, setTransactionErr] = useState(
     Array(tableData?.length).fill("")
   );
+  const {generatedToken} = UseContextState()
 
   const handleSubmit = async (i, username) => {
     setLastClickedIndex(i);
@@ -38,6 +40,7 @@ const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
         amount: newClientPnls[i],
         type: "bankTransfer",
         mpassword: transactionCode,
+        token:generatedToken
       },
       {
         headers: { Authorization: `Bearer ${token}` },

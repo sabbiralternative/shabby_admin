@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
-  const { setLoginSuccess } = UseContextState();
+  const { setLoginSuccess,generatedToken } = UseContextState();
 
   const pageTitle = config?.result?.settings?.siteTitle;
   useEffect(() => {
@@ -27,6 +27,7 @@ const Login = () => {
       body: JSON.stringify({
         username: userName,
         password: password,
+        token:generatedToken
       }),
     })
       .then((res) => res.json())

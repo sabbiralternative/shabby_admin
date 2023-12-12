@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import UseContextState from "../../hooks/UseContextState";
 
 const OurCasinoPage = () => {
   const diamondCasinoUrl = config?.result?.endpoint?.diamondCasino;
@@ -12,13 +13,14 @@ const OurCasinoPage = () => {
   const [casino_list, setCasino_list] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filterGames, setFilterGames] = useState("all");
+  const {generatedToken} = UseContextState()
 
   useEffect(() => {
     const getAuraCasino = async () => {
       const res = await axios.get(
         `${casinoType == "aura" ? auraCasinoApi : ""} ${
           casinoType == "diamond" ? diamondCasinoUrl : ""
-        }`,
+        }`,{  token:generatedToken},
         {
           headers: {
             Authorization: `Bearer ${token}`,

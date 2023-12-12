@@ -9,11 +9,14 @@ const Event = () => {
   const [toggleEvent, setToggleEvent] = useState(false);
   const [menu, setMenu] = useState([]);
   const menuApi = config?.result?.endpoint?.menu;
+  const {generatedToken} = UseContextState()
 
 
   useEffect(() => {
     const getAllMenuApi = async () => {
-      const res = await axios.get(menuApi, {
+      const res = await axios.post(menuApi,{
+        token:generatedToken
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

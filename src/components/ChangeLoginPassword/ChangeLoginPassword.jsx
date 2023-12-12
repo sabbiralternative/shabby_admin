@@ -3,12 +3,14 @@ import { config } from "../../utils/config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import UseContextState from "../../hooks/UseContextState";
 const ChangeLoginPassword = () => {
   const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const pageTitle = config?.result?.settings?.siteTitle;
+  const {generatedToken} = UseContextState()
   useEffect(() => {
     document.title = pageTitle;
   }, [pageTitle]);
@@ -21,6 +23,7 @@ const ChangeLoginPassword = () => {
         newPassword: password,
         confirmPassword: confirmPassword,
         type: "login",
+        token:generatedToken
       },
       {
         headers: {
@@ -64,7 +67,7 @@ const ChangeLoginPassword = () => {
                   {...register("oldPassword", { required: true })}
                   id="input-1"
                   name="oldPassword"
-                  type="text"
+                  type="password"
                   placeholder="Old Password"
                   className="form-control"
                 />{" "}

@@ -6,6 +6,7 @@ import BankTable from "./BankTable";
 import { useQuery } from "@tanstack/react-query";
 import UseExportToPdf from "../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
+import UseContextState from "../../hooks/UseContextState";
 
 const Bank = () => {
   const token = localStorage.getItem("adminToken");
@@ -14,6 +15,7 @@ const Bank = () => {
   const [transactionCode, setTransactionCode] = useState("");
   const { exportPdf } = UseExportToPdf();
   const tableRef = useRef(null);
+  const {generatedToken} = UseContextState()
 
   const { data, refetch } = useQuery({
     queryKey: ["bankData"],
@@ -22,6 +24,7 @@ const Bank = () => {
         bankApi,
         {
           searchId: searchId,
+          token:generatedToken
         },
         {
           headers: {

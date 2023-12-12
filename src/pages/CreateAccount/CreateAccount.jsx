@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Notification/Error";
 import UseDownLineData from "../../hooks/UseDownlineData";
+import UseContextState from "../../hooks/UseContextState";
 
 const userType = [
   {
@@ -37,6 +38,7 @@ const CreateAccount = () => {
   const role = localStorage.getItem("adminRole");
   const [user, setUser] = useState("");
   const [validUser, setValidUser] = useState(false);
+  const {generatedToken} = UseContextState()
   const {
     register,
     handleSubmit,
@@ -54,6 +56,7 @@ const CreateAccount = () => {
       userCheckNameApi,
       {
         username: e,
+        token:generatedToken
       },
       {
         headers: {
@@ -83,6 +86,7 @@ const CreateAccount = () => {
         notes: data?.remark,
         loginname: user,
         mpassword: data?.transactionCode,
+        token:generatedToken
       },
       {
         headers: {

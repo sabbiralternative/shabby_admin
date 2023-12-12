@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 const ChangeLoginSuccess = () => {
   const transactionPassword = localStorage.getItem("transactionPassword");
+  
   const URL = config?.result?.settings?.URL;
   const pageTitle = config?.result?.settings?.siteTitle;
   useEffect(() => {

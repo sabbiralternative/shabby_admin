@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
+import UseContextState from "../../hooks/UseContextState";
 
 const CreditReference = ({
   creditRefModal,
@@ -19,6 +20,7 @@ const CreditReference = ({
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
   const [, refetchDownLine] = UseDownLineData();
+  const {generatedToken} = UseContextState()
   useEffect(() => {
     const getReferenceData = async () => {
       const res = await axios.post(
@@ -26,6 +28,7 @@ const CreditReference = ({
         {
           downlineId: creditRefAccountType,
           type: "creditReferance",
+          token:generatedToken
         },
         {
           headers: {
@@ -53,6 +56,7 @@ const CreditReference = ({
         mpassword: transactionCode,
         amount: newCredit,
         remark: "",
+        token:generatedToken
       },
       {
         headers: {
