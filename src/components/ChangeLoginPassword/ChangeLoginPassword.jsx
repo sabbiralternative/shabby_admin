@@ -2,15 +2,17 @@ import axios from "axios";
 import { config } from "../../utils/config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import UseContextState from "../../hooks/UseContextState";
+import Error from "../Notification/Error";
 const ChangeLoginPassword = () => {
   const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const pageTitle = config?.result?.settings?.siteTitle;
-  const {generatedToken} = UseContextState()
+  const { generatedToken } = UseContextState();
+  const [errorMsg, setErrorMsg] = useState("");
   useEffect(() => {
     document.title = pageTitle;
   }, [pageTitle]);
@@ -23,7 +25,7 @@ const ChangeLoginPassword = () => {
         newPassword: password,
         confirmPassword: confirmPassword,
         type: "login",
-        token:generatedToken
+        token: generatedToken,
       },
       {
         headers: {
@@ -32,12 +34,15 @@ const ChangeLoginPassword = () => {
       }
     );
     const data = res.data;
+    console.log(data);
     if (data?.success) {
       localStorage.setItem(
         "transactionPassword",
         data?.result?.transactionPassword
       );
       navigate("/change-password-success");
+    } else {
+      setErrorMsg(data?.error?.status[0]?.description);
     }
   };
 
@@ -115,6 +120,7 @@ const ChangeLoginPassword = () => {
           </form>
         </div>
       </section>
+      {errorMsg && <Error message={errorMsg} setMessage={setErrorMsg} />}
     </div>
   );
 };
