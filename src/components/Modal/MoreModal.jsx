@@ -8,10 +8,16 @@ import EditProfile from "./EditProfile";
 import { useEffect, useRef, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const MoreModal = ({ moreModalAccountType }) => {
-  const { moreModalCount, setMoreModalCount, moreModal, setMoreModal,generatedToken } =
-    UseContextState();
+  const {
+    moreModalCount,
+    setMoreModalCount,
+    moreModal,
+    setMoreModal
+  } = UseContextState();
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
   const token = localStorage.getItem("adminToken");
@@ -26,19 +32,17 @@ const MoreModal = ({ moreModalAccountType }) => {
       moreModalCount === "editProfile"
     ) {
       const getProfileData = async () => {
-        const res = await axios.post(
-          downLineEditFormApi,
-          {
-            downlineId: moreModalAccountType,
-            type: moreModalCount,
-            token:generatedToken
+        const generatedToken = UseTokenGenerator();
+        const encryptedData = UseEncryptData({
+          downlineId: moreModalAccountType,
+          type: moreModalCount,
+          token: generatedToken,
+        });
+        const res = await axios.post(downLineEditFormApi, encryptedData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        });
         const data = res.data;
         console.log(data);
         if (data.success) {

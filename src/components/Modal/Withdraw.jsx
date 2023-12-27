@@ -3,7 +3,8 @@ import { config } from "../../utils/config.js";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData.jsx";
 import UseBalance from "../../hooks/UseBalance.jsx";
-import UseContextState from "../../hooks/UseContextState.jsx";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator.jsx";
+import UseEncryptData from "../../hooks/UseEncryptData.jsx";
 
 const Withdraw = ({
   withdrawModal,
@@ -25,16 +26,18 @@ const Withdraw = ({
   const [inputIsValid, setInputIsValid] = useState(false);
   const [, refetchDownLine] = UseDownLineData();
   const [, refetchBalance] = UseBalance();
-  const {generatedToken} = UseContextState()
+ 
   useEffect(() => {
     const getReferenceData = async () => {
+      const generatedToken = UseTokenGenerator()
+      const encryptedData = UseEncryptData({
+        downlineId: withdrawAccountType,
+        type: "balance",
+        token: generatedToken,
+      })
       const res = await axios.post(
         downLineEditFormApi,
-        {
-          downlineId: withdrawAccountType,
-          type: "balance",
-          token:generatedToken
-        },
+        encryptedData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,22 +69,20 @@ const Withdraw = ({
       setInputIsValid(true);
       return;
     }
-    const res = await axios.post(
-      downLineEditApi,
-      {
-        downlineId: withdrawAccountType,
-        type: "withdraw",
-        mpassword: transactionCode,
-        amount: withdrawAmount,
-        remark: remark,
-        token:generatedToken
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      downlineId: withdrawAccountType,
+      type: "withdraw",
+      mpassword: transactionCode,
+      amount: withdrawAmount,
+      remark: remark,
+      token: generatedToken,
+    });
+    const res = await axios.post(downLineEditApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    });
     const data = res.data;
 
     if (data.success) {

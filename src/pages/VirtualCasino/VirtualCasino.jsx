@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { config } from "../../utils/config";
-import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const VirtualCasino = () => {
   const virtualGamesApi = config?.result?.endpoint?.virtualCasino;
   const token = localStorage.getItem("adminToken");
   const [virtualGames, setVirtualGames] = useState([]);
-  const {generatedToken} = UseContextState()
+ 
 
   useEffect(() => {
     const getVirtualGames = async () => {
-      const res = await axios.post(virtualGamesApi, {
+      const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData({
         token:generatedToken
-      },{
+      });
+      const res = await axios.post(virtualGamesApi, encryptedData,{
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = res.data;

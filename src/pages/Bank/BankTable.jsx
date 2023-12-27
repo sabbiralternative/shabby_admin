@@ -2,7 +2,8 @@ import { useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import UseBalance from "../../hooks/UseBalance";
-import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
   const [, refetchBalance] = UseBalance();
@@ -19,7 +20,6 @@ const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
   const [transactionErr, setTransactionErr] = useState(
     Array(tableData?.length).fill("")
   );
-  const {generatedToken} = UseContextState()
 
   const handleSubmit = async (i, username) => {
     setLastClickedIndex(i);
@@ -33,19 +33,17 @@ const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
     }
 
     let newClientPnls = [...clientPnls];
-    const res = await axios.post(
-      downLineEdit,
-      {
-        downlineId: username,
-        amount: newClientPnls[i],
-        type: "bankTransfer",
-        mpassword: transactionCode,
-        token:generatedToken
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      downlineId: username,
+      amount: newClientPnls[i],
+      type: "bankTransfer",
+      mpassword: transactionCode,
+      token: generatedToken,
+    });
+    const res = await axios.post(downLineEdit, encryptedData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     const data = res.data;
     if (data?.success) {

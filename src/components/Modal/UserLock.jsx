@@ -3,6 +3,8 @@ import { config } from "../../utils/config";
 import axios from "axios";
 import UseContextState from "../../hooks/UseContextState";
 import UseDownLineData from "../../hooks/UseDownlineData";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const UserLock = ({ profileData, moreModalAccountType }) => {
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
@@ -10,7 +12,7 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
   const [betLock, setBetLock] = useState(false);
   const [userLock, setUserLock] = useState(false);
   const [transactionCode, setTransactionCode] = useState("");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify,generatedToken } =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify} =
     UseContextState();
   const [, refetchDownLine] = UseDownLineData();
   useEffect(() => {
@@ -34,9 +36,8 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
 
   const handleChangeUserLock = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      downLineEditApi,
-      {
+    const generatedToken = UseTokenGenerator()
+      const encryptedData = UseEncryptData( {
         downlineId: moreModalAccountType,
         type: "userLock",
         betLock: betLock ? 1 : 0,
@@ -44,7 +45,10 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
         mpassword: transactionCode,
         token:generatedToken
 
-      },
+      })
+    const res = await axios.post(
+      downLineEditApi,encryptedData
+     ,
       {
         headers: {
           Authorization: `Bearer ${token}`,

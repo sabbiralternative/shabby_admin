@@ -3,7 +3,8 @@ import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseBalance from "../../hooks/UseBalance";
-import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const Deposit = ({
   depositModal,
@@ -15,7 +16,7 @@ const Deposit = ({
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
-  const {generatedToken} = UseContextState()
+
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
   const [amountOne, setAmountOne] = useState("");
@@ -28,13 +29,15 @@ const Deposit = ({
   const [, refetchBalance] = UseBalance();
   useEffect(() => {
     const getReferenceData = async () => {
+      const generatedToken = UseTokenGenerator()
+      const encryptedData = UseEncryptData( {
+        downlineId: depositAccountType,
+        type: "balance",
+        token:generatedToken
+      })
       const res = await axios.post(
         downLineEditFormApi,
-        {
-          downlineId: depositAccountType,
-          type: "balance",
-          token:generatedToken
-        },
+       encryptedData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,6 +60,15 @@ const Deposit = ({
 
   const handleDepositSubmit = async (e) => {
     e.preventDefault();
+    const generatedToken = UseTokenGenerator()
+      const encryptedData = UseEncryptData( {
+        downlineId: depositAccountType,
+        type: "deposit",
+        mpassword: transactionCode,
+        amount: depositAmount,
+        remark: remark,
+        token:generatedToken
+      })
     if (
       remark.length === 0 ||
       transactionCode.length === 0 ||
@@ -66,15 +78,8 @@ const Deposit = ({
       return;
     }
     const res = await axios.post(
-      downLineEditApi,
-      {
-        downlineId: depositAccountType,
-        type: "deposit",
-        mpassword: transactionCode,
-        amount: depositAmount,
-        remark: remark,
-        token:generatedToken
-      },
+      downLineEditApi,encryptedData
+     ,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
-import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const CreditReference = ({
   creditRefModal,
@@ -20,22 +21,20 @@ const CreditReference = ({
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
   const [, refetchDownLine] = UseDownLineData();
-  const {generatedToken} = UseContextState()
+
   useEffect(() => {
     const getReferenceData = async () => {
-      const res = await axios.post(
-        downLineEditFormApi,
-        {
-          downlineId: creditRefAccountType,
-          type: "creditReferance",
-          token:generatedToken
+      const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData({
+        downlineId: creditRefAccountType,
+        type: "creditReferance",
+        token: generatedToken,
+      });
+      const res = await axios.post(downLineEditFormApi, encryptedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      });
       const data = res.data;
       setData(data.result);
     };
@@ -48,22 +47,20 @@ const CreditReference = ({
       setInputIsValid(true);
       return;
     }
-    const res = await axios.post(
-      downLineEditApi,
-      {
-        downlineId: creditRefAccountType,
-        type: "creditReference",
-        mpassword: transactionCode,
-        amount: newCredit,
-        remark: "",
-        token:generatedToken
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      downlineId: creditRefAccountType,
+      type: "creditReference",
+      mpassword: transactionCode,
+      amount: newCredit,
+      remark: "",
+      token: generatedToken,
+    });
+    const res = await axios.post(downLineEditApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    });
     const data = res.data;
 
     if (data.success) {

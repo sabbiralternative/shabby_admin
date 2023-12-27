@@ -5,7 +5,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Notification/Error";
 import UseDownLineData from "../../hooks/UseDownlineData";
-import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const userType = [
   {
@@ -38,7 +39,7 @@ const CreateAccount = () => {
   const role = localStorage.getItem("adminRole");
   const [user, setUser] = useState("");
   const [validUser, setValidUser] = useState(false);
-  const {generatedToken} = UseContextState()
+
   const {
     register,
     handleSubmit,
@@ -52,12 +53,14 @@ const CreateAccount = () => {
 
   const checkUserValidity = async (e) => {
     setUser(e);
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData( {
+      username: e,
+      token:generatedToken
+    });
     const res = await axios.post(
       userCheckNameApi,
-      {
-        username: e,
-        token:generatedToken
-      },
+     encryptedData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -77,17 +80,19 @@ const CreateAccount = () => {
       setValidUser(false);
       return;
     }
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData( {
+      password: data?.password,
+      confirmPassword: data?.password,
+      accountType: data?.role,
+      notes: data?.remark,
+      loginname: user,
+      mpassword: data?.transactionCode,
+      token:generatedToken
+    });
     const res = await axios.post(
       createDownLineApi,
-      {
-        password: data?.password,
-        confirmPassword: data?.password,
-        accountType: data?.role,
-        notes: data?.remark,
-        loginname: user,
-        mpassword: data?.transactionCode,
-        token:generatedToken
-      },
+     encryptedData,
       {
         headers: {
           Authorization: `Bearer ${token}`,

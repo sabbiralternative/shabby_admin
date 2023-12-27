@@ -8,7 +8,8 @@ import axios from "axios";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { DateRangePicker } from "rsuite";
-import UseContextState from "../../../hooks/UseContextState";
+import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../../hooks/UseEncryptData";
 
 const AccountStatement = () => {
   const tableRef = useRef(null);
@@ -26,22 +27,24 @@ const AccountStatement = () => {
     users,
     setSearchUser,
   } = UseSearchUser();
-  const {generatedToken} = UseContextState()
+
   const { formattedEndDate, formattedStartDate, onChange } = UseDatePicker();
   const { exportPdf } = UseExportToPdf();
 
   const handleAccountStatement = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      accountStatementApi,
-      {
+    const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData( {
         searchId: searchId,
         fromdate: formattedStartDate,
         todate: formattedEndDate,
         type: showStatement,
         statement: statement,
         token:generatedToken
-      },
+      });
+    const res = await axios.post(
+      accountStatementApi,encryptedData
+     ,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -49,7 +52,7 @@ const AccountStatement = () => {
       }
     );
     const data = res.data;
-    console.log(data);
+
     if (data?.success) {
       setStatementData(data?.result);
     }

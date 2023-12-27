@@ -6,6 +6,8 @@ import UseContextState from "../../hooks/UseContextState";
 import Success from "../Notification/Success";
 import { useNavigate } from "react-router-dom";
 import Error from "../Notification/Error";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
   const {
@@ -16,7 +18,8 @@ const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
   const [error, setError] = useState("");
   const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
-  const { changePassNotify, setChangePassNotify,generatedToken } = UseContextState();
+  const { changePassNotify, setChangePassNotify } =
+    UseContextState();
   const navigate = useNavigate();
   const [passChangeErr, setPassChangeErr] = useState("");
 
@@ -29,20 +32,17 @@ const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
     if (newPassword !== newPasswordConfirm) {
       setError("The Confirm Password confirmation does not match");
     }
-
-    const res = await axios.post(
-      changePasswordApi,
-      {
-        newPassword: newPassword,
-        confirmPassword: newPasswordConfirm,
-        mpassword: transactionCode,
-        type: "panel",
-        token:generatedToken
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      newPassword: newPassword,
+      confirmPassword: newPasswordConfirm,
+      mpassword: transactionCode,
+      type: "panel",
+      token: generatedToken,
+    });
+    const res = await axios.post(changePasswordApi, encryptedData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = res.data;
     if (data?.success) {
       setChangePassNotify(data?.result?.message);

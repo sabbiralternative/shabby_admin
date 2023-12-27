@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
-import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
+
 const BetsDetails = ({ setShowBetsModal, marketId }) => {
   const settledBetsApi = config?.result?.endpoint?.settledBets;
   const token = localStorage.getItem("adminToken");
@@ -9,15 +11,17 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [betsType, setBetsType] = useState("all");
   const betsRef = useRef();
-  const {generatedToken} = UseContextState()
+
   useEffect(() => {
     const getSettledBetsData = async () => {
+      const generatedToken = UseTokenGenerator()
+      const encryptedData = UseEncryptData( {
+        marketId: marketId,
+        token:generatedToken
+      })
       const res = await axios.post(
         settledBetsApi,
-        {
-          marketId: marketId,
-          token:generatedToken
-        },
+       encryptedData,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -3,30 +3,32 @@ import { config } from "../../utils/config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import UseContextState from "../../hooks/UseContextState";
 import Error from "../Notification/Error";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 const ChangeLoginPassword = () => {
   const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const pageTitle = config?.result?.settings?.siteTitle;
-  const { generatedToken } = UseContextState();
   const [errorMsg, setErrorMsg] = useState("");
   useEffect(() => {
     document.title = pageTitle;
   }, [pageTitle]);
 
   const onSubmit = async ({ confirmPassword, oldPassword, password }) => {
+    const generatedToken = UseTokenGenerator()
+    const encryptedData = UseEncryptData({
+      oldPassword: oldPassword,
+      newPassword: password,
+      confirmPassword: confirmPassword,
+      type: "login",
+      token: generatedToken,
+    })
     const res = await axios.post(
-      changePasswordApi,
-      {
-        oldPassword: oldPassword,
-        newPassword: password,
-        confirmPassword: confirmPassword,
-        type: "login",
-        token: generatedToken,
-      },
+      changePasswordApi,encryptedData
+      ,
       {
         headers: {
           Authorization: `Bearer ${token}`,

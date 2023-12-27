@@ -3,6 +3,8 @@ import { config } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 import Error from "../Notification/Error";
 import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const Login = () => {
   const loginApi = config?.result?.endpoint?.login;
@@ -10,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
-  const { setLoginSuccess,generatedToken } = UseContextState();
+  const { setLoginSuccess } = UseContextState();
 
   const pageTitle = config?.result?.settings?.siteTitle;
   useEffect(() => {
@@ -18,17 +20,19 @@ const Login = () => {
   }, [pageTitle]);
 
   const handleSubmitLogin = (e) => {
+    const generatedToken = UseTokenGenerator()
+    const encryptedData = UseEncryptData({
+      username: userName,
+      password: password,
+      token:generatedToken
+    })
     e.preventDefault();
     fetch(loginApi, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({
-        username: userName,
-        password: password,
-        token:generatedToken
-      }),
+      body: JSON.stringify(encryptedData),
     })
       .then((res) => res.json())
       .then((data) => {

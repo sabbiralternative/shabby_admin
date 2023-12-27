@@ -8,7 +8,8 @@ import UseDatePicker from "../../../hooks/UseDatePicker";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DateRangePicker } from "rsuite";
-import UseContextState from "../../../hooks/UseContextState";
+import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../../hooks/UseEncryptData";
 const UserHistory = () => {
   const tableRef = useRef(null);
   const token = localStorage.getItem("adminToken");
@@ -27,25 +28,23 @@ const UserHistory = () => {
   } = UseSearchUser();
   const { formattedEndDate, formattedStartDate, onChange, setDateRange } =
     UseDatePicker();
-    const {generatedToken} = UseContextState()
+
   /* Handle user history */
   const handleUserHistory = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      userHistoryApi,
-      {
-        searchId: searchId,
-        type: userHistoryTab,
-        fromdate: formattedStartDate,
-        todate: formattedEndDate,
-        token:generatedToken
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      searchId: searchId,
+      type: userHistoryTab,
+      fromdate: formattedStartDate,
+      todate: formattedEndDate,
+      token: generatedToken,
+    });
+    const res = await axios.post(userHistoryApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    });
     const data = res.data;
     if (data?.success) {
       setUserHistoryData(data?.result);

@@ -4,19 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { config } from "../../utils/config";
 import { token } from "../../utils/localStorage";
 import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const Event = () => {
   const [toggleEvent, setToggleEvent] = useState(false);
   const [menu, setMenu] = useState([]);
   const menuApi = config?.result?.endpoint?.menu;
-  const {generatedToken} = UseContextState()
+
 
 
   useEffect(() => {
     const getAllMenuApi = async () => {
-      const res = await axios.post(menuApi,{
+      const generatedToken = UseTokenGenerator()
+      const encryptedData = UseEncryptData({
         token:generatedToken
-      }, {
+      })
+      const res = await axios.post(menuApi,encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

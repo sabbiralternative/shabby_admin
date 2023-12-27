@@ -9,7 +9,8 @@ import Bookmaker from "../../components/OddsSection/Bookmaker";
 import FancyOne from "../../components/OddsSection/FancyOne";
 import Normal from "../../components/OddsSection/Normal";
 import { useQuery } from "@tanstack/react-query";
-import UseContextState from "../../hooks/UseContextState";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const GameDetails = () => {
   const { evenTypeId, eventId } = useParams();
@@ -21,16 +22,21 @@ const GameDetails = () => {
   const [bookmarker, setBookmarker] = useState([]);
   const [normal, setNormal] = useState([]);
   const [fancy1, setFancy1] = useState([]);
-  const {generatedToken} = UseContextState()
 
   /* Get game details */
   useEffect(() => {
     const getGameDetails = async () => {
-      const res = await axios.post(`${oddsApi}/${evenTypeId}/${eventId}`,{  token:generatedToken}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData({ token: generatedToken });
+      const res = await axios.post(
+        `${oddsApi}/${evenTypeId}/${eventId}`,
+        encryptedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = res.data;
       if (data.success) {
         setData(data.result);
@@ -79,18 +85,16 @@ const GameDetails = () => {
   const { data: myBets, refetch: refetchCurrentBets } = useQuery({
     queryKey: ["currentBets"],
     queryFn: async () => {
-      const res = await axios.post(
-        `${currentBetsApi}`,
-        {
-          type: eventId,
-          token:generatedToken
+      const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData({
+        type: eventId,
+        token: generatedToken,
+      });
+      const res = await axios.post(`${currentBetsApi}`, encryptedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      });
       const data = res.data;
       return data;
     },

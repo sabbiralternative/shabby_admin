@@ -5,7 +5,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
-import UseContextState from "../../../hooks/UseContextState";
+import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../../hooks/UseEncryptData";
 const PartyWinLoss = () => {
   const tableRef = useRef(null);
   const partyWinLossApi = config?.result?.endpoint?.partyWinLoss;
@@ -13,15 +14,17 @@ const PartyWinLoss = () => {
   const { register, handleSubmit } = useForm();
   const [partyWinLossData, setPartyWinLossData] = useState([]);
   const { exportPdf } = UseExportToPdf();
-  const {generatedToken} = UseContextState()
+
 
   const onSubmit = async ({ partyWinLossType }) => {
-    const res = await axios.post(
-      partyWinLossApi,
-      {
+    const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData({
         type: partyWinLossType,
         token:generatedToken
-      },
+      });
+    const res = await axios.post(
+      partyWinLossApi,encryptedData
+      ,
       {
         headers: {
           Authorization: `Bearer ${token}`,

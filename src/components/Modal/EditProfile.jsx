@@ -3,6 +3,8 @@ import { config } from "../../utils/config";
 import UseContextState from "../../hooks/UseContextState";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const EditProfile = ({ profileData, moreModalAccountType }) => {
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
@@ -11,7 +13,7 @@ const EditProfile = ({ profileData, moreModalAccountType }) => {
   const [favoriteMaster, setFavoriteMaster] = useState(false);
   const [name, setName] = useState("");
   const [transactionCode, setTransactionCode] = useState("");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify,generatedToken } =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify} =
     UseContextState();
   const [, refetchDownLine] = UseDownLineData();
 
@@ -35,9 +37,8 @@ const EditProfile = ({ profileData, moreModalAccountType }) => {
 
   const handleChangeUserLock = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      downLineEditApi,
-      {
+    const generatedToken = UseTokenGenerator()
+      const encryptedData = UseEncryptData({
         downlineId: moreModalAccountType,
         type: "editProfile",
         name: name,
@@ -45,7 +46,10 @@ const EditProfile = ({ profileData, moreModalAccountType }) => {
         favoriteMaster: favoriteMaster ? 1 : 0,
         mpassword: transactionCode,
         token:generatedToken
-      },
+      })
+    const res = await axios.post(
+      downLineEditApi,encryptedData
+      ,
       {
         headers: {
           Authorization: `Bearer ${token}`,

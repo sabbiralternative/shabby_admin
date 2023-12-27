@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { config } from "../utils/config";
 import axios from "axios";
-import UseContextState from "./UseContextState";
+import UseTokenGenerator from "./UseTokenGenerator";
+import UseEncryptData from "./UseEncryptData";
 
 const UseSearchUser = () => {
   const [searchUser, setSearchUser] = useState("");
@@ -10,23 +11,20 @@ const UseSearchUser = () => {
   const [users, setUsers] = useState([]);
   const [errSearchId, setErrSearchId] = useState("");
   const [showSearchId, setShowSearchId] = useState(false);
-  const {generatedToken} = UseContextState()
 
   useEffect(() => {
     const handleSearchUser = async () => {
       if (searchUser?.length > 2) {
-        const res = await axios.post(
-          searchUserApi,
-          {
-            type: searchUser,
-            token:generatedToken
+        const generatedToken = UseTokenGenerator();
+        const encryptedData = UseEncryptData({
+          type: searchUser,
+          token: generatedToken,
+        });
+        const res = await axios.post(searchUserApi, encryptedData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        });
         const data = res.data;
         if (data?.success) {
           setUsers(data);

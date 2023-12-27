@@ -3,11 +3,13 @@ import UseContextState from "../../hooks/UseContextState";
 import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
+import UseTokenGenerator from "../../hooks/UseTokenGenerator";
+import UseEncryptData from "../../hooks/UseEncryptData";
 
 const ChangePassword = ({ moreModalAccountType }) => {
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify,generatedToken } =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify} =
     UseContextState();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,16 +17,18 @@ const ChangePassword = ({ moreModalAccountType }) => {
   const [, refetchDownLine] = UseDownLineData();
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    const generatedToken = UseTokenGenerator()
+    const encryptedData = UseEncryptData( {
+      downlineId: moreModalAccountType,
+      type: "password",
+      password: password,
+      confirmPassword: confirmPassword,
+      mpassword: transactionCode,
+      token:generatedToken
+    })
     const res = await axios.post(
       downLineEditApi,
-      {
-        downlineId: moreModalAccountType,
-        type: "password",
-        password: password,
-        confirmPassword: confirmPassword,
-        mpassword: transactionCode,
-        token:generatedToken
-      },
+     encryptedData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
