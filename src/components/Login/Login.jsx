@@ -20,13 +20,14 @@ const Login = () => {
   }, [pageTitle]);
 
   const handleSubmitLogin = (e) => {
-    const generatedToken = UseTokenGenerator()
+    e.preventDefault();
+    const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
       username: userName,
       password: password,
-      token:generatedToken
-    })
-    e.preventDefault();
+      token: generatedToken,
+    });
+
     fetch(loginApi, {
       method: "POST",
       headers: {

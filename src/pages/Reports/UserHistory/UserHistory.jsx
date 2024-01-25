@@ -249,6 +249,7 @@ const UserHistory = () => {
                               <div className="mx-datepicker mx-datepicker-range">
                                 <div className="mx-input-wrapper">
                                   <DateRangePicker
+                                   format="dd-MM-yyyy"
                                     // className="mx-input block"
                                     editable
                                     onChange={onChange}

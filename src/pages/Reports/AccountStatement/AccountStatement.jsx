@@ -33,24 +33,21 @@ const AccountStatement = () => {
 
   const handleAccountStatement = async (e) => {
     e.preventDefault();
+
     const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData( {
-        searchId: searchId,
-        fromdate: formattedStartDate,
-        todate: formattedEndDate,
-        type: showStatement,
-        statement: statement,
-        token:generatedToken
-      });
-    const res = await axios.post(
-      accountStatementApi,encryptedData
-     ,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const encryptedData = UseEncryptData({
+      searchId: searchId,
+      fromdate: formattedStartDate,
+      todate: formattedEndDate,
+      type: showStatement,
+      statement: statement,
+      token: generatedToken,
+    });
+    const res = await axios.post(accountStatementApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = res.data;
 
     if (data?.success) {
@@ -199,6 +196,7 @@ const AccountStatement = () => {
                           <div className="mb-3 mx-datepicker mx-datepicker-range">
                             <div className="mx-input-wrapper">
                               <DateRangePicker
+                              format="dd-MM-yyyy"
                                 editable
                                 onChange={onChange}
                                 defaultValue={[

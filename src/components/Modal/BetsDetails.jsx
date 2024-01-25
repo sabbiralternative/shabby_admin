@@ -14,14 +14,14 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
 
   useEffect(() => {
     const getSettledBetsData = async () => {
-      const generatedToken = UseTokenGenerator()
-      const encryptedData = UseEncryptData( {
+      const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData({
         marketId: marketId,
-        token:generatedToken
-      })
+        token: generatedToken,
+      });
       const res = await axios.post(
         settledBetsApi,
-       encryptedData,
+        encryptedData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
   /* Get total amount */
   let totalAmount = 0;
   for (const bets of filteredData) {
-    totalAmount = totalAmount + bets.amount;
+    totalAmount = totalAmount + parseFloat(bets.win);
   }
 
   console.log(filteredData);
@@ -186,7 +186,7 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
                         {filteredData?.length}
                       </span>{" "}
                       Total Win:
-                      <span className="text-danger">{totalAmount}</span>
+                      <span className={`text-danger`}>{totalAmount || 0}</span>
                     </h5>
                   </div>
                 </div>
@@ -228,6 +228,7 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
                     </thead>
                     <tbody>
                       {filteredData?.map((data, i) => {
+                        console.log(data);
                         return (
                           <tr
                             key={i}
