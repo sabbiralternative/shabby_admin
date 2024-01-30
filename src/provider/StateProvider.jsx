@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { config } from "../utils/config";
 
 export const StateContext = createContext(null);
 const StateProvider = ({ children }) => {
@@ -12,7 +13,22 @@ const StateProvider = ({ children }) => {
   const [changePassNotify, setChangePassNotify] = useState("");
   const [sidebarMobile, setSidebarMobile] = useState(false);
 
+  const [logo, setLogo] = useState("");
+  const assetsUrl = config?.result?.endpoint?.assets;
+  const siteUrl = config?.result?.settings?.siteUrl;
+  useEffect(() => {
+    const logo = `${assetsUrl}/${siteUrl}/logo.png`;
+    setLogo(logo);
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = `${assetsUrl}/${siteUrl}/theme.css`;
+    document.head.appendChild(link);
 
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [siteUrl, assetsUrl]);
 
   const stateInfo = {
     loginSuccess,
@@ -33,7 +49,8 @@ const StateProvider = ({ children }) => {
     setChangePassNotify,
     sidebarMobile,
     setSidebarMobile,
-
+    logo,
+    setLogo,
   };
   return (
     <StateContext.Provider value={stateInfo}>{children}</StateContext.Provider>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Error from "../Notification/Error";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import UseContextState from "../../hooks/UseContextState";
 const ChangeLoginPassword = () => {
   const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
@@ -13,6 +14,7 @@ const ChangeLoginPassword = () => {
   const { register, handleSubmit } = useForm();
   const pageTitle = config?.result?.settings?.siteTitle;
   const [errorMsg, setErrorMsg] = useState("");
+  const {logo} = UseContextState()
   useEffect(() => {
     document.title = pageTitle;
   }, [pageTitle]);
@@ -53,7 +55,7 @@ const ChangeLoginPassword = () => {
       <section className="login-mn">
         <div className="log-logo m-b-20">
           <img
-            src="https://sitethemedata.com/sitethemes/shabby247.com/front/logo.png"
+            src={logo}
             style={{ maxWidth: "250px", maxHeight: "100px" }}
           />
         </div>

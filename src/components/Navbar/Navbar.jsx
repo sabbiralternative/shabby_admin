@@ -13,9 +13,9 @@ const Navbar = () => {
   const [changePassDropdown, setChangePassDropdown] = useState(false);
   const [balance] = UseBalance();
   const [sidebarDesktop, setSidebarDesktop] = useState(false);
-  const { sidebarMobile, setSidebarMobile } = UseContextState();
+  const { sidebarMobile, setSidebarMobile,logo } = UseContextState();
   const dropdownRef = useRef();
-
+console.log(logo);
   const handleButtonClick = () => {
     if (window.innerWidth > 1000) {
       setSidebarDesktop(!sidebarDesktop);
@@ -72,7 +72,7 @@ const Navbar = () => {
               className="logo logo-light router-link-exact-active router-link-active"
             >
               <span className="logo-lg">
-                <img src="/logo.png" alt="" className="site-logo" />
+                <img  src={logo} alt="" className="site-logo" />
               </span>
             </Link>
           </div>

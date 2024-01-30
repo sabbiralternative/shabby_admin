@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
-  const { setLoginSuccess } = UseContextState();
+  const { setLoginSuccess,logo } = UseContextState();
 
   const pageTitle = config?.result?.settings?.siteTitle;
   useEffect(() => {
@@ -73,7 +73,7 @@ const Login = () => {
         <section className="login-mn">
           <div className="log-logo m-b-20">
             <img
-              src="/logo.png"
+              src={logo}
               style={{
                 maxWidth: "250px",
                 maxHeight: "100px",
