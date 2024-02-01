@@ -36,6 +36,7 @@ const AccountList = () => {
   const [creditErrorNotify, setCreditErrorNotify] = useState(false);
   const [moreModalAccountType, setMoreModalAccountType] = useState("");
   const [data, refetchDownLine, setSearchUser,searchUser] = UseDownLineData();
+  const [creditRefAccountType,setCreditRefAccountType] = useState('')
   const { exportPdf } = UseExportToPdf();
 
 
@@ -206,7 +207,7 @@ const AccountList = () => {
                                 (Click to sort ascending)
                               </span>
                             </th>
-                           {/*  <th
+                            <th
                               role="columnheader"
                               scope="col"
                               tabIndex="0"
@@ -218,7 +219,7 @@ const AccountList = () => {
                               <span className="sr-only">
                                 (Click to sort ascending)
                               </span>
-                            </th> */}
+                            </th>
                             <th
                               role="columnheader"
                               scope="col"
@@ -327,11 +328,13 @@ const AccountList = () => {
                                     {downLineData?.username}
                                   </span>
                                 </td>
-                              {/*   <td aria-colindex="2" role="cell" className="">
-                                  <p className="text-right mb-0 cp text-warning">
+                                <td aria-colindex="2" role="cell" className="">
+                                  <p className="text-right mb-0 cp
+                                  text-warningk
+                                  ">
                                     {downLineData?.creditReferance}
                                   </p>
-                                </td> */}
+                                </td>
                                 <td aria-colindex="3" role="cell" className="">
                                   <p className="text-right mb-0">
                                     {downLineData?.balance}
@@ -407,7 +410,7 @@ const AccountList = () => {
                                 </td>
                                 <td aria-colindex="12" role="cell" className="">
                                   <div role="group" className="btn-group">
-                                    {/* <button
+                                    <button
                                       onClick={() => {
                                         setCreditRefModal(!creditRefModal);
                                         setCreditRefAccountType(
@@ -417,8 +420,8 @@ const AccountList = () => {
                                       type="button"
                                       className="btn btn-warning"
                                     >
-                                      C
-                                    </button> */}
+                                      CR
+                                    </button>
 
                                     <button
                                       onClick={() => {
@@ -574,13 +577,14 @@ const AccountList = () => {
           </div>
         </div>
       </div>
+
       {creditRefModal && (
         <CreditReference
           creditRefModal={creditRefModal}
           setCreditRefModal={setCreditRefModal}
           setCreditSuccessNotify={setCreditSuccessNotify}
           setCreditErrorNotify={setCreditErrorNotify}
-          // creditRefAccountType={creditRefAccountType}
+          creditRefAccountType={creditRefAccountType}
         />
       )}
       {creditSuccessNotify && (

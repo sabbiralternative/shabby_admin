@@ -11,6 +11,7 @@ const CreditReference = ({
   setCreditErrorNotify,
   setCreditSuccessNotify,
   creditRefAccountType,
+
 }) => {
   const modalRef = useRef();
   const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
