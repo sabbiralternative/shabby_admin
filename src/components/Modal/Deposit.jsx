@@ -19,8 +19,8 @@ const Deposit = ({
 
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
-  const [amountOne, setAmountOne] = useState("");
-  const [amountTwo, setAmountTwo] = useState("");
+  const [amountOne, setAmountOne] = useState(null);
+  const [amountTwo, setAmountTwo] = useState(null);
   const [remark, setRemark] = useState("");
   const [depositAmount, SetDepositAmount] = useState("");
   const [data, setData] = useState({});
@@ -202,7 +202,7 @@ const Deposit = ({
                                 readOnly="readonly"
                                 name="userDipositeloginusramount"
                                 className="form-control txt-right"
-                                defaultValue={data?.amount}
+                                defaultValue={data?.amount?.toFixed(2)}
                               />
                             </div>
                             <div className="col-6">
@@ -213,7 +213,7 @@ const Deposit = ({
                                 name="userDipositeloginusrNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                  amountOne ? amountOne : data?.amount
+                                  amountOne >= 0 && amountOne !== null  ? amountOne : data?.amount
                                 }
                               />
                             </div>
@@ -233,7 +233,7 @@ const Deposit = ({
                                 readOnly="readonly"
                                 name="userDipositeusrnameamount"
                                 className="form-control txt-right"
-                                defaultValue={data?.amount2}
+                                defaultValue={data?.amount2?.toFixed(2)}
                               />
                             </div>
                             <div className="col-6">
@@ -244,7 +244,7 @@ const Deposit = ({
                                 name="userDipositeusrnameNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                  amountTwo ? amountTwo : data?.amount2
+                                  amountTwo >= 0 && amountTwo !== null ? amountTwo : data?.amount2
                                 }
                               />
                             </div>

@@ -6,7 +6,7 @@ import UseContextState from "../../hooks/UseContextState";
 const Sidebar = () => {
   const [toggleAccount, setToggleAccount] = useState(false);
   const [toggleReport, setToggleReport] = useState(false);
-  const {sidebarMobile, setSidebarMobile} = UseContextState()
+  const { sidebarMobile, setSidebarMobile } = UseContextState();
   return (
     <div data-v-b00d14ae="" className="vertical-menu">
       <div className="h-100" data-simplebar="init">
@@ -31,7 +31,7 @@ const Sidebar = () => {
                     <ul id="side-menu" className="metismenu list-unstyled">
                       <li className="mm-active">
                         <Link
-                        onClick={()=> setSidebarMobile(!sidebarMobile)}
+                          onClick={() => setSidebarMobile(!sidebarMobile)}
                           to="/"
                           aria-current="page"
                           className="side-nav-link-ref router-link-exact-active router-link-active active"
@@ -42,7 +42,7 @@ const Sidebar = () => {
                       </li>
                       <li>
                         <Link
-                          onClick={()=> setSidebarMobile(!sidebarMobile)}
+                          onClick={() => setSidebarMobile(!sidebarMobile)}
                           to="/market-analysis"
                           className="side-nav-link-ref"
                         >
@@ -52,7 +52,7 @@ const Sidebar = () => {
                       </li>
                       <li>
                         <Link
-                          onClick={()=> setSidebarMobile(!sidebarMobile)}
+                          onClick={() => setSidebarMobile(!sidebarMobile)}
                           to="/multiLoginAccount"
                           className="side-nav-link-ref"
                         >
@@ -77,7 +77,7 @@ const Sidebar = () => {
                             {/*   <!-- mm-collapse --> */}
                             <li className="">
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/admin/user"
                                 className="side-nav-link-ref"
                               >
@@ -86,7 +86,7 @@ const Sidebar = () => {
                             </li>
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/createAccount"
                                 className="side-nav-link-ref"
                               >
@@ -97,14 +97,13 @@ const Sidebar = () => {
                         )}
                       </li>
 
-                      <li>
+                      {/*    <li>
                         <Link
                           onClick={()=> setSidebarMobile(!sidebarMobile)}
                         to="/bank" className="side-nav-link-ref">
                           <i className="bx bxs-bank"></i> <span>Bank</span>
                         </Link>
-                      </li>
-
+                      </li>*/}
                       {/* Report */}
                       <li className={`${toggleReport ? "mm-active" : ""}`}>
                         <a
@@ -121,7 +120,7 @@ const Sidebar = () => {
                             {/*   <!-- mm-collapse --> */}
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/accountStatement"
                                 className="side-nav-link-ref"
                               >
@@ -130,7 +129,7 @@ const Sidebar = () => {
                             </li>
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/partyWinLoss"
                                 className="side-nav-link-ref"
                               >
@@ -139,7 +138,7 @@ const Sidebar = () => {
                             </li>
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/currentBets"
                                 className="side-nav-link-ref"
                               >
@@ -148,7 +147,7 @@ const Sidebar = () => {
                             </li>
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/userHistory"
                                 className="side-nav-link-ref"
                               >
@@ -157,7 +156,7 @@ const Sidebar = () => {
                             </li>
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/generalLock"
                                 className="side-nav-link-ref"
                               >
@@ -180,7 +179,7 @@ const Sidebar = () => {
                             </li> */}
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/turnOver"
                                 className="side-nav-link-ref"
                               >
@@ -189,7 +188,7 @@ const Sidebar = () => {
                             </li>
                             <li>
                               <Link
-                                onClick={()=> setSidebarMobile(!sidebarMobile)}
+                                onClick={() => setSidebarMobile(!sidebarMobile)}
                                 to="/userAuthentication"
                                 className="side-nav-link-ref"
                               >
@@ -202,16 +201,20 @@ const Sidebar = () => {
 
                       <li>
                         <Link
-                          onClick={()=> setSidebarMobile(!sidebarMobile)}
-                        to="/ourCasino" className="side-nav-link-ref">
+                          onClick={() => setSidebarMobile(!sidebarMobile)}
+                          to="/ourCasino"
+                          className="side-nav-link-ref"
+                        >
                           <i className="mdi mdi-cards-playing-outline"></i>
                           <span>Our Casino</span>
                         </Link>
                       </li>
                       <li>
                         <Link
-                          onClick={()=> setSidebarMobile(!sidebarMobile)}
-                        to="/virtualCasino" className="side-nav-link-ref">
+                          onClick={() => setSidebarMobile(!sidebarMobile)}
+                          to="/virtualCasino"
+                          className="side-nav-link-ref"
+                        >
                           <span className="badge badge-pill badge-success float-right">
                             New
                           </span>

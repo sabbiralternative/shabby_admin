@@ -254,7 +254,9 @@ const CreateAccount = () => {
                         type="text"
                         data-vv-as="City"
                         name="city"
-                        className="form-control animation"
+                        className={`form-control animation ${
+                          errors.city ? "is-invalid" : ""
+                        }`}
                         aria-required="false"
                         aria-invalid="false"
                       />
@@ -268,7 +270,9 @@ const CreateAccount = () => {
                         data-vv-as="Mobile Number"
                         name="mobileNumber"
                         maxLength="15"
-                        className="form-control animation"
+                        className={`form-control animation ${
+                          errors.mobileNumber ? "is-invalid" : ""
+                        }`}
                         aria-required="false"
                         aria-invalid="false"
                       />
@@ -280,7 +284,9 @@ const CreateAccount = () => {
                         placeholder="Remark"
                         data-vv-as="Remark"
                         name="remark"
-                        className="form-control"
+                        className={`form-control ${
+                          errors.remark ? "is-invalid" : ""
+                        }`}
                         aria-required="false"
                         aria-invalid="false"
                       ></textarea>

@@ -195,10 +195,10 @@ const CreditReference = ({
                           <input
                             onChange={(e) => setNewCredit(e.target.value)}
                             placeholder="Amount"
-                            type="text"
+                            type="number"
                             name="userCreditUpdateamount"
                             className={`form-control txt-right ${
-                              newCredit.length < 1 && inputIsValid
+                              (newCredit.length < 1 || newCredit < 0 )  && inputIsValid
                                 ? "is-invalid"
                                 : ""
                             } `}

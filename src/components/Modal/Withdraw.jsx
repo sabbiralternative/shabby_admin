@@ -18,8 +18,8 @@ const Withdraw = ({
   const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
-  const [amountOne, setAmountOne] = useState("");
-  const [amountTwo, setAmountTwo] = useState("");
+  const [amountOne, setAmountOne] = useState(null);
+  const [amountTwo, setAmountTwo] = useState(null);
   const [remark, setRemark] = useState("");
   const [withdrawAmount, SetWithdrawAmount] = useState("");
   const [data, setData] = useState({});
@@ -57,6 +57,7 @@ const Withdraw = ({
     const userTwo = data?.amount2 - parseFloat(e);
     setAmountTwo(userTwo);
   };
+  console.log(amountTwo);
 
   const handleWithdrawSubmit = async (e) => {
     e.preventDefault();
@@ -69,6 +70,8 @@ const Withdraw = ({
       setInputIsValid(true);
       return;
     }
+
+
     const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
       downlineId: withdrawAccountType,
@@ -202,18 +205,19 @@ const Withdraw = ({
                                 readOnly="readonly"
                                 name="userWithdrawFrmloginusramount"
                                 className="form-control txt-right"
-                                defaultValue={data?.amount}
+                                defaultValue={data?.amount?.toFixed(2)}
                               />
                             </div>
                             <div className="col-6">
                               <input
+                                
                                 placeholder="Amount"
                                 type="text"
                                 readOnly="readonly"
                                 name="userWithdrawFrmloginusrNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                  amountOne ? amountOne : data?.amount
+                                  amountOne >= 0 && amountOne !== null ? amountOne : data?.amount
                                 }
                               />
                             </div>
@@ -233,18 +237,22 @@ const Withdraw = ({
                                 readOnly="readonly"
                                 name="userWithdrawFrmusrnameamount"
                                 className="form-control txt-right"
-                                defaultValue={data?.amount2}
+                                defaultValue={data?.amount2?.toFixed(2)}
                               />
                             </div>
                             <div className="col-6">
                               <input
+                                 onChange={(e) => {
+                              handleAmount(e.target.value);
+                              SetWithdrawAmount(e.target.value);
+                            }}
                                 placeholder="Amount"
                                 type="text"
                                 readOnly="readonly"
                                 name="userWithdrawFrmusrnameNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                  amountTwo ? amountTwo : data?.amount2
+                                   amountTwo >= 0 && amountTwo !== null ? amountTwo : data?.amount2
                                 }
                               />
                             </div>
