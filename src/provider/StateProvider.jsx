@@ -19,11 +19,18 @@ const StateProvider = ({ children }) => {
   useEffect(() => {
     const logo = `${assetsUrl}/${siteUrl}/logo.png`;
     setLogo(logo);
+
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
     link.href = `${assetsUrl}/${siteUrl}/theme.css`;
     document.head.appendChild(link);
+
+    const FavIconLink = document.createElement("link");
+    FavIconLink.rel = "icon";
+    FavIconLink.type = "image/png";
+    FavIconLink.href = `${assetsUrl}/${siteUrl}/favicon.png`;
+    document.head.appendChild(FavIconLink);
 
     return () => {
       document.head.removeChild(link);
