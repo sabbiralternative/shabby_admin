@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useSecureAuthDownLine from "../../hooks/useSecureAuthDownLine";
 import useQRCODE from "../../hooks/useQRCODE";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { config } from "../../utils/config";
 import axios from "axios";
+import Error from "../../components/Notification/Error";
+import Success from "../../components/Notification/Success";
 
 const SecureAuth = () => {
+  const token = localStorage.getItem("adminToken");
   const qrValidate = config?.result?.endpoint?.qrValidate;
   const { handleSubmit, register } = useForm();
   const { secretSecureAuth } = useSecureAuthDownLine();
@@ -14,22 +17,46 @@ const SecureAuth = () => {
     secretSecureAuth?.secret
   );
 
+  const [successLogin, setSuccessLogin] = useState("");
+  const [errLogin, setErrLogin] = useState("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     refetchQrCodeAndKey();
   }, [refetchQrCodeAndKey, secretSecureAuth?.secret]);
 
   const handleLoginByQrCode = async ({ code }) => {
-    const res = await axios.post(qrValidate, {
-      code,
-      secret: qrCodeAndKey?.secret,
-      type: secretSecureAuth?.success ? "deactivate" : "activate",
-    });
+    const res = await axios.post(
+      qrValidate,
+      {
+        code,
+        secret: qrCodeAndKey?.secret,
+        type: secretSecureAuth?.success ? "deactivate" : "activate",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const result = res.data;
-    console.log(result);
+    if (result?.success) {
+      setSuccessLogin(result?.message);
+      setTimeout(() => {
+        localStorage.clear();
+        navigate("/login");
+      }, 2000);
+    } else {
+      setErrLogin(result?.message);
+    }
   };
 
   return (
     <div data-v-b00d14ae="" className="page-content">
+      {errLogin && <Error message={errLogin} setMessage={setErrLogin} />}
+      {successLogin && (
+        <Success message={successLogin} setMessage={setSuccessLogin} />
+      )}
       <div data-v-b00d14ae="">
         <div data-v-b00d14ae="" className="security-auth">
           <div className="row">
@@ -101,8 +128,6 @@ const SecureAuth = () => {
                             {...register("code")}
                             type="number"
                             name="code"
-                      
-
                           />
                           <input type="submit" className="button" />
                         </form>
