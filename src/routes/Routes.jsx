@@ -24,6 +24,7 @@ import Bank from "../../src/pages/Bank/Bank";
 import MultiLoginAccount from "../../src/pages/MultiLoginAccount/MultiLoginAccount";
 import SecureAuth from "../../src/pages/SecureAuth/SecureAuth";
 import MarketAnalysis from "../../src/pages/MarketAnalysis/MarketAnalysis";
+import VerificationLogin from "../components/VerificationLogin/VerificationLogin";
 const router = createBrowserRouter(
   [
     {
@@ -119,6 +120,10 @@ const router = createBrowserRouter(
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/verification-login",
+      element: <VerificationLogin />,
     },
     {
       path: "/change-password-login",

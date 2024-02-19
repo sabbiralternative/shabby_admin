@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
-  const { setLoginSuccess,logo } = UseContextState();
+  const { setLoginSuccess, logo } = UseContextState();
 
   const pageTitle = config?.result?.settings?.siteTitle;
   useEffect(() => {
@@ -52,8 +52,13 @@ const Login = () => {
             localStorage.getItem("adminName") &&
             data?.result?.changePassword === false
           ) {
-            setLoginSuccess("Login Success");
-            navigate("/");
+            if (data?.result?.authCode) {
+              localStorage.setItem("authCode", data?.result?.authCode);
+              navigate("/verification-login");
+            } else {
+              setLoginSuccess("Login Success");
+              navigate("/");
+            }
           } else if (
             localStorage.getItem("adminToken") &&
             localStorage.getItem("adminName") &&

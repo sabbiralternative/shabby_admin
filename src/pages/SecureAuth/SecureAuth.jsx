@@ -83,8 +83,10 @@ const SecureAuth = () => {
               <div className="text-center">
                 <b>Secure Auth Verification Status:</b>
                 <span
-                  className={`badge badge-danger ${
-                    secretSecureAuth?.success ? "badge-light" : "badge-danger"
+                  className={`badge  ${
+                    secretSecureAuth?.success
+                      ? " badge-success"
+                      : "badge-danger"
                   }`}
                 >
                   {secretSecureAuth?.success ? "Enabled" : "Disabled"}
@@ -129,7 +131,15 @@ const SecureAuth = () => {
                             type="number"
                             name="code"
                           />
-                          <input type="submit" className="button" />
+
+                          <button style={{marginLeft:'7px'}} type="submit" className={`button ${
+                    secretSecureAuth?.success
+                      ? " badge-success"
+                      : "badge-danger"
+                  }`}>
+                            {" "}
+                            {secretSecureAuth?.success ? "Enabled" : "Disabled"}
+                          </button>
                         </form>
                       </div>
                       <div style={{ textAlign: "center" }}>
