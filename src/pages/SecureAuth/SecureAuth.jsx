@@ -80,7 +80,7 @@ const SecureAuth = () => {
                         <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">
                           <img
                             className="app"
-                            src="/google.jpeg"
+                            src="/apple.jpeg"
                             style={{ width: "150px" }}
                           />
                         </a>
