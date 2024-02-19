@@ -15,7 +15,7 @@ const Navbar = () => {
   const [sidebarDesktop, setSidebarDesktop] = useState(false);
   const { sidebarMobile, setSidebarMobile,logo } = UseContextState();
   const dropdownRef = useRef();
-console.log(logo);
+// console.log(logo);
   const handleButtonClick = () => {
     if (window.innerWidth > 1000) {
       setSidebarDesktop(!sidebarDesktop);
