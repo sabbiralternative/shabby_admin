@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 import useSecureAuthDownLine from "../../hooks/useSecureAuthDownLine";
 import useQRCODE from "../../hooks/useQRCODE";
+import { useEffect } from "react";
 
 const SecureAuth = () => {
   const { secretSecureAuth } = useSecureAuthDownLine();
-  const { qrCodeAndKey } = useQRCODE(secretSecureAuth?.secret);
+  const { qrCodeAndKey, refetchQrCodeAndKey } = useQRCODE(
+    secretSecureAuth?.secret
+  );
+
+  useEffect(() => {
+    refetchQrCodeAndKey();
+  }, [refetchQrCodeAndKey, secretSecureAuth?.secret]);
 
   return (
     <div data-v-b00d14ae="" className="page-content">

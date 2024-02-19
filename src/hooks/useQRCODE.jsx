@@ -7,7 +7,7 @@ const useQRCODE = (secret) => {
   const token = localStorage.getItem("adminToken");
   const adminName = localStorage.getItem("adminName");
   const siteName = config?.result?.settings?.siteUrl;
-  const { data: qrCodeAndKey } = useQuery({
+  const { data: qrCodeAndKey,refetch:refetchQrCodeAndKey } = useQuery({
     queryKey: ["qrCode"],
     queryFn: async () => {
       const res = await axios.post(
@@ -24,11 +24,10 @@ const useQRCODE = (secret) => {
         }
       );
       const data = res.data;
-      console.log(data);
       return data;
     },
   });
-  return { qrCodeAndKey };
+  return { qrCodeAndKey,refetchQrCodeAndKey };
 };
 
 export default useQRCODE;
