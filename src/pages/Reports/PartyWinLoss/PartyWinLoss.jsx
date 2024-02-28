@@ -34,7 +34,7 @@ const PartyWinLoss = () => {
     const data = res.data;
     if (data?.status) {
       setPartyWinLossData(data?.result);
-      console.log(data);
+  
     }
   };
 

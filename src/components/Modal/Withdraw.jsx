@@ -57,7 +57,7 @@ const Withdraw = ({
     const userTwo = data?.amount2 - parseFloat(e);
     setAmountTwo(userTwo);
   };
-  console.log(amountTwo);
+
 
   const handleWithdrawSubmit = async (e) => {
     e.preventDefault();

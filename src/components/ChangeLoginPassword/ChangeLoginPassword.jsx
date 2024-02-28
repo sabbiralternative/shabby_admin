@@ -38,7 +38,7 @@ const ChangeLoginPassword = () => {
       }
     );
     const data = res.data;
-    console.log(data);
+
     if (data?.success) {
       localStorage.setItem(
         "transactionPassword",

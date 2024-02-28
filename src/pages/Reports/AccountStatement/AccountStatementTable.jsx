@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BetsDetails from "../../../components/Modal/BetsDetails";
 
-const AccountStatementTable = ({ tableRef, statementData }) => {
+const AccountStatementTable = ({ tableRef, statementData,searchUser }) => {
   const [showBetsModal,setShowBetsModal] = useState(false)
   const [marketId,setMarketId] = useState('')
   return (
@@ -114,7 +114,7 @@ const AccountStatementTable = ({ tableRef, statementData }) => {
               },
               i
             ) => {
-         
+       
               const handleSettledBets = (statementType) => {
            
                 if(statementType === 'pnl'){
@@ -182,7 +182,9 @@ const AccountStatementTable = ({ tableRef, statementData }) => {
     </div>
   {
     showBetsModal && (
-      <BetsDetails setShowBetsModal={setShowBetsModal} marketId={marketId}/>
+      <BetsDetails setShowBetsModal={setShowBetsModal} marketId={marketId}
+      searchUser={searchUser}
+      />
     )
   }
    </>

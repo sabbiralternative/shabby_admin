@@ -132,7 +132,8 @@ const AccountStatement = () => {
                                     position: "absolute",
                                     padding: "0px",
                                   }}
-                                  value={searchId ? searchId : searchUser}
+                                  
+                                  value={searchUser}
                                 />
                                 {/*   <!----> */}
                               </div>
@@ -159,10 +160,12 @@ const AccountStatement = () => {
                                       showSearchId &&
                                       users?.result?.length > 0 &&
                                       users?.result?.map((user, i) => {
+                                      
                                         return (
                                           <span
                                             onClick={() => {
                                               setSearchId(user);
+                                              setSearchUser(user)
                                               setShowSearchId(false);
                                             }}
                                             key={i}
@@ -364,6 +367,7 @@ const AccountStatement = () => {
                     <AccountStatementTable
                       statementData={statementData}
                       tableRef={tableRef}
+                      searchUser={searchUser}
                     />
                   </div>
                   <div className="row pt-3">

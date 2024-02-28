@@ -37,7 +37,7 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+
         if (data?.success) {
           localStorage.setItem("adminToken", data?.result?.token);
           localStorage.setItem("adminName", data?.result?.loginname);

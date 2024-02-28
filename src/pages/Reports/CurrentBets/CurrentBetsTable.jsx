@@ -247,7 +247,7 @@ const CurrentBetsTable = ({ betsType, filteredBetsData, tableRef }) => {
         {betsType === "sports" && (
           <tbody role="rowgroup">
             {filteredBetsData?.map((betData, i) => {
-              console.log(betData);
+            
               return (
                 <tr
                   key={i}

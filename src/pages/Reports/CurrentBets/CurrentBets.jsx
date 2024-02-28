@@ -33,7 +33,7 @@ const CurrentBets = () => {
       }
     );
     const data = res.data;
-    console.log(data);
+   
     if (data?.success) {
       setBetsData(data?.result);
     }

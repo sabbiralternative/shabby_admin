@@ -4,7 +4,7 @@ import axios from "axios";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 
-const BetsDetails = ({ setShowBetsModal, marketId }) => {
+const BetsDetails = ({ setShowBetsModal, marketId,searchUser }) => {
   const settledBetsApi = config?.result?.endpoint?.settledBets;
   const token = localStorage.getItem("adminToken");
   const [data, setData] = useState([]);
@@ -16,9 +16,11 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
     const getSettledBetsData = async () => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({
+        searchId:searchUser,
         marketId: marketId,
         token: generatedToken,
       });
+
       const res = await axios.post(
         settledBetsApi,
         encryptedData,
@@ -53,7 +55,7 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
     totalAmount = totalAmount + parseFloat(bets.win);
   }
 
-  console.log(filteredData);
+
 
   /* Close dropdown click outside the dropdown */
   useEffect(() => {
@@ -228,7 +230,7 @@ const BetsDetails = ({ setShowBetsModal, marketId }) => {
                     </thead>
                     <tbody>
                       {filteredData?.map((data, i) => {
-                        console.log(data);
+                      
                         return (
                           <tr
                             key={i}

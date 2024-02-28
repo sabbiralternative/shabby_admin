@@ -28,7 +28,7 @@ const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
     setSuccessMsg(Array(tableData?.length).fill(""));
 
     if (transactionCode?.length === 0) {
-      console.log("object");
+   
       return setTransactionErr("Please enter master password");
     }
 

@@ -18,7 +18,7 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
   useEffect(() => {
     profileData?.length > 0 &&
       profileData.map(({ betLock, userLock }) => {
-        console.log(betLock, userLock);
+   
 
         if (betLock === 0) {
           setBetLock(false);
@@ -56,7 +56,7 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
       }
     );
     const data = res.data;
-    console.log(data);
+
     if (data?.success) {
       setMoreModalSuccessNotify(data?.result?.message);
       setMoreModal(false);

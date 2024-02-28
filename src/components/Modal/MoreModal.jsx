@@ -44,7 +44,7 @@ const MoreModal = ({ moreModalAccountType }) => {
           },
         });
         const data = res.data;
-        console.log(data);
+        
         if (data.success) {
           setProfileData(data?.result);
         }
