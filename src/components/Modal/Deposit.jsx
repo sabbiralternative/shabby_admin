@@ -29,21 +29,17 @@ const Deposit = ({
   const [, refetchBalance] = UseBalance();
   useEffect(() => {
     const getReferenceData = async () => {
-      const generatedToken = UseTokenGenerator()
-      const encryptedData = UseEncryptData( {
+      const generatedToken = UseTokenGenerator();
+      const encryptedData = UseEncryptData({
         downlineId: depositAccountType,
         type: "balance",
-        token:generatedToken
-      })
-      const res = await axios.post(
-        downLineEditFormApi,
-       encryptedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        token: generatedToken,
+      });
+      const res = await axios.post(downLineEditFormApi, encryptedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = res.data;
 
       setData(data.result);
@@ -60,15 +56,15 @@ const Deposit = ({
 
   const handleDepositSubmit = async (e) => {
     e.preventDefault();
-    const generatedToken = UseTokenGenerator()
-      const encryptedData = UseEncryptData( {
-        downlineId: depositAccountType,
-        type: "deposit",
-        mpassword: transactionCode,
-        amount: depositAmount,
-        remark: remark,
-        token:generatedToken
-      })
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      downlineId: depositAccountType,
+      type: "deposit",
+      mpassword: transactionCode,
+      amount: depositAmount,
+      remark: remark,
+      token: generatedToken,
+    });
     if (
       remark.length === 0 ||
       transactionCode.length === 0 ||
@@ -77,15 +73,11 @@ const Deposit = ({
       setInputIsValid(true);
       return;
     }
-    const res = await axios.post(
-      downLineEditApi,encryptedData
-     ,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axios.post(downLineEditApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = res.data;
 
     if (data.success) {
@@ -213,7 +205,9 @@ const Deposit = ({
                                 name="userDipositeloginusrNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                  amountOne >= 0 && amountOne !== null  ? amountOne : data?.amount
+                                  amountOne !== null && !isNaN(amountOne)
+                                  ? amountOne
+                                  : data?.amount
                                 }
                               />
                             </div>
@@ -244,7 +238,9 @@ const Deposit = ({
                                 name="userDipositeusrnameNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                  amountTwo >= 0 && amountTwo !== null ? amountTwo : data?.amount2
+                                  amountTwo !== null && !isNaN(amountTwo)
+                              ? amountTwo
+                              : data?.amount2
                                 }
                               />
                             </div>

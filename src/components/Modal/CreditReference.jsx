@@ -22,7 +22,7 @@ const CreditReference = ({
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
   const [, refetchDownLine] = UseDownLineData();
-
+console.log(data);
   useEffect(() => {
     const getReferenceData = async () => {
       const generatedToken = UseTokenGenerator();
@@ -37,6 +37,7 @@ const CreditReference = ({
         },
       });
       const data = res.data;
+      console.log(data);
       setData(data.result);
     };
     getReferenceData();

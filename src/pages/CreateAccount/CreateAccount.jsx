@@ -54,19 +54,15 @@ const CreateAccount = () => {
   const checkUserValidity = async (e) => {
     setUser(e);
     const generatedToken = UseTokenGenerator();
-    const encryptedData = UseEncryptData( {
+    const encryptedData = UseEncryptData({
       username: e,
-      token:generatedToken
+      token: generatedToken,
     });
-    const res = await axios.post(
-      userCheckNameApi,
-     encryptedData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axios.post(userCheckNameApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = res.data;
     if (data.success) {
       setValidUser(true);
@@ -81,24 +77,20 @@ const CreateAccount = () => {
       return;
     }
     const generatedToken = UseTokenGenerator();
-    const encryptedData = UseEncryptData( {
+    const encryptedData = UseEncryptData({
       password: data?.password,
       confirmPassword: data?.password,
       accountType: data?.role,
       notes: data?.remark,
       loginname: user,
       mpassword: data?.transactionCode,
-      token:generatedToken
+      token: generatedToken,
     });
-    const res = await axios.post(
-      createDownLineApi,
-     encryptedData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axios.post(createDownLineApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const result = res.data;
     if (result?.success) {
       refetch();

@@ -217,7 +217,9 @@ const Withdraw = ({
                                 name="userWithdrawFrmloginusrNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                  amountOne >= 0 && amountOne !== null ? amountOne : data?.amount
+                                  amountOne !== null && !isNaN(amountOne)
+                              ? amountOne
+                              : data?.amount
                                 }
                               />
                             </div>
@@ -252,7 +254,9 @@ const Withdraw = ({
                                 name="userWithdrawFrmusrnameNamount"
                                 className="form-control txt-right"
                                 defaultValue={
-                                   amountTwo >= 0 && amountTwo !== null ? amountTwo : data?.amount2
+                                  amountTwo !== null && !isNaN(amountTwo)
+                                  ? amountTwo
+                                  : data?.amount2
                                 }
                               />
                             </div>
