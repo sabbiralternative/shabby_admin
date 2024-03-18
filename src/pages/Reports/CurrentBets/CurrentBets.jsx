@@ -19,21 +19,17 @@ const CurrentBets = () => {
 
   const handleCurrentBets = async () => {
     const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData( {
-        type: betsType,
-        token:generatedToken
-      });
-    const res = await axios.post(
-      currentBetsApi,
-     encryptedData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const encryptedData = UseEncryptData({
+      type: betsType,
+      token: generatedToken,
+    });
+    const res = await axios.post(currentBetsApi, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = res.data;
-   
+
     if (data?.success) {
       setBetsData(data?.result);
     }

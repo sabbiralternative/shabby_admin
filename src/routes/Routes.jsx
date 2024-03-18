@@ -60,7 +60,7 @@ const router = createBrowserRouter(
           element: <VirtualCasino />,
         },
         {
-          path: "/game-details/:evenTypeId/:eventId",
+          path: "/game-details/:eventTypeId/:eventId",
           element: <GameDetails />,
         },
         {

@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import MyBets from "./MyBets";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { token } from "../../utils/localStorage";
 import { config } from "../../utils/config";
 import MatchOdds from "../../components/OddsSection/MatchOdds";
 import Bookmaker from "../../components/OddsSection/Bookmaker";
@@ -11,9 +10,10 @@ import Normal from "../../components/OddsSection/Normal";
 import { useQuery } from "@tanstack/react-query";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import useIFrame from "../../hooks/useIFrame";
 
 const GameDetails = () => {
-  const { evenTypeId, eventId } = useParams();
+  const { eventTypeId, eventId } = useParams();
   const currentBetsApi = config?.result?.endpoint?.currentBets;
   const oddsApi = config?.result?.endpoint?.odds;
   const interval = config?.result?.settings?.interval;
@@ -22,6 +22,12 @@ const GameDetails = () => {
   const [bookmarker, setBookmarker] = useState([]);
   const [normal, setNormal] = useState([]);
   const [fancy1, setFancy1] = useState([]);
+  const token = localStorage.getItem("adminToken");
+  const hasVideo = match_odds?.length > 0 && match_odds[0]?.hasVideo;
+  const isHasVideo = hasVideo ? true : false;
+
+  /* get iframe */
+  const { iFrameUrl } = useIFrame(eventTypeId, eventId, isHasVideo);
 
   /* Get game details */
   useEffect(() => {
@@ -29,7 +35,7 @@ const GameDetails = () => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({ token: generatedToken });
       const res = await axios.post(
-        `${oddsApi}/${evenTypeId}/${eventId}`,
+        `${oddsApi}/${eventTypeId}/${eventId}`,
         encryptedData,
         {
           headers: {
@@ -45,7 +51,7 @@ const GameDetails = () => {
     getGameDetails();
     const intervalId = setInterval(getGameDetails, interval);
     return () => clearInterval(intervalId);
-  }, [oddsApi, evenTypeId, eventId, interval]);
+  }, [oddsApi, eventTypeId, eventId, interval,token]);
 
   /* Filtered all the game  */
   useEffect(() => {
@@ -95,9 +101,11 @@ const GameDetails = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = res.data;
+      const data = res?.data?.result;
+      
       return data;
     },
+    refetchInterval: 7000,
   });
 
   useEffect(() => {
@@ -144,7 +152,13 @@ const GameDetails = () => {
             </div>
 
             <div data-simplebar="init" className="right-sidebar">
-              <MyBets myBets={myBets} refetchCurrentBets={refetchCurrentBets} />
+              <MyBets
+                myBets={myBets}
+                refetchCurrentBets={refetchCurrentBets}
+                iFrameUrl={iFrameUrl}
+                match_odds={match_odds}
+                eventTypeId={eventTypeId}
+              />
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
-const MyBets = ({ myBets }) => {
+import { MdKeyboardArrowDown } from "react-icons/md";
+const MyBets = ({ myBets, iFrameUrl, match_odds, eventTypeId }) => {
   return (
     <>
       <div className="simplebar-wrapper" style={{ margin: "0px" }}>
@@ -12,25 +13,99 @@ const MyBets = ({ myBets }) => {
           >
             <div
               className="simplebar-content-wrapper"
-              tabIndex="0"
               role="region"
               aria-label="scrollable content"
-              style={{ height: "auto", overflow: "hidden scroll" }}
+              style={{ height: "auto", overflow: "hidden" }}
             >
               <div className="simplebar-content" style={{ padding: "0px" }}>
-                <div className="card m-b-10"></div>
+                {match_odds?.length > 0 && match_odds[0]?.hasVideo && (
+                  <div className="card m-b-10">
+                    <div
+                      data-toggle="collapse"
+                      data-target=".video-tv"
+                      aria-expanded="true"
+                      className="card-header pointer"
+                    >
+                      <h6 className="card-title">
+                        <a href="javascript:void(0)" title="">
+                          <MdKeyboardArrowDown
+                            size={25}
+                            style={{ color: "white" }}
+                            className="mr-1"
+                          />
+                        </a>
+                        Live Match
+                      </h6>
+                    </div>
+
+                    <div className="video-tv collapse show">
+                      <iframe src={iFrameUrl?.url}></iframe>
+                    </div>
+                  </div>
+                )}
+                {/* Score */}
+                {eventTypeId == 4 &&
+                  match_odds?.[0]?.score?.map((score, i) => {
+                  
+                    return (
+                      <div key={i}>
+                        <div className="scorecard">
+                          <div className="scorecard-row">
+                            <div className="score-top-row">
+                              <div className="score-team">
+                                <b>{score?.team1Name}</b>{" "}
+                                <b>{score?.team1Score}</b>
+                              </div>
+                              <div className="score-rr"></div>
+                            </div>
+                          </div>
+                          <div className="scorecard-row">
+                            <div className="score-top-row">
+                              <div className="score-team">
+                                <b>{score?.team2Name}</b> {score?.team2Score}
+                              </div>
+                              <div className="score-rr">
+                                <span>{score?.runRate}</span>
+                              </div>
+                              <div className="score-message">
+                                {score?.recent?.map((r, i) => {
+                                  
+                                  return (
+                                    <span
+                                      key={i}
+                                      className={`ball-runs mr-1 ${
+                                        r === "ww" ? "wicket" : ""
+                                      }`}
+                                    >
+                                      {r}
+                                    </span>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                {/* My bets */}
                 <div id="my-game-bets" className="card m-b-10 my-bet">
                   <div className="card-header">
                     <h6 className="card-title float-left">My Bets</h6>
-                    <a className="btn btn-back float-right">View More</a>
+                    <a
+                      href="javascript:void(0)"
+                      className="btn btn-back float-right"
+                    >
+                      View More
+                    </a>
                   </div>
                   <div className="card-body">
-                    <div className="tabs" id="__BVID__48">
+                    <div className="tabs" id="__BVID__1619">
                       <div className="">
                         <ul
                           role="tablist"
                           className="nav nav-tabs small"
-                          id="__BVID__48__BV_tab_controls_"
+                          id="__BVID__1619__BV_tab_controls_"
                         >
                           <li role="presentation" className="nav-item">
                             <a
@@ -41,8 +116,8 @@ const MyBets = ({ myBets }) => {
                               href="#"
                               target="_self"
                               className="nav-link active"
-                              id="__BVID__49___BV_tab_button__"
-                              aria-controls="__BVID__49"
+                              id="__BVID__1620___BV_tab_button__"
+                              aria-controls="__BVID__1620"
                             >
                               Matched Bets
                             </a>
@@ -51,14 +126,14 @@ const MyBets = ({ myBets }) => {
                       </div>
                       <div
                         className="tab-content"
-                        id="__BVID__48__BV_tab_container_"
+                        id="__BVID__1619__BV_tab_container_"
                       >
                         <div
                           role="tabpanel"
                           aria-hidden="false"
                           className="tab-pane active"
-                          id="__BVID__49"
-                          aria-labelledby="__BVID__49___BV_tab_button__"
+                          id="__BVID__1620"
+                          aria-labelledby="__BVID__1620___BV_tab_button__"
                         >
                           <div id="matched-bet" className="tab-pane active">
                             <div className="table-responsive">
@@ -84,40 +159,62 @@ const MyBets = ({ myBets }) => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {myBets &&
-                                    myBets?.result?.length > 0 &&
-                                    myBets?.result?.map(
-                                      (
-                                        {
-                                          nation,
-                                          betType,
-                                          amount,
-                                          userRate,
-                                          username,
-                                        },
-                                        i
-                                      ) => {
-                                        return (
-                                          <tr
-                                            key={i}
-                                            className={`${
-                                              betType === "Lay"
-                                                ? "lay-border"
-                                                : "back-border"
-                                            }`}
-                                          >
-                                            <td className="bt0">{username}</td>
-                                            <td className="bt0">{nation}</td>
-                                            <td className="text-right bt0">
-                                              {userRate}
-                                            </td>
-                                            <td className="text-right bt0">
-                                              {amount}
-                                            </td>
-                                          </tr>
-                                        );
-                                      }
-                                    )}
+                                  {myBets?.map((bets) => {
+                                    return (
+                                      <>
+                                        <tr
+                                          className={`${
+                                            bets?.betType === "Back"
+                                              ? "back-border"
+                                              : "lay-border"
+                                          }`}
+                                        >
+                                          <td colSpan="4">
+                                            <b
+                                              style={{
+                                                textTransform: "uppercase",
+                                              }}
+                                            >
+                                              {bets?.marketName}
+                                            </b>{" "}
+                                            <span className="float-right">
+                                              {bets?.placeDate}
+                                            </span>
+                                          </td>
+                                        </tr>
+                                        <tr
+                                          className={`${
+                                            bets?.betType === "Back"
+                                              ? "back-border"
+                                              : "lay-border"
+                                          }`}
+                                        >
+                                          <td className="bt0">
+                                            {bets?.username}
+                                          </td>
+                                          <td className="bt0">
+                                            {bets?.nation}
+                                          </td>
+                                          <td className="text-right bt0">
+                                            {bets?.userRate}
+                                          </td>
+                                          <td className="text-right bt0">
+                                            {bets?.amount}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td
+                                            colSpan="4"
+                                            className=""
+                                            style={{
+                                              height: "3px",
+                                              padding: "0px",
+                                            }}
+                                          ></td>
+                                        </tr>
+                                      </>
+                                    );
+                                  })}
                                 </tbody>
                               </table>
                             </div>
@@ -133,31 +230,27 @@ const MyBets = ({ myBets }) => {
         </div>
         <div
           className="simplebar-placeholder"
-          style={{ width: "auto", height: "1241px" }}
+          style={{ width: "auto", height: "692px" }}
         ></div>
       </div>
-      <div
+      {/* <div
         className="simplebar-track simplebar-horizontal"
-        style={{ visibility: "hidden" }}
+        style={{visibility:'hidden'}}
       >
         <div
           className="simplebar-scrollbar"
-          style={{ width: "0px", display: "none" }}
+          style="width: 0px; display: none;"
         ></div>
       </div>
       <div
         className="simplebar-track simplebar-vertical"
-        style={{ visibility: "visible" }}
+        style="visibility: hidden;"
       >
         <div
           className="simplebar-scrollbar"
-          style={{
-            height: "594px",
-            display: "block",
-            transform: "translate3d(0px, 0px, 0px)",
-          }}
+          style="height: 0px; display: none;"
         ></div>
-      </div>
+      </div> */}
     </>
   );
 };

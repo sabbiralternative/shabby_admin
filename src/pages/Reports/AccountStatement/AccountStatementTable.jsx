@@ -182,7 +182,9 @@ const AccountStatementTable = ({ tableRef, statementData,searchUser }) => {
     </div>
   {
     showBetsModal && (
-      <BetsDetails setShowBetsModal={setShowBetsModal} marketId={marketId}
+      <BetsDetails 
+      setShowBetsModal={setShowBetsModal}
+       marketId={marketId}
       searchUser={searchUser}
       />
     )
