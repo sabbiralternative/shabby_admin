@@ -27,18 +27,28 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
     e.preventDefault();
     const filterData = myBets?.filter((obj) => {
       return (
-        obj.username?.includes(filterBets.username) ||
-        obj.ipAddress?.includes(filterBets.ipAddress) ||
-        (parseFloat(obj?.amount) >= parseFloat(filterBets?.amountFrom) &&
-          parseFloat(obj?.amount) <= parseFloat(filterBets?.amountTo))
+        obj.username?.includes(filterBets.username) &&
+        obj.ipAddress?.includes(filterBets.ipAddress) &&
+        parseFloat(obj?.amount) >= parseFloat(filterBets?.amountFrom) &&
+        parseFloat(obj?.amount) <= parseFloat(filterBets?.amountTo)
       );
     });
     setFilterData(filterData);
   };
 
+  const handleReset = () => {
+    setFilterBets({
+      username: "",
+      ipAddress: "",
+      amountFrom: "",
+      amountTo: "",
+    });
+    setFilterData(myBets)
+  };
+
   let totalAmount = 0;
-  for (const data of filterData) {
-    totalAmount += parseFloat(data?.amount);
+  for (const d of data) {
+    totalAmount += parseFloat(d?.amount);
   }
 
   useEffect(() => {
@@ -152,6 +162,7 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
                                 <div className="col-xl-2">
                                   <label htmlFor="uname">Username</label>
                                   <input
+                                  value={filterBets.username}
                                     onChange={handleChange}
                                     name="username"
                                     type="text"
@@ -166,6 +177,7 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
                                         Amount From
                                       </label>
                                       <input
+                                      value={filterBets.amountFrom}
                                         onChange={handleChange}
                                         id="amountfrom"
                                         name="amountFrom"
@@ -179,6 +191,7 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
                                         Amount To
                                       </label>
                                       <input
+                                      value={filterBets.amountTo}
                                         onChange={handleChange}
                                         id="amountto"
                                         name="amountTo"
@@ -192,6 +205,7 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
                                 <div className="col-xl-2">
                                   <label htmlFor="amountto">IP Address</label>
                                   <input
+                                  value={filterBets.ipAddress}
                                     onChange={handleChange}
                                     id="ipaddr"
                                     name="ipAddress"
@@ -208,6 +222,7 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
                                     Search
                                   </button>
                                   <button
+                                    onClick={handleReset}
                                     type="button"
                                     className="btn btn-light"
                                   >
@@ -269,7 +284,7 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
                                   <span>Lay</span>
                                 </label>
                               </div>
-                              <div className="custom-control custom-control-inline custom-radio">
+                          {/*     <div className="custom-control custom-control-inline custom-radio">
                                 <input
                                   id="radio-group-1_BV_option_3"
                                   type="radio"
@@ -283,12 +298,12 @@ const CurrentBetsAll = ({ setShowCurrentBets, eventId }) => {
                                 >
                                   <span>Deleted</span>
                                 </label>
-                              </div>
+                              </div> */}
                             </div>
                             <div className="custom-control-inline float-right">
                               <h5>
                                 Total Soda:
-                                <span className="text-success mr-2">2</span>
+                                <span className="text-success mr-2">{data?.length}</span>
                                 Total Amount:
                                 <span className="text-success">
                                   {totalAmount}
