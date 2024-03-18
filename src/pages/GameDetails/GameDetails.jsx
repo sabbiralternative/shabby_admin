@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 import useIFrame from "../../hooks/useIFrame";
+import useExposer from "../../hooks/useExposer";
 
 const GameDetails = () => {
   const { eventTypeId, eventId } = useParams();
@@ -25,8 +26,9 @@ const GameDetails = () => {
   const token = localStorage.getItem("adminToken");
   const hasVideo = match_odds?.length > 0 && match_odds[0]?.hasVideo;
   const isHasVideo = hasVideo ? true : false;
-
+  const { exposer } = useExposer(eventId);
   /* get iframe */
+  // console.log(exposer);
   const { iFrameUrl } = useIFrame(eventTypeId, eventId, isHasVideo);
 
   /* Get game details */
@@ -129,23 +131,35 @@ const GameDetails = () => {
               <div className="market-container">
                 {match_odds && match_odds.length > 0 && (
                   <div className="market-4">
-                    <MatchOdds match_odds={match_odds} />
+                    <MatchOdds 
+                    match_odds={match_odds}
+                    exposer={exposer}
+                    />
                   </div>
                 )}
                 {bookmarker && bookmarker.length > 0 && (
                   <div className="market-4">
-                    <Bookmaker bookmarker={bookmarker} />
+                    <Bookmaker 
+                    bookmarker={bookmarker} 
+                    exposer={exposer}
+                    />
                   </div>
                 )}
 
                 {normal && normal.length > 0 && (
                   <div className="market-6">
-                    <Normal normal={normal} />
+                    <Normal 
+                    normal={normal}
+                    exposer={exposer}
+                     />
                   </div>
                 )}
                 {fancy1 && fancy1.length > 0 && (
                   <div className="market-6">
-                    <FancyOne fancyOne={fancy1} />
+                    <FancyOne 
+                    fancyOne={fancy1}
+                    exposer={ exposer}
+                    />
                   </div>
                 )}
               </div>

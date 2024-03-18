@@ -46,7 +46,6 @@ const MyBets = ({ myBets, iFrameUrl, match_odds, eventTypeId }) => {
                 {/* Score */}
                 {eventTypeId == 4 &&
                   match_odds?.[0]?.score?.map((score, i) => {
-                  
                     return (
                       <div key={i}>
                         <div className="scorecard">
@@ -69,7 +68,6 @@ const MyBets = ({ myBets, iFrameUrl, match_odds, eventTypeId }) => {
                               </div>
                               <div className="score-message">
                                 {score?.recent?.map((r, i) => {
-                                  
                                   return (
                                     <span
                                       key={i}

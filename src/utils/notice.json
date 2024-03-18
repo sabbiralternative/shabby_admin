@@ -68,7 +68,8 @@
       "settledBets": "https://admin.api7.live/api/settledBets",
       "assets": "https://api7.live/sitethemes",
       "qrCode": "https://admin.api7.live/api/qrCode",
-      "qrValidate": "https://admin.api7.live/api/qrValidate"
+      "qrValidate": "https://admin.api7.live/api/qrValidate",
+      "adminExposure": "https://admin.api7.live/api/exposure"
     }
   },
   "success": true

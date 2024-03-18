@@ -1,4 +1,9 @@
-const FancyOne = ({ fancyOne }) => {
+const FancyOne = ({ fancyOne, exposer }) => {
+  let pnlBySelection;
+  if (exposer?.pnlBySelection) {
+    const obj = exposer?.pnlBySelection;
+    pnlBySelection = Object?.values(obj);
+  }
   return (
     <div className="bet-table">
       <div className="bet-table-header">
@@ -9,7 +14,7 @@ const FancyOne = ({ fancyOne }) => {
           className="nation-name"
         >
           <span title="fancy1">
-            <a  title="">
+            <a title="">
               <img
                 src="https://g1ver.sprintstaticdata.com/v11/static/admin/img/arrow-down.svg"
                 className="mr-1"
@@ -19,9 +24,7 @@ const FancyOne = ({ fancyOne }) => {
           </span>
         </div>
         <div className="float-right">
-          <a className="btn btn-back">
-            Bet Lock
-          </a>
+          <a className="btn btn-back">Bet Lock</a>
         </div>
       </div>
       <div
@@ -36,21 +39,49 @@ const FancyOne = ({ fancyOne }) => {
         </div>
 
         {fancyOne?.map((odd) => {
+          const pnl = pnlBySelection?.filter(
+            (pnl) => pnl?.MarketId === odd?.id
+          );
+
           return (
             <div key={odd?.id} className="fancy-tripple">
               <div className="bet-table-mobile-row d-none-desktop">
                 <div className="bet-table-mobile-team-name">
                   <span>{odd?.name}</span>
-                  <span style={{ color: "rgb(153, 153, 153)" }}>0</span>
+                  {pnl &&
+                    pnl?.map(({ pnl }, i) => {
+                      return (
+                        <p
+                          key={i}
+                          className="mb-0 float-left"
+                          style={{
+                            color: `${pnl > 0 ? "green" : "red"}`,
+                          }}
+                        >
+                          {pnl}
+                        </p>
+                      );
+                    })}
                 </div>
               </div>
 
               <div data-title="" className="bet-table-row">
                 <div className="nation-name d-none-mobile">
                   <p>{odd?.name}</p>
-                  <p className="mb-0" style={{ color: "rgb(153, 153, 153)" }}>
-                    0
-                  </p>
+                  {pnl &&
+                    pnl?.map(({ pnl }, i) => {
+                      return (
+                        <p
+                          key={i}
+                          className="mb-0 "
+                          style={{
+                            color: `${pnl > 0 ? "green" : "red"}`,
+                          }}
+                        >
+                          {pnl}
+                        </p>
+                      );
+                    })}
                 </div>
 
                 {odd?.runners.map((runner) =>

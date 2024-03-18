@@ -1,5 +1,9 @@
-const Bookmaker = ({bookmarker}) => {
-
+const Bookmaker = ({bookmarker,exposer}) => {
+  let pnlBySelection;
+  if (exposer?.pnlBySelection) {
+    const obj = exposer?.pnlBySelection;
+    pnlBySelection = Object?.values(obj);
+  }
     return (
       <>
       {bookmarker.map((bookmark) => {
@@ -65,12 +69,29 @@ const Bookmaker = ({bookmarker}) => {
 
 
             {bookmark?.runners?.map((runner) => {
+                const pnl = pnlBySelection?.filter(
+                  (pnl) => pnl?.RunnerId === runner?.id
+                );
+             
                 return (
                  <>
                   <div className="bet-table-mobile-row d-none-desktop">
                   <div className="bet-table-mobile-team-name">
                     <span>{runner?.name}</span>
-                    <span style={{ color: "rgb(153, 153, 153)" }}>0</span>
+                    {pnl &&
+                    pnl?.map(({ pnl }, i) => {
+                      return (
+                        <p
+                          key={i}
+                          className="mb-0 float-left"
+                          style={{
+                            color: `${pnl > 0 ? "green" : "red"}`,
+                          }}
+                        >
+                          {pnl}
+                        </p>
+                      );
+                    })}
                     <span className="d-none">0</span>
                   </div>
                 </div>
@@ -84,12 +105,21 @@ const Bookmaker = ({bookmarker}) => {
                 >
                   <div className="nation-name d-none-mobile">
                     <p>{runner?.name}</p>
-                    <p
-                      className="mb-0 float-left"
-                      style={{ color: "rgb(153, 153, 153)" }}
-                    >
-                      0
-                    </p>
+                    {pnl &&
+                          pnl?.map(({ pnl }, i) => {
+                            return (
+                              <p
+                                key={i}
+                                className="mb-0 float-left"
+                                style={{
+                                  color: `${pnl > 0 ? "green" : "red"}`,
+                                }}
+                              >
+                                {pnl}
+                              </p>
+                            );
+                          })}
+
                     <p className="mb-0 float-right d-none">0</p>
                   </div>
 

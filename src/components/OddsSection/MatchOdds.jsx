@@ -1,4 +1,9 @@
-const MatchOdds = ({ match_odds }) => {
+const MatchOdds = ({ match_odds, exposer }) => {
+  let pnlBySelection;
+  if (exposer?.pnlBySelection) {
+    const obj = exposer?.pnlBySelection;
+    pnlBySelection = Object?.values(obj);
+  }
   return (
     <>
       {match_odds?.map((item) => {
@@ -12,7 +17,7 @@ const MatchOdds = ({ match_odds }) => {
                 className="nation-name collapsed"
               >
                 <span title="MATCH_ODDS">
-                  <a  title="">
+                  <a title="">
                     <img
                       src="https://g1ver.sprintstaticdata.com/v11/static/admin/img/arrow-down.svg"
                       className="mr-1"
@@ -22,12 +27,8 @@ const MatchOdds = ({ match_odds }) => {
                 </span>
               </div>
               <div className="float-right">
-                <a  className="btn btn-back">
-                  Bet Lock
-                </a>
-                <a  className="btn btn-back">
-                  User Book
-                </a>
+                <a className="btn btn-back">Bet Lock</a>
+                <a className="btn btn-back">User Book</a>
               </div>
             </div>
 
@@ -49,12 +50,29 @@ const MatchOdds = ({ match_odds }) => {
               </div>
 
               {item?.runners?.map((runner) => {
+                const pnl = pnlBySelection?.filter(
+                  (pnl) => pnl?.RunnerId === runner?.id
+                );
+
                 return (
                   <>
                     <div className="bet-table-mobile-row d-none-desktop">
                       <div className="bet-table-mobile-team-name">
                         <span> {runner?.name}</span>
-                        <span style={{ color: "rgb(153, 153, 153)" }}>0</span>
+                        {pnl &&
+                    pnl?.map(({ pnl }, i) => {
+                      return (
+                        <p
+                          key={i}
+                          className="mb-0 float-left"
+                          style={{
+                            color: `${pnl > 0 ? "green" : "red"}`,
+                          }}
+                        >
+                          {pnl}
+                        </p>
+                      );
+                    })}
                         <span className="d-none">0</span>
                       </div>
                     </div>
@@ -72,13 +90,23 @@ const MatchOdds = ({ match_odds }) => {
                     >
                       <div className="nation-name d-none-mobile">
                         <p> {runner?.name}</p>
-                        <p
-                          className="mb-0 float-left"
-                          style={{ color: "rgb(153, 153, 153)" }}
-                        >
-                          0
-                        </p>
-                        <p className="mb-0 float-right d-none">0</p>
+
+                        {pnl &&
+                          pnl?.map(({ pnl }, i) => {
+                            return (
+                              <p
+                                key={i}
+                                className="mb-0 float-left"
+                                style={{
+                                  color: `${pnl > 0 ? "green" : "red"}`,
+                                }}
+                              >
+                                {pnl}
+                              </p>
+                            );
+                          })}
+
+                     
                       </div>
 
                       {runner.back.length === 1 && (

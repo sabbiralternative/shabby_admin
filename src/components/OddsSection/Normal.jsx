@@ -1,4 +1,9 @@
-const Normal = ({ normal }) => {
+const Normal = ({ normal, exposer }) => {
+  let pnlBySelection;
+  if (exposer?.pnlBySelection) {
+    const obj = exposer?.pnlBySelection;
+    pnlBySelection = Object?.values(obj);
+  }
   return (
     <div className="bet-table">
       <div className="bet-table-header">
@@ -9,7 +14,7 @@ const Normal = ({ normal }) => {
           className="nation-name"
         >
           <span title="Normal">
-            <a  title="">
+            <a title="">
               <img
                 src="https://g1ver.sprintstaticdata.com/v11/static/admin/img/arrow-down.svg"
                 className="mr-1"
@@ -19,9 +24,7 @@ const Normal = ({ normal }) => {
           </span>
         </div>
         <div className="float-right">
-          <a className="btn btn-back">
-            Bet Lock
-          </a>
+          <a className="btn btn-back">Bet Lock</a>
         </div>
       </div>
 
@@ -37,12 +40,29 @@ const Normal = ({ normal }) => {
         </div>
 
         {normal?.map((fancyGame) => {
+          const pnl = pnlBySelection?.filter(
+            (pnl) => pnl?.MarketId === fancyGame?.id
+          );
+
           return (
             <div key={fancyGame?.id} className="fancy-tripple">
               <div className="bet-table-mobile-row d-none-desktop">
                 <div className="bet-table-mobile-team-name">
                   <span>{fancyGame?.name}</span>
-                  <span style={{ color: "rgb(153, 153, 153)" }}>0</span>
+                  {pnl &&
+                    pnl?.map(({ pnl }, i) => {
+                      return (
+                        <p
+                          key={i}
+                          className="mb-0 float-left"
+                          style={{
+                            color: `${pnl > 0 ? "green" : "red"}`,
+                          }}
+                        >
+                          {pnl}
+                        </p>
+                      );
+                    })}
                 </div>
               </div>
               <div
@@ -58,9 +78,20 @@ const Normal = ({ normal }) => {
                 {/*  <!-- suspendedfull--> */}
                 <div className="nation-name d-none-mobile">
                   <p> {fancyGame?.name}</p>
-                  <p className="mb-0" style={{ color: "rgb(153, 153, 153)" }}>
-                    0
-                  </p>
+                  {pnl &&
+                    pnl?.map(({ pnl }, i) => {
+                      return (
+                        <p
+                          key={i}
+                          className="mb-0 float-left"
+                          style={{
+                            color: `${pnl > 0 ? "green" : "red"}`,
+                          }}
+                        >
+                          {pnl}
+                        </p>
+                      );
+                    })}
                 </div>
 
                 {fancyGame?.runners.map((runner) =>
