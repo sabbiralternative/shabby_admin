@@ -8,15 +8,12 @@ import StateProvider from "./provider/StateProvider.jsx";
 const queryClient = new QueryClient();
 import "rsuite/dist/rsuite.css";
 
-
-
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-    <StateProvider>
-    <RouterProvider router={router}></RouterProvider>
-    </StateProvider>
+      <StateProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </StateProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

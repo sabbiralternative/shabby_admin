@@ -1,7 +1,20 @@
-import { MdKeyboardArrowDown } from "react-icons/md";
-const MyBets = ({ myBets, iFrameUrl, match_odds, eventTypeId }) => {
+import { useState } from "react";
+import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
+import CurrentBetsAll from "../../components/Modal/CurrentBetsAll";
+const MyBets = ({ myBets, iFrameUrl, match_odds, eventTypeId,eventId }) => {
+  const [showIFrame, setShowIFrame] = useState(true);
+  const [showCurrentBets,setShowCurrentBets] = useState(false)
   return (
     <>
+   {
+    showCurrentBets && (
+      <CurrentBetsAll 
+      setShowCurrentBets={setShowCurrentBets}
+      showCurrentBets={showCurrentBets}
+      eventId={eventId}
+      />
+    )
+   }
       <div className="simplebar-wrapper" style={{ margin: "0px" }}>
         <div className="simplebar-height-auto-observer-wrapper">
           <div className="simplebar-height-auto-observer"></div>
@@ -20,27 +33,37 @@ const MyBets = ({ myBets, iFrameUrl, match_odds, eventTypeId }) => {
               <div className="simplebar-content" style={{ padding: "0px" }}>
                 {match_odds?.length > 0 && match_odds[0]?.hasVideo && (
                   <div className="card m-b-10">
-                    <div
+                    <div onClick={()=> setShowIFrame((prev)=> !prev)}
                       data-toggle="collapse"
                       data-target=".video-tv"
                       aria-expanded="true"
                       className="card-header pointer"
                     >
                       <h6 className="card-title">
-                        <a href="javascript:void(0)" title="">
-                          <MdKeyboardArrowDown
-                            size={25}
-                            style={{ color: "white" }}
-                            className="mr-1"
-                          />
+                        <a >
+                          {showIFrame ? (
+                            <MdKeyboardArrowDown
+                              size={25}
+                              style={{ color: "white" }}
+                              className="mr-1"
+                            />
+                          ) : (
+                            <MdKeyboardArrowRight
+                              size={25}
+                              style={{ color: "white" }}
+                              className="mr-1"
+                            />
+                          )}
                         </a>
                         Live Match
                       </h6>
                     </div>
 
-                    <div className="video-tv collapse show">
-                      <iframe src={iFrameUrl?.url}></iframe>
-                    </div>
+                   {showIFrame && (
+                     <div className="video-tv collapse show">
+                     <iframe src={iFrameUrl?.url}></iframe>
+                   </div>
+                   )}
                   </div>
                 )}
                 {/* Score */}
@@ -91,7 +114,7 @@ const MyBets = ({ myBets, iFrameUrl, match_odds, eventTypeId }) => {
                   <div className="card-header">
                     <h6 className="card-title float-left">My Bets</h6>
                     <a
-                      href="javascript:void(0)"
+                    onClick={()=> setShowCurrentBets(true)}
                       className="btn btn-back float-right"
                     >
                       View More

@@ -1,4 +1,5 @@
-const Bookmaker = ({ bookmarker, exposer }) => {
+const Bookmaker2 = ({ bookmaker2, exposer }) => {
+
   let pnlBySelection;
   if (exposer?.pnlBySelection) {
     const obj = exposer?.pnlBySelection;
@@ -6,7 +7,7 @@ const Bookmaker = ({ bookmarker, exposer }) => {
   }
   return (
     <>
-      {bookmarker.map((bookmark) => {
+      {bookmaker2?.map((bookmark) => {
         return (
           <div key={bookmark.id} className="bet-table">
             <div className="bet-table-header">
@@ -98,6 +99,7 @@ const Bookmaker = ({ bookmarker, exposer }) => {
 
                         <p className="mb-0 float-right d-none">0</p>
                       </div>
+
                       <div
                         className={`bl-box back2 
                          `}
@@ -137,69 +139,87 @@ const Bookmaker = ({ bookmarker, exposer }) => {
                           {runner?.back?.[0]?.size || "-"}
                         </span>
                       </div>
-                      {runner?.lay?.map((lay, i) => {
-                        return (
-                          <div
-                            key={i}
-                            className={`bl-box ${i === 0 ? "lay" : ""} ${
-                              i === 1 ? "lay1" : ""
-                            } ${i === 2 ? "lay2" : ""} `}
-                          >
-                            {lay?.price || lay?.size ? (
-                              <>
-                                <span className="d-block odds">
-                                  {lay?.price}
-                                </span>
-                                <span className="d-block"> {lay?.size}</span>
-                              </>
-                            ) : (
-                              <span className="d-block odds">-</span>
-                            )}
-                          </div>
-                        );
-                      })}
+                      <div
+                        className={`bl-box lay
+                         `}
+                      >
+                        <span className="d-block odds">
+                          {" "}
+                          {runner?.lay?.[0]?.price || "-"}
+                        </span>
+                        <span className="d-block">
+                          {" "}
+                          {runner?.lay?.[0]?.size || "-"}
+                        </span>
+                      </div>
+                      <div
+                        className={`bl-box lay1
+                         `}
+                      >
+                        <span className="d-block odds">
+                          {" "}
+                          {runner?.lay?.[1]?.price || "-"}
+                        </span>
+                        <span className="d-block">
+                          {" "}
+                          {runner?.lay?.[1]?.size || "-"}
+                        </span>
+                      </div>
+                      <div
+                        className={`bl-box lay2
+                         `}
+                      >
+                        <span className="d-block odds">
+                          {" "}
+                          {runner?.lay?.[2]?.price || "-"}
+                        </span>
+                        <span className="d-block">
+                          {" "}
+                          {runner?.lay?.[2]?.size || "-"}
+                        </span>
+                      </div>
                     </div>
                   </>
                 );
               })}
 
               {/* <div className="bet-table-mobile-row d-none-desktop">
-              <div className="bet-table-mobile-team-name">
-                <span>New Zealand</span>
-                <span style={{ color: "rgb(153, 153, 153)" }}>0</span>
-                <span className="d-none">0</span>
+                <div className="bet-table-mobile-team-name">
+                  <span>New Zealand</span>
+                  <span style={{ color: "rgb(153, 153, 153)" }}>0</span>
+                  <span className="d-none">0</span>
+                </div>
               </div>
-            </div>
-            <div data-title="SUSPENDED" className="bet-table-row">
-              <div className="nation-name d-none-mobile">
-                <p>New Zealand</p>
-                <p
-                  className="mb-0 float-left"
-                  style={{ color: "rgb(153, 153, 153)" }}
-                >
-                  0
-                </p>
-                <p className="mb-0 float-right d-none">0</p>
-              </div>
-              <div className="bl-box back back2 no-val">
-                <span className="d-block odds">—</span>
-              </div>
-              <div className="bl-box back back1 no-val">
-                <span className="d-block odds">—</span>
-              </div>
-              <div className="bl-box back back no-val">
-                <span className="d-block odds">—</span>
-              </div>
-              <div className="bl-box lay lay no-val">
-                <span className="d-block odds">—</span>
-              </div>
-              <div className="bl-box lay lay1 no-val">
-                <span className="d-block odds">—</span>
-              </div>
-              <div className="bl-box lay lay2 no-val">
-                <span className="d-block odds">—</span>
-              </div>
-            </div> */}
+              <div data-title="SUSPENDED" className="bet-table-row">
+                <div className="nation-name d-none-mobile">
+                  <p>New Zealand</p>
+                  <p
+                    className="mb-0 float-left"
+                    style={{ color: "rgb(153, 153, 153)" }}
+                  >
+                    0
+                  </p>
+                  <p className="mb-0 float-right d-none">0</p>
+                </div>
+                <div className="bl-box back back2 no-val">
+                  <span className="d-block odds">—</span>
+                </div>
+                <div className="bl-box back back1 no-val">
+                  <span className="d-block odds">—</span>
+                </div>
+                <div className="bl-box back back no-val">
+                  <span className="d-block odds">—</span>
+                </div>
+                <div className="bl-box lay lay no-val">
+                  <span className="d-block odds">—</span>
+                </div>
+                <div className="bl-box lay lay1 no-val">
+                  <span className="d-block odds">—</span>
+                </div>
+                <div className="bl-box lay lay2 no-val">
+                  <span className="d-block odds">—</span>
+                </div>
+              </div> */}
             </div>
           </div>
         );
@@ -208,4 +228,4 @@ const Bookmaker = ({ bookmarker, exposer }) => {
   );
 };
 
-export default Bookmaker;
+export default Bookmaker2;

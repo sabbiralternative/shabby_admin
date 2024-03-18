@@ -7,20 +7,21 @@ import MatchOdds from "../../components/OddsSection/MatchOdds";
 import Bookmaker from "../../components/OddsSection/Bookmaker";
 import FancyOne from "../../components/OddsSection/FancyOne";
 import Normal from "../../components/OddsSection/Normal";
-import { useQuery } from "@tanstack/react-query";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 import useIFrame from "../../hooks/useIFrame";
 import useExposer from "../../hooks/useExposer";
+import Bookmaker2 from "../../components/OddsSection/Bookmaker2";
+import useCurrentBets from "../../hooks/useCurrentBets";
 
 const GameDetails = () => {
   const { eventTypeId, eventId } = useParams();
-  const currentBetsApi = config?.result?.endpoint?.currentBets;
   const oddsApi = config?.result?.endpoint?.odds;
   const interval = config?.result?.settings?.interval;
   const [data, setData] = useState([]);
   const [match_odds, setMatch_odds] = useState([]);
   const [bookmarker, setBookmarker] = useState([]);
+  const [bookmarker2, setBookmarker2] = useState([]);
   const [normal, setNormal] = useState([]);
   const [fancy1, setFancy1] = useState([]);
   const token = localStorage.getItem("adminToken");
@@ -30,7 +31,8 @@ const GameDetails = () => {
   /* get iframe */
   // console.log(exposer);
   const { iFrameUrl } = useIFrame(eventTypeId, eventId, isHasVideo);
-
+  const { myBets, refetchCurrentBets } = useCurrentBets(eventId);
+  // console.log(data);
   /* Get game details */
   useEffect(() => {
     const getGameDetails = async () => {
@@ -53,7 +55,7 @@ const GameDetails = () => {
     getGameDetails();
     const intervalId = setInterval(getGameDetails, interval);
     return () => clearInterval(intervalId);
-  }, [oddsApi, eventTypeId, eventId, interval,token]);
+  }, [oddsApi, eventTypeId, eventId, interval, token]);
 
   /* Filtered all the game  */
   useEffect(() => {
@@ -67,10 +69,10 @@ const GameDetails = () => {
     );
     setBookmarker(bookmarkerFilter);
 
-    // const filterBookmarker2 = data.filter(
-    //   (bookmarker2) => bookmarker2.btype === "BOOKMAKER2"
-    // );
-    // setBookmarker2(filterBookmarker2);
+    const filterBookmarker2 = data.filter(
+      (bookmarker2) => bookmarker2.btype === "BOOKMAKER2"
+    );
+    setBookmarker2(filterBookmarker2);
 
     const normalFilter = data.filter(
       (normal) => normal.btype === "FANCY" && normal.tabGroupName === "Normal"
@@ -89,26 +91,7 @@ const GameDetails = () => {
     // );
     // setOverByOver(overByOverFilter);
   }, [data]);
-
-  const { data: myBets, refetch: refetchCurrentBets } = useQuery({
-    queryKey: ["currentBets"],
-    queryFn: async () => {
-      const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData({
-        type: eventId,
-        token: generatedToken,
-      });
-      const res = await axios.post(`${currentBetsApi}`, encryptedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = res?.data?.result;
-      
-      return data;
-    },
-    refetchInterval: 7000,
-  });
+ 
 
   useEffect(() => {
     const intervalId = setInterval(refetchCurrentBets, 10000);
@@ -131,35 +114,28 @@ const GameDetails = () => {
               <div className="market-container">
                 {match_odds && match_odds.length > 0 && (
                   <div className="market-4">
-                    <MatchOdds 
-                    match_odds={match_odds}
-                    exposer={exposer}
-                    />
+                    <MatchOdds match_odds={match_odds} exposer={exposer} />
                   </div>
                 )}
                 {bookmarker && bookmarker.length > 0 && (
                   <div className="market-4">
-                    <Bookmaker 
-                    bookmarker={bookmarker} 
-                    exposer={exposer}
-                    />
+                    <Bookmaker bookmarker={bookmarker} exposer={exposer} />
+                  </div>
+                )}
+                {bookmarker2 && bookmarker2.length > 0 && (
+                  <div className="market-4">
+                    <Bookmaker2 bookmaker2={bookmarker2} exposer={exposer} />
                   </div>
                 )}
 
                 {normal && normal.length > 0 && (
                   <div className="market-6">
-                    <Normal 
-                    normal={normal}
-                    exposer={exposer}
-                     />
+                    <Normal normal={normal} exposer={exposer} />
                   </div>
                 )}
                 {fancy1 && fancy1.length > 0 && (
                   <div className="market-6">
-                    <FancyOne 
-                    fancyOne={fancy1}
-                    exposer={ exposer}
-                    />
+                    <FancyOne fancyOne={fancy1} exposer={exposer} />
                   </div>
                 )}
               </div>
@@ -172,6 +148,7 @@ const GameDetails = () => {
                 iFrameUrl={iFrameUrl}
                 match_odds={match_odds}
                 eventTypeId={eventTypeId}
+                eventId={eventId}
               />
             </div>
           </div>
