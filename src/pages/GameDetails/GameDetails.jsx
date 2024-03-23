@@ -108,35 +108,35 @@ const GameDetails = () => {
           <div className="center-main-container">
             <div className="center-content">
               <div className="game-header sport4">
-                <span className="game-header-name">{data[0]?.eventName}</span>
+                <span className="game-header-name">{data?.[0]?.eventName}</span>
                 <span>
-                  <span>{data[0]?.openDate}</span>
+                  <span>{data?.[0]?.openDate}</span>
                 </span>
               </div>
 
               <div className="market-container">
-                {match_odds && match_odds.length > 0 && (
+                {match_odds && match_odds?.length > 0 && (
                   <div className="market-4">
                     <MatchOdds match_odds={match_odds} exposer={exposer} />
                   </div>
                 )}
-                {bookmarker && bookmarker.length > 0 && (
+                {bookmarker && bookmarker?.length > 0 && (
                   <div className="market-4">
                     <Bookmaker bookmarker={bookmarker} exposer={exposer} />
                   </div>
                 )}
-                {bookmarker2 && bookmarker2.length > 0 && (
+                {bookmarker2 && bookmarker2?.length > 0 && (
                   <div className="market-4">
                     <Bookmaker2 bookmaker2={bookmarker2} exposer={exposer} />
                   </div>
                 )}
 
-                {normal && normal.length > 0 && (
+                {normal && normal?.length > 0 && (
                   <div className="market-6">
                     <Normal normal={normal} exposer={exposer} />
                   </div>
                 )}
-                {fancy1 && fancy1.length > 0 && (
+                {fancy1 && fancy1?.length > 0 && (
                   <div className="market-6">
                     <FancyOne fancyOne={fancy1} exposer={exposer} />
                   </div>
