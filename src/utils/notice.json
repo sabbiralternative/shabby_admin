@@ -9,7 +9,8 @@
       "siteUrl": "winbuzz365.co",
       "interval": "1000",
       "URL": "shabby247.com",
-      "casino": "aura"
+      "casino": "aura",
+      "disabledDevtool": true
     },
     "endpoint": {
       "login": "https://admin.api7.live/api/login",
