@@ -49,7 +49,9 @@ const GameDetails = () => {
       );
       const data = res.data;
       if (data.success) {
-        setData(data.result);
+        if (data?.result) {
+          setData(data.result);
+        }
       }
     };
     getGameDetails();
@@ -59,39 +61,40 @@ const GameDetails = () => {
 
   /* Filtered all the game  */
   useEffect(() => {
-    const filterMatch_odds = data.filter(
-      (match_odd) => match_odd.btype === "MATCH_ODDS"
-    );
-    setMatch_odds(filterMatch_odds);
+    if (data?.length > 0) {
+      const filterMatch_odds = data.filter(
+        (match_odd) => match_odd.btype === "MATCH_ODDS"
+      );
+      setMatch_odds(filterMatch_odds);
 
-    const bookmarkerFilter = data.filter(
-      (bookmarker) => bookmarker.btype === "BOOKMAKER"
-    );
-    setBookmarker(bookmarkerFilter);
+      const bookmarkerFilter = data.filter(
+        (bookmarker) => bookmarker.btype === "BOOKMAKER"
+      );
+      setBookmarker(bookmarkerFilter);
 
-    const filterBookmarker2 = data.filter(
-      (bookmarker2) => bookmarker2.btype === "BOOKMAKER2"
-    );
-    setBookmarker2(filterBookmarker2);
+      const filterBookmarker2 = data.filter(
+        (bookmarker2) => bookmarker2.btype === "BOOKMAKER2"
+      );
+      setBookmarker2(filterBookmarker2);
 
-    const normalFilter = data.filter(
-      (normal) => normal.btype === "FANCY" && normal.tabGroupName === "Normal"
-    );
-    setNormal(normalFilter);
+      const normalFilter = data.filter(
+        (normal) => normal.btype === "FANCY" && normal.tabGroupName === "Normal"
+      );
+      setNormal(normalFilter);
 
-    const fancy1Filter = data.filter(
-      (fancy1) => fancy1.btype === "ODDS" && fancy1.tabGroupName === "Fancy1"
-    );
-    setFancy1(fancy1Filter);
+      const fancy1Filter = data.filter(
+        (fancy1) => fancy1.btype === "ODDS" && fancy1.tabGroupName === "Fancy1"
+      );
+      setFancy1(fancy1Filter);
 
-    // const overByOverFilter = data.filter(
-    //   (overByOver) =>
-    //     overByOver.btype === "FANCY" &&
-    //     overByOver.tabGroupName === "Over By Over"
-    // );
-    // setOverByOver(overByOverFilter);
+      // const overByOverFilter = data.filter(
+      //   (overByOver) =>
+      //     overByOver.btype === "FANCY" &&
+      //     overByOver.tabGroupName === "Over By Over"
+      // );
+      // setOverByOver(overByOverFilter);
+    }
   }, [data]);
- 
 
   useEffect(() => {
     const intervalId = setInterval(refetchCurrentBets, 10000);
