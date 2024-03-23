@@ -264,7 +264,7 @@ const CurrentBetsTable = ({ betsType, filteredBetsData, tableRef }) => {
                     {betData?.eventName}
                   </td>
                   <td aria-colindex="3" role="cell" className="">
-                    alex12
+                    {betData?.username}
                   </td>
                   <td aria-colindex="4" role="cell" className="">
                     {betData?.marketName}
