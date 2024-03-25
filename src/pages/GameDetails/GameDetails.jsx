@@ -24,7 +24,6 @@ const GameDetails = () => {
   const [bookmarker2, setBookmarker2] = useState([]);
   const [normal, setNormal] = useState([]);
   const [fancy1, setFancy1] = useState([]);
-  const token = localStorage.getItem("adminToken");
   const hasVideo = match_odds?.length > 0 && match_odds[0]?.hasVideo;
   const isHasVideo = hasVideo ? true : false;
   const { exposer } = useExposer(eventId);
@@ -40,12 +39,7 @@ const GameDetails = () => {
       const encryptedData = UseEncryptData({ token: generatedToken });
       const res = await axios.post(
         `${oddsApi}/${eventTypeId}/${eventId}`,
-        encryptedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        encryptedData
       );
       const data = res.data;
       if (data.success) {
@@ -57,7 +51,7 @@ const GameDetails = () => {
     getGameDetails();
     const intervalId = setInterval(getGameDetails, interval);
     return () => clearInterval(intervalId);
-  }, [oddsApi, eventTypeId, eventId, interval, token]);
+  }, [oddsApi, eventTypeId, eventId, interval]);
 
   /* Filtered all the game  */
   useEffect(() => {

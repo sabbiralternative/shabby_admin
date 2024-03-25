@@ -9,7 +9,6 @@ const OurCasinoPage = () => {
   const diamondCasinoUrl = config?.result?.endpoint?.diamondCasino;
   const auraCasinoApi = config?.result?.endpoint?.auraCasino;
   const casinoType = config?.result?.settings?.casino;
-  const token = localStorage.getItem("adminToken");
   const [data, setData] = useState([]);
   const [casino_list, setCasino_list] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -23,12 +22,7 @@ const OurCasinoPage = () => {
       const res = await axios.get(
         `${casinoType == "aura" ? auraCasinoApi : ""} ${
           casinoType == "diamond" ? diamondCasinoUrl : ""
-        }`,encryptedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        }`,encryptedData
       );
       const data = res.data;
       const sort = data.sort((Link, b) => Link.sort - b.sort);
@@ -36,7 +30,7 @@ const OurCasinoPage = () => {
       setCasino_list(sort);
     };
     getAuraCasino();
-  }, [diamondCasinoUrl, auraCasinoApi, casinoType, token, filterGames]);
+  }, [diamondCasinoUrl, auraCasinoApi, casinoType, filterGames]);
 
   useEffect(() => {
     const categories = Array.from(new Set(data.map((item) => item.category)));

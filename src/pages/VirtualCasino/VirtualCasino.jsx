@@ -6,7 +6,7 @@ import UseEncryptData from "../../hooks/UseEncryptData";
 
 const VirtualCasino = () => {
   const virtualGamesApi = config?.result?.endpoint?.virtualCasino;
-  const token = localStorage.getItem("adminToken");
+
   const [virtualGames, setVirtualGames] = useState([]);
  
 
@@ -16,14 +16,12 @@ const VirtualCasino = () => {
       const encryptedData = UseEncryptData({
         token:generatedToken
       });
-      const res = await axios.post(virtualGamesApi, encryptedData,{
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.post(virtualGamesApi, encryptedData);
       const data = res.data;
       setVirtualGames(data);
     };
     getVirtualGames();
-  }, [token, virtualGamesApi]);
+  }, [ virtualGamesApi]);
   return (
     <div data-v-b00d14ae="" className="page-content">
       {/*       <!----> */}

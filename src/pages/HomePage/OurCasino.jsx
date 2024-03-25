@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { config } from "../../utils/config";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { token } from "../../utils/localStorage";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 
@@ -20,12 +19,7 @@ const OurCasino = () => {
       const res = await axios.post(
         `${isCasino == "aura" ? auraCasinoApi : ""} ${
           isCasino == "diamond" ? diamondCasinoApi : ""
-        }`,encryptedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        }`,encryptedData
       );
       const data = res.data;
       setCasino_list(data);
