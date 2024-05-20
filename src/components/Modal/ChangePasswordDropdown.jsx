@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { config } from "../../utils/config";
 import UseContextState from "../../hooks/UseContextState";
 import Success from "../Notification/Success";
 import { useNavigate } from "react-router-dom";
 import Error from "../Notification/Error";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
   const {
@@ -16,10 +16,8 @@ const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
     formState: { errors },
   } = useForm();
   const [error, setError] = useState("");
-  const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
-  const { changePassNotify, setChangePassNotify } =
-    UseContextState();
+  const { changePassNotify, setChangePassNotify } = UseContextState();
   const navigate = useNavigate();
   const [passChangeErr, setPassChangeErr] = useState("");
 
@@ -40,7 +38,7 @@ const ChangePasswordDropdown = ({ setChangePassDropdown }) => {
       type: "panel",
       token: generatedToken,
     });
-    const res = await axios.post(changePasswordApi, encryptedData, {
+    const res = await axios.post(API.changePassword, encryptedData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = res.data;

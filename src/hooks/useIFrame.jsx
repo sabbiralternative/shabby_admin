@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import UseTokenGenerator from "./UseTokenGenerator";
 import UseEncryptData from "./UseEncryptData";
-import { config } from "../utils/config";
+import { API } from "../utils";
+
 
 /* Iframe  api  */
 const useIFrame = (eventTypeId, eventId, hasVideo) => {
-  const accessTokenApi = config?.result?.endpoint?.accessToken;
   const token = localStorage.getItem("adminToken");
   const { data: iFrameUrl } = useQuery({
     queryKey: ["iframeVideo"],
@@ -20,7 +20,7 @@ const useIFrame = (eventTypeId, eventId, hasVideo) => {
         type: "video",
         token: generatedToken,
       });
-      const res = await axios.post(accessTokenApi, encryptedVideoData, {
+      const res = await axios.post(API.accessToken, encryptedVideoData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { config } from "../../utils/config";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +6,7 @@ import Error from "../../components/Notification/Error";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const userType = [
   {
@@ -33,8 +33,6 @@ const userType = [
 ];
 
 const CreateAccount = () => {
-  const createDownLineApi = config?.result?.endpoint?.createDownLine;
-  const userCheckNameApi = config?.result?.endpoint?.checkUsername;
   const token = localStorage.getItem("adminToken");
   const role = localStorage.getItem("adminRole");
   const [user, setUser] = useState("");
@@ -58,7 +56,7 @@ const CreateAccount = () => {
       username: e,
       token: generatedToken,
     });
-    const res = await axios.post(userCheckNameApi, encryptedData, {
+    const res = await axios.post(API.checkUsername, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -86,7 +84,7 @@ const CreateAccount = () => {
       mpassword: data?.transactionCode,
       token: generatedToken,
     });
-    const res = await axios.post(createDownLineApi, encryptedData, {
+    const res = await axios.post(API.createDownLine, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

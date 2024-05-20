@@ -1,12 +1,12 @@
-import { config } from "../../utils/config";
+
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 const MarketAnalysis = () => {
-  const marketAnalysisApi = config?.result?.endpoint?.marketAnalysis;
   const token = localStorage.getItem("adminToken");
   const [loading, setLoading] = useState(false);
   const { data: marketAnalysisData, refetch: refetchMarketAnalysis } = useQuery(
@@ -15,7 +15,7 @@ const MarketAnalysis = () => {
       queryFn: async () => {
         const generatedToken = UseTokenGenerator();
         const encryptedData = UseEncryptData({ token: generatedToken });
-        const res = await axios.post(marketAnalysisApi, encryptedData, {
+        const res = await axios.post(API.marketAnalysis, encryptedData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

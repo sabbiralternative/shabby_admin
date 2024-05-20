@@ -3,18 +3,17 @@ import UseDatePicker from "../../../hooks/UseDatePicker";
 import UseSearchUser from "../../../hooks/UseSearchUser";
 import AccountStatementTable from "./AccountStatementTable";
 import { Link } from "react-router-dom";
-import { config } from "../../../utils/config";
 import axios from "axios";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { DateRangePicker } from "rsuite";
 import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../../hooks/UseEncryptData";
+import { API } from "../../../utils";
 
 const AccountStatement = () => {
   const tableRef = useRef(null);
   const token = localStorage.getItem("adminToken");
-  const accountStatementApi = config?.result?.endpoint?.accountStatement;
   const [searchId, setSearchId] = useState("");
   const [showStatement, setShowStatement] = useState("1");
   const [statement, setStatement] = useState("");
@@ -43,7 +42,7 @@ const AccountStatement = () => {
       statement: statement,
       token: generatedToken,
     });
-    const res = await axios.post(accountStatementApi, encryptedData, {
+    const res = await axios.post(API.accountStatement, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

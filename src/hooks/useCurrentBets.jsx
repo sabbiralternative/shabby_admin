@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import UseTokenGenerator from "./UseTokenGenerator";
 import UseEncryptData from "./UseEncryptData";
 import axios from "axios";
-import { config } from "../utils/config";
+import { API } from "../utils";
+
 
 const useCurrentBets = (eventId) => {
-  const currentBetsApi = config?.result?.endpoint?.currentBets;
   const token = localStorage.getItem("adminToken");
   const { data: myBets, refetch: refetchCurrentBets } = useQuery({
     queryKey: ["currentBets"],
@@ -15,7 +15,7 @@ const useCurrentBets = (eventId) => {
         type: eventId,
         token: generatedToken,
       });
-      const res = await axios.post(`${currentBetsApi}`, encryptedData, {
+      const res = await axios.post(`${API.currentBets}`, encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

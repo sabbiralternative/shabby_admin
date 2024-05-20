@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import UseBalance from "../../hooks/UseBalance";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
   const [, refetchBalance] = UseBalance();
   const [clientPnls, setClientPnls] = useState(
     Array(tableData?.length).fill("")
   );
-  const downLineEdit = config?.result?.endpoint?.downLineEdit;
+
   const token = localStorage.getItem("adminToken");
   const [errorMsg, setErrorMsg] = useState(Array(tableData?.length).fill(""));
   const [successMsg, setSuccessMsg] = useState(
@@ -41,7 +41,7 @@ const BankTable = ({ data: tableData, transactionCode, refetch, tableRef }) => {
       mpassword: transactionCode,
       token: generatedToken,
     });
-    const res = await axios.post(downLineEdit, encryptedData, {
+    const res = await axios.post(API.downLineEdit, encryptedData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

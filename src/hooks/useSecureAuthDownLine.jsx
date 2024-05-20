@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { config } from "../utils/config";
+
 import UseTokenGenerator from "./UseTokenGenerator";
 import UseEncryptData from "./UseEncryptData";
+import { API } from "../utils";
 
 const useSecureAuthDownLine = () => {
-  const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
+
   const token = localStorage.getItem("adminToken");
   const { data: secretSecureAuth } = useQuery({
     queryKey: ["secureAuth"],
@@ -15,7 +16,7 @@ const useSecureAuthDownLine = () => {
         type: "secureAuth",
         token: generatedToken,
       });
-      const res = await axios.post(downLineEditFormApi, encryptedData, {
+      const res = await axios.post(API.downLineEditForm, encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

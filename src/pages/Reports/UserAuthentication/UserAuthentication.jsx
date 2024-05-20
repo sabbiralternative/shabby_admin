@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { config } from "../../../utils/config";
+
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,9 +7,9 @@ import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../../hooks/UseEncryptData";
+import { API } from "../../../utils";
 const UserAuthentication = () => {
   const tableRef = useRef(null);
-  const userAuthenticationApi = config?.result?.endpoint?.userAuthentication;
   const token = localStorage.getItem("adminToken");
   const [users, setUsers] = useState([]);
   const { exportPdf } = UseExportToPdf();
@@ -20,7 +20,7 @@ const UserAuthentication = () => {
       const encryptedData = UseEncryptData({
         token: generatedToken,
       });
-      const res = await axios.post(userAuthenticationApi, encryptedData, {
+      const res = await axios.post(API.userAuthentication, encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,7 +31,7 @@ const UserAuthentication = () => {
       }
     };
     getAllUser();
-  }, [token, userAuthenticationApi]);
+  }, [token]);
 
   return (
     <div data-v-b00d14ae="" className="page-content">

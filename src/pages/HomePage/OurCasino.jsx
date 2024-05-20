@@ -1,31 +1,28 @@
 import { useEffect, useState } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API, settings } from "../../utils";
 
 const OurCasino = () => {
-  const isCasino = config?.result?.settings.casino;
-  const auraCasinoApi = config?.result?.endpoint?.auraCasino;
-  const diamondCasinoApi = config?.result?.endpoint?.diamondCasino;
   const [casino_list, setCasino_list] = useState([]);
-
 
   useEffect(() => {
     const getAuraCasino = async () => {
       const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData({  token:generatedToken});
+      const encryptedData = UseEncryptData({ token: generatedToken });
       const res = await axios.post(
-        `${isCasino == "aura" ? auraCasinoApi : ""} ${
-          isCasino == "diamond" ? diamondCasinoApi : ""
-        }`,encryptedData
+        `${settings.casino == "aura" ? API.auraCasino : ""} ${
+          settings.casino == "diamond" ? API.diamondCasino : ""
+        }`,
+        encryptedData
       );
       const data = res.data;
       setCasino_list(data);
     };
     getAuraCasino();
-  }, [auraCasinoApi, diamondCasinoApi, isCasino]);
+  }, []);
   return (
     <div className="row">
       <div className="col-12">

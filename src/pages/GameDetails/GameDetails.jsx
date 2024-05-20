@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import MyBets from "./MyBets";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { config } from "../../utils/config";
 import MatchOdds from "../../components/OddsSection/MatchOdds";
 import Bookmaker from "../../components/OddsSection/Bookmaker";
 import FancyOne from "../../components/OddsSection/FancyOne";
@@ -13,11 +12,10 @@ import useIFrame from "../../hooks/useIFrame";
 import useExposer from "../../hooks/useExposer";
 import Bookmaker2 from "../../components/OddsSection/Bookmaker2";
 import useCurrentBets from "../../hooks/useCurrentBets";
+import { API, settings } from "../../utils";
 
 const GameDetails = () => {
   const { eventTypeId, eventId } = useParams();
-  const oddsApi = config?.result?.endpoint?.odds;
-  const interval = config?.result?.settings?.interval;
   const [data, setData] = useState([]);
   const [match_odds, setMatch_odds] = useState([]);
   const [bookmarker, setBookmarker] = useState([]);
@@ -38,7 +36,7 @@ const GameDetails = () => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({ token: generatedToken });
       const res = await axios.post(
-        `${oddsApi}/${eventTypeId}/${eventId}`,
+        `${API.odds}/${eventTypeId}/${eventId}`,
         encryptedData
       );
       const data = res.data;
@@ -49,9 +47,9 @@ const GameDetails = () => {
       }
     };
     getGameDetails();
-    const intervalId = setInterval(getGameDetails, interval);
+    const intervalId = setInterval(getGameDetails, settings.interval);
     return () => clearInterval(intervalId);
-  }, [oddsApi, eventTypeId, eventId, interval]);
+  }, [eventTypeId, eventId]);
 
   /* Filtered all the game  */
   useEffect(() => {
@@ -93,7 +91,7 @@ const GameDetails = () => {
   useEffect(() => {
     const intervalId = setInterval(refetchCurrentBets, 10000);
     return () => clearInterval(intervalId);
-  }, [interval, refetchCurrentBets]);
+  }, [ refetchCurrentBets]);
 
   return (
     <div data-v-b00d14ae="" className="page-content">

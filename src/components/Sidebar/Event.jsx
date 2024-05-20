@@ -1,16 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { config } from "../../utils/config";
 import { token } from "../../utils/localStorage";
 import UseContextState from "../../hooks/UseContextState";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const Event = () => {
   const [toggleEvent, setToggleEvent] = useState(false);
   const [menu, setMenu] = useState([]);
-  const menuApi = config?.result?.endpoint?.menu;
 
 
 
@@ -20,7 +19,7 @@ const Event = () => {
       const encryptedData = UseEncryptData({
         token:generatedToken
       })
-      const res = await axios.post(menuApi,encryptedData, {
+      const res = await axios.post(API.menu,encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,7 +28,7 @@ const Event = () => {
       setMenu(data);
     };
     getAllMenuApi();
-  }, [menuApi]);
+  }, []);
 
   return (
     <li

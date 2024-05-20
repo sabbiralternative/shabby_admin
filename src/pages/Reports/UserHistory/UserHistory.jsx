@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import UserHistoryTable from "./UserHistoryTable";
 import { Link } from "react-router-dom";
-import { config } from "../../../utils/config";
 import axios from "axios";
 import UseSearchUser from "../../../hooks/UseSearchUser";
 import UseDatePicker from "../../../hooks/UseDatePicker";
@@ -10,10 +9,10 @@ import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DateRangePicker } from "rsuite";
 import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../../hooks/UseEncryptData";
+import { API } from "../../../utils";
 const UserHistory = () => {
   const tableRef = useRef(null);
   const token = localStorage.getItem("adminToken");
-  const userHistoryApi = config?.result?.endpoint?.userHistory;
   const [userHistoryTab, setUserHistoryTab] = useState("login");
   const [searchId, setSearchId] = useState("");
   const [userHistoryData, setUserHistoryData] = useState([]);
@@ -40,7 +39,7 @@ const UserHistory = () => {
       todate: formattedEndDate,
       token: generatedToken,
     });
-    const res = await axios.post(userHistoryApi, encryptedData, {
+    const res = await axios.post(API.userHistory, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

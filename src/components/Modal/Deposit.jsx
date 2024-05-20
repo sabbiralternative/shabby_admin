@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseBalance from "../../hooks/UseBalance";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const Deposit = ({
   depositModal,
@@ -14,9 +14,6 @@ const Deposit = ({
   depositAccountType,
 }) => {
   const modalRef = useRef();
-  const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
-  const downLineEditApi = config?.result?.endpoint?.downLineEdit;
-
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
   const [amountOne, setAmountOne] = useState(null);
@@ -35,7 +32,7 @@ const Deposit = ({
         type: "balance",
         token: generatedToken,
       });
-      const res = await axios.post(downLineEditFormApi, encryptedData, {
+      const res = await axios.post(API.downLineEditForm, encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +42,7 @@ const Deposit = ({
       setData(data.result);
     };
     getReferenceData();
-  }, [token, downLineEditFormApi, depositAccountType]);
+  }, [token, depositAccountType]);
 
   const handleAmount = (e) => {
     const userOne = data?.amount - parseFloat(e);
@@ -73,7 +70,7 @@ const Deposit = ({
       setInputIsValid(true);
       return;
     }
-    const res = await axios.post(downLineEditApi, encryptedData, {
+    const res = await axios.post(API.downLineEdit, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

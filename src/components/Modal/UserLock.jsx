@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import UseContextState from "../../hooks/UseContextState";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const UserLock = ({ profileData, moreModalAccountType }) => {
-  const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
   const [betLock, setBetLock] = useState(false);
   const [userLock, setUserLock] = useState(false);
@@ -47,7 +46,7 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
 
       })
     const res = await axios.post(
-      downLineEditApi,encryptedData
+      API.downLineEdit,encryptedData
      ,
       {
         headers: {

@@ -5,18 +5,18 @@ import Footer from "./components/Footer/Footer";
 import { useEffect } from "react";
 import Success from "./components/Notification/Success";
 import UseContextState from "./hooks/UseContextState";
-import { config } from "./utils/config";
+
 import disableDevtool from "disable-devtool";
+import { settings } from "./utils";
 
 const App = () => {
   const location = useLocation();
   const { loginSuccess, setLoginSuccess } = UseContextState();
-  const pageTitle = config?.result?.settings?.siteTitle;
-  const disabledDevtool = config?.result?.settings?.disabledDevtool;
+
   const navigate = useNavigate();
   useEffect(() => {
-    document.title = pageTitle;
-  }, [pageTitle]);
+    document.title = settings.siteUrl;
+  }, []);
 
   useEffect(() => {
     if (window.location.hostname != "localhost") {
@@ -30,7 +30,7 @@ const App = () => {
 
   /* Disabled devtool based on settings */
   useEffect(() => {
-    if (disabledDevtool) {
+    if (settings.disabledDevtool) {
       disableDevtool({
         ondevtoolopen: (type) => {
           const info = "devtool opened!; type =" + type;
@@ -41,7 +41,7 @@ const App = () => {
         },
       });
     }
-  }, [navigate, disabledDevtool]);
+  }, [navigate]);
 
   return (
     <div>

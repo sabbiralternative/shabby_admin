@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { config } from "../../utils/config";
+
 import axios from "axios";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const BetsDetails = ({ setShowBetsModal, marketId,searchUser }) => {
-  const settledBetsApi = config?.result?.endpoint?.settledBets;
   const token = localStorage.getItem("adminToken");
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -20,9 +20,8 @@ const BetsDetails = ({ setShowBetsModal, marketId,searchUser }) => {
         marketId: marketId,
         token: generatedToken,
       });
-
       const res = await axios.post(
-        settledBetsApi,
+        API.settledBets,
         encryptedData,
         {
           headers: {
@@ -37,7 +36,7 @@ const BetsDetails = ({ setShowBetsModal, marketId,searchUser }) => {
       }
     };
     getSettledBetsData();
-  }, [token, settledBetsApi, marketId]);
+  }, [token, marketId]);
 
   /* Filter sports */
   useEffect(() => {

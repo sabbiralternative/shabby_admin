@@ -3,14 +3,13 @@ import useSecureAuthDownLine from "../../hooks/useSecureAuthDownLine";
 import useQRCODE from "../../hooks/useQRCODE";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { config } from "../../utils/config";
 import axios from "axios";
 import Error from "../../components/Notification/Error";
 import Success from "../../components/Notification/Success";
+import { API } from "../../utils";
 
 const SecureAuth = () => {
   const token = localStorage.getItem("adminToken");
-  const qrValidate = config?.result?.endpoint?.qrValidate;
   const { handleSubmit, register } = useForm();
   const { secretSecureAuth } = useSecureAuthDownLine();
   const { qrCodeAndKey, refetchQrCodeAndKey } = useQRCODE(
@@ -27,7 +26,7 @@ const SecureAuth = () => {
 
   const handleLoginByQrCode = async ({ code }) => {
     const res = await axios.post(
-      qrValidate,
+      API.qrValidate,
       {
         code,
         secret: qrCodeAndKey?.secret,

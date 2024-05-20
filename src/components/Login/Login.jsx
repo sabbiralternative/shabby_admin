@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
-import { config } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 import Error from "../Notification/Error";
 import UseContextState from "../../hooks/UseContextState";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API, settings } from "../../utils";
 
 const Login = () => {
-  const loginApi = config?.result?.endpoint?.login;
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
   const { setLoginSuccess, logo } = UseContextState();
 
-  const pageTitle = config?.result?.settings?.siteTitle;
   useEffect(() => {
-    document.title = pageTitle;
-  }, [pageTitle]);
+    document.title = settings.siteTitle;
+  }, []);
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ const Login = () => {
       token: generatedToken,
     });
 
-    fetch(loginApi, {
+    fetch(API.login, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -37,7 +36,6 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-
         if (data?.success) {
           localStorage.setItem("adminToken", data?.result?.token);
           localStorage.setItem("adminName", data?.result?.loginname);

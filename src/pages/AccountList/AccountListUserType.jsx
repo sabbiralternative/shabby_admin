@@ -1,13 +1,12 @@
 import { useEffect } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import UseContextState from "../../hooks/UseContextState";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 const AccountListUserType = () => {
-  const downLineApi = config?.result?.endpoint?.downline;
   const { downLineId, setDownLineId, searchId, setSearchId} =
     UseContextState();
   const token = localStorage.getItem("adminToken");
@@ -23,7 +22,7 @@ const AccountListUserType = () => {
         token:generatedToken
       });
       const res = await axios.post(
-        downLineApi,
+       API.downline,
        encryptedData,
         {
           headers: {

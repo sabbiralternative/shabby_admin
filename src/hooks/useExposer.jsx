@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-
 import UseTokenGenerator from "./UseTokenGenerator";
 import UseEncryptData from "./UseEncryptData";
 import axios from "axios";
-import { config } from "../utils/config";
+import { API } from "../utils";
 
 /* exposure api */
 const useExposer = (eventId) => {
-  const adminExposer = config?.result?.endpoint?.adminExposure;
   const adminToken = localStorage.getItem("adminToken");
 
   const { data: exposer = [], refetch: refetchExposure } = useQuery({
@@ -17,7 +15,7 @@ const useExposer = (eventId) => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData(generatedToken);
       const res = await axios.post(
-        `${adminExposer}/${eventId}`,
+        `${API.adminExposure}/${eventId}`,
         encryptedData,
         {
           headers: {

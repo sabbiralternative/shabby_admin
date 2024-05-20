@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { config } from "../../utils/config";
 import { useRef, useState } from "react";
 import axios from "axios";
 import BankTable from "./BankTable";
@@ -8,10 +7,10 @@ import UseExportToPdf from "../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const Bank = () => {
   const token = localStorage.getItem("adminToken");
-  const bankApi = config?.result?.endpoint?.Bank;
   const [searchId, setSearchId] = useState();
   const [transactionCode, setTransactionCode] = useState("");
   const { exportPdf } = UseExportToPdf();
@@ -27,7 +26,7 @@ const Bank = () => {
         token:generatedToken
       });
       const res = await axios.post(
-        bankApi,encryptedData
+        API.Bank,encryptedData
         ,
         {
           headers: {

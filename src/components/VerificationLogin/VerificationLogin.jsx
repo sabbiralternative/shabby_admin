@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { config } from "../../utils/config";
 import Error from "../Notification/Error";
 import UseContextState from "../../hooks/UseContextState";
+import { API, settings } from "../../utils";
 
 const VerificationLogin = () => {
   const inputs = useRef([]);
@@ -12,12 +12,12 @@ const VerificationLogin = () => {
   const authCode = localStorage.getItem("authCode");
   const navigate = useNavigate();
   const token = localStorage.getItem("adminToken");
-  const qrValidate = config?.result?.endpoint?.qrValidate;
+
   const { setLoginSuccess, logo } = UseContextState();
-  const pageTitle = config?.result?.settings?.siteTitle;
+
   useEffect(() => {
-    document.title = pageTitle;
-  }, [pageTitle]);
+    document.title = settings.siteTitle;
+  }, []);
 
   useEffect(() => {
     if (inputs.current.length > 0) {
@@ -33,7 +33,7 @@ const VerificationLogin = () => {
       inputs.current[index + 1].focus();
     } else if (index === inputs.current.length - 1 && e.target.value) {
       const res = await axios.post(
-        qrValidate,
+        API.qrValidate,
         {
           code: otpValues.join(""),
           secret: authCode,

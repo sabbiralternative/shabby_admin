@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { config } from "../../../utils/config";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -7,9 +6,9 @@ import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../../hooks/UseEncryptData";
+import { API } from "../../../utils";
 const PartyWinLoss = () => {
   const tableRef = useRef(null);
-  const partyWinLossApi = config?.result?.endpoint?.partyWinLoss;
   const token = localStorage.getItem("adminToken");
   const { register, handleSubmit } = useForm();
   const [partyWinLossData, setPartyWinLossData] = useState([]);
@@ -23,7 +22,7 @@ const PartyWinLoss = () => {
         token:generatedToken
       });
     const res = await axios.post(
-      partyWinLossApi,encryptedData
+      API.partyWinLoss,encryptedData
       ,
       {
         headers: {

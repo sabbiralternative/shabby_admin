@@ -1,21 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { config } from "../utils/config";
+import { API, settings } from "../utils";
+
 
 const useQRCODE = (secret) => {
-  const qrCodeApi = config?.result?.endpoint?.qrCode;
+
   const token = localStorage.getItem("adminToken");
   const adminName = localStorage.getItem("adminName");
-  const siteName = config?.result?.settings?.siteUrl;
+
   const { data: qrCodeAndKey,refetch:refetchQrCodeAndKey } = useQuery({
     queryKey: ["qrCode"],
     queryFn: async () => {
       const res = await axios.post(
-        qrCodeApi,
+        API.qrCode,
         {
           secret: secret,
           username: adminName,
-          site: siteName,
+          site: settings.siteUrl,
         },
         {
           headers: {

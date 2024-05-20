@@ -1,13 +1,12 @@
 import { useState } from "react";
 import UseContextState from "../../hooks/UseContextState";
-import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const ChangePassword = ({ moreModalAccountType }) => {
-  const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
   const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify} =
     UseContextState();
@@ -27,7 +26,7 @@ const ChangePassword = ({ moreModalAccountType }) => {
       token:generatedToken
     })
     const res = await axios.post(
-      downLineEditApi,
+      API.downLineEdit,
      encryptedData,
       {
         headers: {

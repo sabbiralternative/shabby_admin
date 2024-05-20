@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { config } from "../../utils/config";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const VirtualCasino = () => {
-  const virtualGamesApi = config?.result?.endpoint?.virtualCasino;
-
   const [virtualGames, setVirtualGames] = useState([]);
  
 
@@ -16,12 +14,12 @@ const VirtualCasino = () => {
       const encryptedData = UseEncryptData({
         token:generatedToken
       });
-      const res = await axios.post(virtualGamesApi, encryptedData);
+      const res = await axios.post(API.virtualCasino, encryptedData);
       const data = res.data;
       setVirtualGames(data);
     };
     getVirtualGames();
-  }, [ virtualGamesApi]);
+  }, []);
   return (
     <div data-v-b00d14ae="" className="page-content">
       {/*       <!----> */}

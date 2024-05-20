@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const CreditReference = ({
   creditRefModal,
@@ -11,18 +11,15 @@ const CreditReference = ({
   setCreditErrorNotify,
   setCreditSuccessNotify,
   creditRefAccountType,
-
 }) => {
   const modalRef = useRef();
-  const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
-  const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
   const [newCredit, setNewCredit] = useState("");
   const [transactionCode, setTransactionCode] = useState("");
   const [data, setData] = useState({});
   const [inputIsValid, setInputIsValid] = useState(false);
   const [, refetchDownLine] = UseDownLineData();
-console.log(data);
+  console.log(data);
   useEffect(() => {
     const getReferenceData = async () => {
       const generatedToken = UseTokenGenerator();
@@ -31,7 +28,7 @@ console.log(data);
         type: "creditReferance",
         token: generatedToken,
       });
-      const res = await axios.post(downLineEditFormApi, encryptedData, {
+      const res = await axios.post(API.downLineEditForm, encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,7 +38,7 @@ console.log(data);
       setData(data.result);
     };
     getReferenceData();
-  }, [token, downLineEditFormApi, creditRefAccountType]);
+  }, [token, creditRefAccountType]);
 
   const handleReferenceSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +55,7 @@ console.log(data);
       remark: "",
       token: generatedToken,
     });
-    const res = await axios.post(downLineEditApi, encryptedData, {
+    const res = await axios.post(API.downLineEdit, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -199,7 +196,8 @@ console.log(data);
                             type="number"
                             name="userCreditUpdateamount"
                             className={`form-control txt-right ${
-                              (newCredit.length < 1 || newCredit < 0 )  && inputIsValid
+                              (newCredit.length < 1 || newCredit < 0) &&
+                              inputIsValid
                                 ? "is-invalid"
                                 : ""
                             } `}

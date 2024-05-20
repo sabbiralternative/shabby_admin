@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import CurrentBetsTable from "./CurrentBetsTable";
 import { Link } from "react-router-dom";
-import { config } from "../../../utils/config";
 import axios from "axios";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import UseExportToPdf from "../../../hooks/UseExportToPdf";
 import UseTokenGenerator from "../../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../../hooks/UseEncryptData";
+import { API } from "../../../utils";
 const CurrentBets = () => {
   const tableRef = useRef(null);
   const { exportPdf } = UseExportToPdf();
-  const currentBetsApi = config?.result?.endpoint?.currentBets;
   const token = localStorage.getItem("adminToken");
   const [betsType, setBetsType] = useState("sports");
   const [betsData, setBetsData] = useState([]);
@@ -23,7 +22,7 @@ const CurrentBets = () => {
       type: betsType,
       token: generatedToken,
     });
-    const res = await axios.post(currentBetsApi, encryptedData, {
+    const res = await axios.post(API.currentBets, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API, settings } from "../../utils";
 
 const OurCasinoPage = () => {
-  const diamondCasinoUrl = config?.result?.endpoint?.diamondCasino;
-  const auraCasinoApi = config?.result?.endpoint?.auraCasino;
-  const casinoType = config?.result?.settings?.casino;
   const [data, setData] = useState([]);
   const [casino_list, setCasino_list] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filterGames, setFilterGames] = useState("all");
 
-
   useEffect(() => {
     const getAuraCasino = async () => {
       const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData({  token:generatedToken});
+      const encryptedData = UseEncryptData({ token: generatedToken });
       const res = await axios.get(
-        `${casinoType == "aura" ? auraCasinoApi : ""} ${
-          casinoType == "diamond" ? diamondCasinoUrl : ""
-        }`,encryptedData
+        `${settings.casino == "aura" ? API.auraCasino : ""} ${
+          settings.casino == "diamond" ? API.diamondCasino : ""
+        }`,
+        encryptedData
       );
       const data = res.data;
       const sort = data.sort((Link, b) => Link.sort - b.sort);
@@ -30,7 +27,7 @@ const OurCasinoPage = () => {
       setCasino_list(sort);
     };
     getAuraCasino();
-  }, [diamondCasinoUrl, auraCasinoApi, casinoType, filterGames]);
+  }, [filterGames]);
 
   useEffect(() => {
     const categories = Array.from(new Set(data.map((item) => item.category)));
@@ -114,7 +111,7 @@ const OurCasinoPage = () => {
               </div>
             </div>
 
-            {casinoType == "diamond" && (
+            {settings.casino == "diamond" && (
               <div className="casino-banners">
                 {casino_list.map((casino, i) => {
                   return (
@@ -128,7 +125,7 @@ const OurCasinoPage = () => {
               </div>
             )}
 
-            {casinoType == "aura" && (
+            {settings.casino == "aura" && (
               <div className="casino-banners">
                 {casino_list.map((casino, i) => {
                   return (

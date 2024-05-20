@@ -1,5 +1,4 @@
 import axios from "axios";
-import { config } from "../../utils/config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -7,36 +6,31 @@ import Error from "../Notification/Error";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 import UseContextState from "../../hooks/UseContextState";
+import { API, settings } from "../../utils";
 const ChangeLoginPassword = () => {
-  const changePasswordApi = config?.result?.endpoint?.changePassword;
   const token = localStorage.getItem("adminToken");
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const pageTitle = config?.result?.settings?.siteTitle;
   const [errorMsg, setErrorMsg] = useState("");
-  const {logo} = UseContextState()
+  const { logo } = UseContextState();
   useEffect(() => {
-    document.title = pageTitle;
-  }, [pageTitle]);
+    document.title = settings.siteTitle;
+  }, []);
 
   const onSubmit = async ({ confirmPassword, oldPassword, password }) => {
-    const generatedToken = UseTokenGenerator()
+    const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
       oldPassword: oldPassword,
       newPassword: password,
       confirmPassword: confirmPassword,
       type: "login",
       token: generatedToken,
-    })
-    const res = await axios.post(
-      changePasswordApi,encryptedData
-      ,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    });
+    const res = await axios.post(API.changePassword, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = res.data;
 
     if (data?.success) {
@@ -54,10 +48,7 @@ const ChangeLoginPassword = () => {
     <div className="vertical-collpsed login">
       <section className="login-mn">
         <div className="log-logo m-b-20">
-          <img
-            src={logo}
-            style={{ maxWidth: "250px", maxHeight: "100px" }}
-          />
+          <img src={logo} style={{ maxWidth: "250px", maxHeight: "100px" }} />
         </div>
         <div className="log-fld">
           <h2 className="text-center">Change Password</h2>

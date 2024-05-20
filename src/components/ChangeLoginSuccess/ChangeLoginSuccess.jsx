@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
-import { config } from "../../utils/config";
 import { useEffect } from "react";
+import { settings } from "../../utils";
 
 const ChangeLoginSuccess = () => {
   const transactionPassword = localStorage.getItem("transactionPassword");
   
-  const URL = config?.result?.settings?.URL;
-  const pageTitle = config?.result?.settings?.siteTitle;
   useEffect(() => {
-    document.title = pageTitle;
-  }, [pageTitle]);
+    document.title = settings.siteTitle;
+  }, []);
 
   return (
     <>
@@ -44,7 +42,7 @@ const ChangeLoginSuccess = () => {
             </h2>
             <h2 style={{
               fontSize:'1.625rem',fontWeight:'500',lineHeight:'1.2',margin:'4px'
-            }} className="mt-3 text-dark">Thank you, Team {URL}</h2>
+            }} className="mt-3 text-dark">Thank you, Team {settings.URL}</h2>
             <div className="font-hindi">
               <h1
               style={{
@@ -78,7 +76,7 @@ const ChangeLoginSuccess = () => {
               style={{
                 fontSize:'1.625rem',fontWeight:'500',lineHeight:'1.2',margin:'4px',marginTop:'1.3rem'
               }}
-              className="mt-3 text-dark">धन्यवाद, टीम {URL}</h2>
+              className="mt-3 text-dark">धन्यवाद, टीम {settings.URL}</h2>
             </div>
             <Link
               to="/login"

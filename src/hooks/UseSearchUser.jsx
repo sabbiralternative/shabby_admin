@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { config } from "../utils/config";
 import axios from "axios";
 import UseTokenGenerator from "./UseTokenGenerator";
 import UseEncryptData from "./UseEncryptData";
+import { API } from "../utils";
 
 const UseSearchUser = () => {
   const [searchUser, setSearchUser] = useState("");
-  const searchUserApi = config?.result?.endpoint?.searchUser;
   const token = localStorage.getItem("adminToken");
   const [users, setUsers] = useState([]);
   const [errSearchId, setErrSearchId] = useState("");
@@ -20,7 +19,7 @@ const UseSearchUser = () => {
           type: searchUser,
           token: generatedToken,
         });
-        const res = await axios.post(searchUserApi, encryptedData, {
+        const res = await axios.post(API.searchUser, encryptedData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -38,7 +37,7 @@ const UseSearchUser = () => {
       }
     };
     handleSearchUser();
-  }, [searchUser, searchUserApi, token]);
+  }, [searchUser, token]);
 
   return {
     users,

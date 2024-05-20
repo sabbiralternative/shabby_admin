@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { config } from "../../utils/config";
 import UseContextState from "../../hooks/UseContextState";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const EditProfile = ({ profileData, moreModalAccountType }) => {
-  const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
   const [changePasswordLock, setChangePasswordLock] = useState(false);
   const [favoriteMaster, setFavoriteMaster] = useState(false);
@@ -48,7 +47,7 @@ const EditProfile = ({ profileData, moreModalAccountType }) => {
         token:generatedToken
       })
     const res = await axios.post(
-      downLineEditApi,encryptedData
+      API.downLineEdit,encryptedData
       ,
       {
         headers: {

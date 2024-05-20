@@ -6,10 +6,10 @@ import UserLock from "./UserLock";
 import AccountHistory from "./AccountHistory";
 import EditProfile from "./EditProfile";
 import { useEffect, useRef, useState } from "react";
-import { config } from "../../utils/config";
 import axios from "axios";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
+import { API } from "../../utils";
 
 const MoreModal = ({ moreModalAccountType }) => {
   const {
@@ -19,7 +19,6 @@ const MoreModal = ({ moreModalAccountType }) => {
     setMoreModal
   } = UseContextState();
   const modalRef = useRef();
-  const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
   const token = localStorage.getItem("adminToken");
   const [profileData, setProfileData] = useState();
 
@@ -38,7 +37,7 @@ const MoreModal = ({ moreModalAccountType }) => {
           type: moreModalCount,
           token: generatedToken,
         });
-        const res = await axios.post(downLineEditFormApi, encryptedData, {
+        const res = await axios.post(API.downLineEditForm, encryptedData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -51,7 +50,7 @@ const MoreModal = ({ moreModalAccountType }) => {
       };
       getProfileData();
     }
-  }, [moreModalAccountType, token, downLineEditFormApi, moreModalCount]);
+  }, [moreModalAccountType, token, moreModalCount]);
 
   /* Close modalRef modal click outside the modal */
   useEffect(() => {

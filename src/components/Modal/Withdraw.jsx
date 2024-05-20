@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { config } from "../../utils/config.js";
 import axios from "axios";
 import UseDownLineData from "../../hooks/UseDownlineData.jsx";
 import UseBalance from "../../hooks/UseBalance.jsx";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator.jsx";
 import UseEncryptData from "../../hooks/UseEncryptData.jsx";
+import { API } from "../../utils/index.js";
 
 const Withdraw = ({
   withdrawModal,
@@ -14,8 +14,6 @@ const Withdraw = ({
   withdrawAccountType,
 }) => {
   const modalRef = useRef();
-  const downLineEditFormApi = config?.result?.endpoint?.downLineEditForm;
-  const downLineEditApi = config?.result?.endpoint?.downLineEdit;
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
   const [amountOne, setAmountOne] = useState(null);
@@ -36,7 +34,7 @@ const Withdraw = ({
         token: generatedToken,
       })
       const res = await axios.post(
-        downLineEditFormApi,
+        API.downLineEditForm,
         encryptedData,
         {
           headers: {
@@ -49,7 +47,7 @@ const Withdraw = ({
       setData(data.result);
     };
     getReferenceData();
-  }, [token, downLineEditFormApi, withdrawAccountType]);
+  }, [token, withdrawAccountType]);
 
   const handleAmount = (e) => {
     const userOne = data?.amount + parseFloat(e);
@@ -81,7 +79,7 @@ const Withdraw = ({
       remark: remark,
       token: generatedToken,
     });
-    const res = await axios.post(downLineEditApi, encryptedData, {
+    const res = await axios.post(API.downLineEdit, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

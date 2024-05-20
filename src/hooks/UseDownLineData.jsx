@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { config } from "../utils/config";
 import axios from "axios";
 import { useState } from "react";
 import UseTokenGenerator from "./UseTokenGenerator";
 import UseEncryptData from "./UseEncryptData";
+import { API } from "../utils";
 
 const UseDownLineData = () => {
-  const downLineApi = config?.result?.endpoint?.downline;
   const token = localStorage.getItem("adminToken");
   const [searchUser, setSearchUser] = useState("");
  
@@ -20,7 +19,7 @@ const UseDownLineData = () => {
         token:generatedToken
       })
       const res = await axios.post(
-        downLineApi,encryptedData
+        API.downline,encryptedData
        ,
         {
           headers: {
