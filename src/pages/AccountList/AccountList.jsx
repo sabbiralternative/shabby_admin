@@ -21,7 +21,7 @@ const AccountList = () => {
     moreModalSuccessNotify,
     setMoreModalSuccessNotify,
     moreModalErrNotify,
-    setMoreModalErrNotify
+    setMoreModalErrNotify,
   } = UseContextState();
   const [creditRefModal, setCreditRefModal] = useState(false);
   const [depositModal, setDepositModal] = useState(false);
@@ -35,10 +35,9 @@ const AccountList = () => {
   const [creditSuccessNotify, setCreditSuccessNotify] = useState(false);
   const [creditErrorNotify, setCreditErrorNotify] = useState(false);
   const [moreModalAccountType, setMoreModalAccountType] = useState("");
-  const [data, refetchDownLine, setSearchUser,searchUser] = UseDownLineData();
-  const [creditRefAccountType,setCreditRefAccountType] = useState('')
+  const [data, refetchDownLine, setSearchUser, searchUser] = UseDownLineData();
+  const [creditRefAccountType, setCreditRefAccountType] = useState("");
   const { exportPdf } = UseExportToPdf();
-
 
   const handleRefetchDownLine = (downLine) => {
     if (downLine.hasDownline) {
@@ -52,6 +51,44 @@ const AccountList = () => {
     e.preventDefault();
     refetchDownLine();
   };
+
+  const sortedAccounts =
+    Array.isArray(data) &&
+    data?.sort((a, b) => {
+      // 1st Priority: Both userStatus and bettingStatus = 1
+      if (
+        a.userStatus === 1 &&
+        a.bettingStatus === 1 &&
+        !(b.userStatus === 1 && b.bettingStatus === 1)
+      ) {
+        return -1;
+      }
+      if (
+        b.userStatus === 1 &&
+        b.bettingStatus === 1 &&
+        !(a.userStatus === 1 && a.bettingStatus === 1)
+      ) {
+        return 1;
+      }
+
+      // 2nd Priority: Either of them = 1
+      if (
+        (a.userStatus === 1 || a.bettingStatus === 1) &&
+        !(b.userStatus === 1 || b.bettingStatus === 1)
+      ) {
+        return -1;
+      }
+      if (
+        (b.userStatus === 1 || b.bettingStatus === 1) &&
+        !(a.userStatus === 1 || a.bettingStatus === 1)
+      ) {
+        return 1;
+      }
+
+      // 3rd Priority: Both userStatus and bettingStatus = 0
+      return 0;
+    });
+
 
   return (
     <div data-v-b00d14ae="" className="page-content">
@@ -106,8 +143,7 @@ const AccountList = () => {
                             Load
                           </button>
                           <button
-
-                          onClick={()=> setSearchUser('')}
+                            onClick={() => setSearchUser("")}
                             type="button"
                             id="reset"
                             className="btn btn-light"
@@ -313,7 +349,7 @@ const AccountList = () => {
 
                         <tbody role="rowgroup">
                           {/*        <!----> */}
-                          {data?.map((downLineData, i) => {
+                          {sortedAccounts?.map((downLineData, i) => {
                             return (
                               <tr key={i} role="row" className="">
                                 <td
@@ -329,9 +365,11 @@ const AccountList = () => {
                                   </span>
                                 </td>
                                 <td aria-colindex="2" role="cell" className="">
-                                  <p className="text-right mb-0 cp
+                                  <p
+                                    className="text-right mb-0 cp
                                   text-warningk
-                                  ">
+                                  "
+                                  >
                                     {downLineData?.creditReferance}
                                   </p>
                                 </td>
@@ -466,12 +504,17 @@ const AccountList = () => {
                             );
                           })}
 
-                         {
-                          data?.length === 0 && (
-                            <tr role="row" className="b-table-empty-row"><td colSpan="12" role="cell" className=""><div role="alert" aria-live="polite"><div className="text-center my-2">There are no records to show</div></div></td></tr>
-                          )
-                         }
-
+                          {sortedAccounts?.length === 0 && (
+                            <tr role="row" className="b-table-empty-row">
+                              <td colSpan="12" role="cell" className="">
+                                <div role="alert" aria-live="polite">
+                                  <div className="text-center my-2">
+                                    There are no records to show
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
                         </tbody>
                       </table>
                     </div>

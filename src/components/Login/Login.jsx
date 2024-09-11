@@ -7,7 +7,6 @@ import UseEncryptData from "../../hooks/UseEncryptData";
 import { API, settings } from "../../utils";
 
 const Login = () => {
-
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
@@ -17,7 +16,8 @@ const Login = () => {
   useEffect(() => {
     document.title = settings.siteTitle;
   }, []);
-
+  // inr
+  // Mnbv@1234
   const handleSubmitLogin = (e) => {
     e.preventDefault();
     const generatedToken = UseTokenGenerator();

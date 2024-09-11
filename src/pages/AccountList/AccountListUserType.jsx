@@ -48,6 +48,44 @@ const AccountListUserType = () => {
     refetch();
   }, [searchId, downLineId]);
 
+  const sortedAccounts =
+    Array.isArray(data) &&
+    data?.sort((a, b) => {
+      // 1st Priority: Both userStatus and bettingStatus = 1
+      if (
+        a.userStatus === 1 &&
+        a.bettingStatus === 1 &&
+        !(b.userStatus === 1 && b.bettingStatus === 1)
+      ) {
+        return -1;
+      }
+      if (
+        b.userStatus === 1 &&
+        b.bettingStatus === 1 &&
+        !(a.userStatus === 1 && a.bettingStatus === 1)
+      ) {
+        return 1;
+      }
+
+      // 2nd Priority: Either of them = 1
+      if (
+        (a.userStatus === 1 || a.bettingStatus === 1) &&
+        !(b.userStatus === 1 || b.bettingStatus === 1)
+      ) {
+        return -1;
+      }
+      if (
+        (b.userStatus === 1 || b.bettingStatus === 1) &&
+        !(a.userStatus === 1 || a.bettingStatus === 1)
+      ) {
+        return 1;
+      }
+
+      // 3rd Priority: Both userStatus and bettingStatus = 0
+      return 0;
+    });
+
+
   return (
     <div data-v-b00d14ae="" className="page-content">
       {/*   <!----> */}
@@ -290,7 +328,7 @@ const AccountListUserType = () => {
 
                         <tbody role="rowgroup">
                           {/*        <!----> */}
-                          {data?.map((downLineData, i) => {
+                          {sortedAccounts?.map((downLineData, i) => {
                             return (
                               <tr key={i} role="row" className="">
                                 <td
@@ -409,7 +447,7 @@ const AccountListUserType = () => {
                             );
                           })}
 
-                          {data?.length === 0 && (
+                          {sortedAccounts?.length === 0 && (
                             <tr role="row" className="b-table-empty-row">
                               <td colSpan="12" role="cell" className="">
                                 <div role="alert" aria-live="polite">
