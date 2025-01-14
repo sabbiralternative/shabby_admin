@@ -6,7 +6,7 @@ const RecentWinner = ({ recent_winner, eventId }) => {
       {recent_winner?.map((rw, i) => {
         return (
           <span key={i} className={recentWinnerColor(rw?.winner, eventId)}>
-            {rw?.winner}
+            {rw?.winner?.substring(0, 1)}
           </span>
         );
       })}

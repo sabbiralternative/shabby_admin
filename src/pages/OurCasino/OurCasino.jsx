@@ -8,6 +8,9 @@ import Timer from "./Timer";
 import VideoLeftIcon from "./VideoLeftIcon";
 import Header from "./Header";
 import LuckySevenA from "../../components/modules/Diamond/LuckySevenA/LuckySevenA";
+import AmarAkbarAnthony from "../../components/modules/Diamond/AmarAkbarAnthony/AmarAkbarAnthony";
+import { diamondTableClass } from "../../utils/diamondTableClass";
+import BollywoodCasino from "../../components/modules/Diamond/BollywoodCasino/BollywoodCasino";
 
 const OurCasino = () => {
   const { eventId, eventTypeId } = useParams();
@@ -25,7 +28,7 @@ const OurCasino = () => {
             <div className="center-main-container">
               <div className="center-content">
                 <div className="casino-container">
-                  <div className="casino-table lucky7">
+                  <div className={`casino-table ${diamondTableClass(eventId)}`}>
                     <div className="casino-video">
                       <Header data={data?.[0]} />
                       <div className="video-box-container">
@@ -36,8 +39,8 @@ const OurCasino = () => {
                           />
                         </div>
                       </div>{" "}
-                      <VideoLeftIcon />
-                      <Timer />
+                      <VideoLeftIcon data={data} />
+                      <Timer timer={data?.[0]?.timer} />
                       <ActionButtons />
                       <RecentWinner
                         recent_winner={data?.[0]?.recent_winner}
@@ -49,6 +52,12 @@ const OurCasino = () => {
                     eventId == "10002" ||
                     eventId === "10003" ? (
                       <LuckySevenA data={data} />
+                    ) : null}
+                    {eventId == "10004" || eventId == "10005" ? (
+                      <AmarAkbarAnthony data={data} />
+                    ) : null}
+                    {eventId == "10006" || eventId == "10052" ? (
+                      <BollywoodCasino data={data} />
                     ) : null}
                   </div>
                 </div>

@@ -1,14 +1,14 @@
+import { isDiamondSuspended } from "../../../../utils/isDiamondSuspended";
+
 const LuckySevenA = ({ data }) => {
-  const isSuspended = (data, runner) => {
-    if (data?.status !== "OPEN" || runner?.status !== "ACTIVE") {
-      return "suspended";
-    }
-  };
   return (
     <div className="casino-detail">
       <div className="casino-box low-high-box">
         <div
-          className={`low-odds ${isSuspended(data[0], data[0]?.runners?.[0])}`}
+          className={`low-odds ${isDiamondSuspended(
+            data[0],
+            data[0]?.runners?.[0]
+          )}`}
         >
           <div className="casino-odds">
             {data[0]?.runners[0]?.back[0]?.price}
@@ -22,7 +22,10 @@ const LuckySevenA = ({ data }) => {
           <img src="/src/assets/cards/7.png" className="img-fluid" />
         </div>{" "}
         <div
-          className={`high-odds ${isSuspended(data[0], data[0]?.runners[1])}`}
+          className={`high-odds ${isDiamondSuspended(
+            data[0],
+            data[0]?.runners[1]
+          )}`}
         >
           <div className="casino-odds">2</div>{" "}
           <div className="text-center casino-buttons">
@@ -39,13 +42,13 @@ const LuckySevenA = ({ data }) => {
       </div>{" "}
       <div className="casino-box sidebets-box">
         <div className="lucky7-extra-bets">
-          <div
-            className={`lucky7-extra-bets-item-container ${isSuspended(
-              data?.[1],
-              data?.[1]?.runners?.[0]
-            )}`}
-          >
-            <div className="lucky7-extra-bets-item">
+          <div className={`lucky7-extra-bets-item-container `}>
+            <div
+              className={`lucky7-extra-bets-item ${isDiamondSuspended(
+                data?.[1],
+                data?.[1]?.runners?.[0]
+              )}`}
+            >
               <div className="casino-odds">
                 {" "}
                 {data[1]?.runners[0]?.back[0]?.price}
@@ -57,13 +60,13 @@ const LuckySevenA = ({ data }) => {
               {/* R:<span>100</span>-<span>25K</span> */}
             </div>
           </div>{" "}
-          <div
-            className={`lucky7-extra-bets-item-container ${isSuspended(
-              data?.[1],
-              data?.[1]?.runners?.[1]
-            )}`}
-          >
-            <div className="lucky7-extra-bets-item">
+          <div className={`lucky7-extra-bets-item-container `}>
+            <div
+              className={`lucky7-extra-bets-item ${isDiamondSuspended(
+                data?.[1],
+                data?.[1]?.runners?.[1]
+              )}`}
+            >
               <div className="casino-odds">
                 {" "}
                 {data[1]?.runners[1]?.back[0]?.price}
@@ -75,13 +78,13 @@ const LuckySevenA = ({ data }) => {
               {/* R:<span>100</span>-<span>25K</span> */}
             </div>
           </div>{" "}
-          <div
-            className={`lucky7-extra-bets-item-container ${isSuspended(
-              data?.[2],
-              data?.[2]?.runners?.[0]
-            )}`}
-          >
-            <div className="lucky7-extra-bets-item">
+          <div className={`lucky7-extra-bets-item-container `}>
+            <div
+              className={`lucky7-extra-bets-item ${isDiamondSuspended(
+                data?.[2],
+                data?.[2]?.runners?.[0]
+              )}`}
+            >
               <div className="casino-odds">
                 {" "}
                 {data[2]?.runners[0]?.back[0]?.price}
@@ -96,13 +99,13 @@ const LuckySevenA = ({ data }) => {
               {/* R:<span>100</span>-<span>25K</span> */}
             </div>
           </div>{" "}
-          <div
-            className={`lucky7-extra-bets-item-container ${isSuspended(
-              data?.[2],
-              data?.[2]?.runners?.[1]
-            )}`}
-          >
-            <div className="lucky7-extra-bets-item">
+          <div className={`lucky7-extra-bets-item-container `}>
+            <div
+              className={`lucky7-extra-bets-item ${isDiamondSuspended(
+                data?.[2],
+                data?.[2]?.runners?.[1]
+              )}`}
+            >
               <div className="casino-odds">
                 {" "}
                 {data[2]?.runners[1]?.back[0]?.price}
@@ -122,19 +125,19 @@ const LuckySevenA = ({ data }) => {
       <div className="casino-box cards-top">
         <div className="container-fluid container-fluid-5">
           <div className="row row5">
-            <div
-              className={`col-6 col-md-3 ${isSuspended(
-                data?.[3],
-                data?.[3]?.runners?.[0]
-              )}`}
-            >
+            <div className={`col-6 col-md-3 `}>
               <div>
                 <div className="casino-odds">
                   {" "}
                   {data[3]?.runners[0]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
-                  <div className="casino-box cards-top-box">
+                  <div
+                    className={`casino-box cards-top-box ${isDiamondSuspended(
+                      data?.[3],
+                      data?.[3]?.runners?.[0]
+                    )}`}
+                  >
                     <div className="casino-card-item">
                       <div className="card-image">
                         <img src="/src/assets/cards/A.png" />
@@ -158,19 +161,19 @@ const LuckySevenA = ({ data }) => {
                 </div>
               </div>
             </div>{" "}
-            <div
-              className={`col-6 col-md-3 ${isSuspended(
-                data?.[3],
-                data?.[3]?.runners?.[1]
-              )}`}
-            >
+            <div className={`col-6 col-md-3 `}>
               <div>
                 <div className="casino-odds">
                   {" "}
                   {data[3]?.runners[1]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
-                  <div className="casino-box cards-top-box">
+                  <div
+                    className={`casino-box cards-top-box ${isDiamondSuspended(
+                      data?.[3],
+                      data?.[3]?.runners?.[1]
+                    )}`}
+                  >
                     <div className="casino-card-item">
                       <div className="card-image">
                         <img src="/src/assets/cards/4.png" />
@@ -194,19 +197,19 @@ const LuckySevenA = ({ data }) => {
                 </div>
               </div>
             </div>{" "}
-            <div
-              className={`col-6 col-md-3 ${isSuspended(
-                data?.[3],
-                data?.[3]?.runners?.[2]
-              )}`}
-            >
+            <div className={`col-6 col-md-3 `}>
               <div>
                 <div className="casino-odds">
                   {" "}
                   {data[3]?.runners[2]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
-                  <div className="casino-box cards-top-box">
+                  <div
+                    className={`casino-box cards-top-box ${isDiamondSuspended(
+                      data?.[3],
+                      data?.[3]?.runners?.[2]
+                    )}`}
+                  >
                     <div className="casino-card-item">
                       <div className="card-image">
                         <img src="/src/assets/cards/8.png" />
@@ -230,19 +233,19 @@ const LuckySevenA = ({ data }) => {
                 </div>
               </div>
             </div>{" "}
-            <div
-              className={`col-6 col-md-3 ${isSuspended(
-                data?.[3],
-                data?.[3]?.runners?.[3]
-              )}`}
-            >
+            <div className={`col-6 col-md-3 `}>
               <div>
                 <div className="casino-odds">
                   {" "}
                   {data[3]?.runners[3]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
-                  <div className="casino-box cards-top-box">
+                  <div
+                    className={`casino-box cards-top-box ${isDiamondSuspended(
+                      data?.[3],
+                      data?.[3]?.runners?.[3]
+                    )}`}
+                  >
                     <div className="casino-card-item">
                       <div className="card-image">
                         <img src="/src/assets/cards/J.png" />
@@ -269,12 +272,7 @@ const LuckySevenA = ({ data }) => {
           </div>
         </div>
       </div>{" "}
-      <div
-        className={`casino-box cards-box ${isSuspended(
-          data?.[4],
-          data?.[4]?.runners?.[0]
-        )}`}
-      >
+      <div className={`casino-box cards-box `}>
         <div className="w-100">
           <div className="casino-odds">
             {" "}
@@ -283,7 +281,13 @@ const LuckySevenA = ({ data }) => {
           <div className="casino-cards text-center mt-1">
             {data[4]?.runners?.map((runner, i) => {
               return (
-                <div key={i} className="casino-card-item">
+                <div
+                  key={i}
+                  className={`casino-card-item ${isDiamondSuspended(
+                    data?.[4],
+                    data?.[4]?.runners?.[0]
+                  )}`}
+                >
                   <div className="card-image">
                     <img src={`/src/assets/cards/${runner?.name}.png`} />
                   </div>{" "}

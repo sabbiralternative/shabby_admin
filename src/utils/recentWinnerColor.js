@@ -8,4 +8,13 @@ export const recentWinnerColor = (winner, eventId) => {
       return "resulthigh";
     }
   }
+  /* bollywood casino 1-2, and amar akbar anthony 1-2 */
+  if (
+    eventId == "10006" ||
+    eventId == "10052" ||
+    eventId == "10005" ||
+    eventId == "10004"
+  ) {
+    return `result${winner?.substring(0, 1)?.toLowerCase()}`;
+  }
 };
