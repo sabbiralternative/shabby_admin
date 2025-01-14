@@ -89,7 +89,6 @@ const AccountList = () => {
       return 0;
     });
 
-
   return (
     <div data-v-b00d14ae="" className="page-content">
       {/*   <!----> */}
@@ -353,6 +352,11 @@ const AccountList = () => {
                             return (
                               <tr key={i} role="row" className="">
                                 <td
+                                  style={{
+                                    cursor: downLineData?.hasDownline
+                                      ? "pointer"
+                                      : "default",
+                                  }}
                                   onClick={() =>
                                     handleRefetchDownLine(downLineData)
                                   }

@@ -7,7 +7,7 @@ import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 import { API } from "../../utils";
 const AccountListUserType = () => {
-  const { downLineId, setDownLineId, searchId, setSearchId} =
+  const { downLineId, setDownLineId, searchId, setSearchId } =
     UseContextState();
   const token = localStorage.getItem("adminToken");
   const { userType } = useParams();
@@ -16,20 +16,16 @@ const AccountListUserType = () => {
     queryKey: ["downLineData"],
     queryFn: async () => {
       const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData( {
+      const encryptedData = UseEncryptData({
         downlineId: userType,
         searchId: searchId,
-        token:generatedToken
+        token: generatedToken,
       });
-      const res = await axios.post(
-       API.downline,
-       encryptedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.post(API.downline, encryptedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = res.data?.result;
       return data;
@@ -84,7 +80,6 @@ const AccountListUserType = () => {
       // 3rd Priority: Both userStatus and bettingStatus = 0
       return 0;
     });
-
 
   return (
     <div data-v-b00d14ae="" className="page-content">
@@ -332,6 +327,11 @@ const AccountListUserType = () => {
                             return (
                               <tr key={i} role="row" className="">
                                 <td
+                                  style={{
+                                    cursor: downLineData?.hasDownline
+                                      ? "pointer"
+                                      : "default",
+                                  }}
                                   onClick={() =>
                                     handleRefetchDownLine(downLineData)
                                   }
