@@ -40,7 +40,9 @@ const OurCasino = () => {
                         </div>
                       </div>{" "}
                       <VideoLeftIcon data={data} />
-                      <Timer timer={data?.[0]?.timer} />
+                      {data?.[0]?.timer > 0 && (
+                        <Timer timer={data?.[0]?.timer} />
+                      )}
                       <ActionButtons />
                       <RecentWinner
                         recent_winner={data?.[0]?.recent_winner}

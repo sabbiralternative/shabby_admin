@@ -1,5 +1,4 @@
 const VideoLeftIcon = ({ data }) => {
-  console.log(data);
   return (
     <div
       className={`casino-video-cards ${
