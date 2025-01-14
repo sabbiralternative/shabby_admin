@@ -23,6 +23,7 @@ const OurCasino = () => {
     };
     getAuraCasino();
   }, []);
+
   return (
     <div className="row">
       <div className="col-12">
@@ -32,7 +33,9 @@ const OurCasino = () => {
             {casino_list?.map((casino, idx) => {
               return (
                 <div key={idx} className="casino-banner-item">
-                  <Link className="">
+                  <Link
+                    to={`/our-casino/${casino?.eventId}/${casino?.eventTypeId}`}
+                  >
                     <img className="img-fluid" src={casino?.image} />
                   </Link>
                 </div>

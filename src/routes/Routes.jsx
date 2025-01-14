@@ -25,6 +25,7 @@ import MultiLoginAccount from "../../src/pages/MultiLoginAccount/MultiLoginAccou
 import SecureAuth from "../../src/pages/SecureAuth/SecureAuth";
 import MarketAnalysis from "../../src/pages/MarketAnalysis/MarketAnalysis";
 import VerificationLogin from "../components/VerificationLogin/VerificationLogin";
+import OurCasino from "../pages/OurCasino/OurCasino";
 const router = createBrowserRouter(
   [
     {
@@ -114,6 +115,10 @@ const router = createBrowserRouter(
         {
           path: "/market-analysis",
           element: <MarketAnalysis />,
+        },
+        {
+          path: "/our-casino/:eventId/:eventTypeId",
+          element: <OurCasino />,
         },
       ],
     },

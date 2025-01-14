@@ -116,7 +116,10 @@ const OurCasinoPage = () => {
                 {casino_list.map((casino, i) => {
                   return (
                     <div key={i} className="casino-banner-item">
-                      <Link className="">
+                      <Link
+                        to={`/our-casino/${casino?.eventId}/${casino?.eventTypeId}`}
+                        className=""
+                      >
                         <img className="img-fluid" src={casino.image} />
                       </Link>
                     </div>
