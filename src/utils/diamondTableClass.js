@@ -10,4 +10,13 @@ export const diamondTableClass = (eventId) => {
   ) {
     return "aaa";
   }
+  if (eventId == "10007" || eventId == "10010" || eventId == "10009") {
+    return "dt20";
+  }
+  if (eventId == "10008") {
+    return "dt1day";
+  }
+  if (eventId == "10014" || eventId == "10015" || eventId == "10051") {
+    return "teenpatti1day";
+  }
 };

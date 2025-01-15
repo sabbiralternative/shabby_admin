@@ -11,8 +11,16 @@ import LuckySevenA from "../../components/modules/Diamond/LuckySevenA/LuckySeven
 import AmarAkbarAnthony from "../../components/modules/Diamond/AmarAkbarAnthony/AmarAkbarAnthony";
 import { diamondTableClass } from "../../utils/diamondTableClass";
 import BollywoodCasino from "../../components/modules/Diamond/BollywoodCasino/BollywoodCasino";
+import DragonTiger2020 from "../../components/modules/Diamond/DragonTiger2020/DragonTiger2020";
+import { useEffect } from "react";
+import DTL2020 from "../../components/modules/Diamond/DTL2020/DTL2020";
+import DTOneDay from "../../components/modules/Diamond/DTOneDay/DTOneDay";
+import InstantTeenPatti from "../../components/modules/Diamond/InstantTeenPatti/InstantTeenPatti";
 
 const OurCasino = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { eventId, eventTypeId } = useParams();
   const { data } = useGetSingleDiamond(eventTypeId, eventId);
 
@@ -39,7 +47,9 @@ const OurCasino = () => {
                           />
                         </div>
                       </div>{" "}
-                      <VideoLeftIcon data={data} />
+                      {data?.[0] && (
+                        <VideoLeftIcon data={data} eventId={eventId} />
+                      )}
                       {data?.[0]?.timer > 0 && (
                         <Timer timer={data?.[0]?.timer} />
                       )}
@@ -60,6 +70,16 @@ const OurCasino = () => {
                     ) : null}
                     {eventId == "10006" || eventId == "10052" ? (
                       <BollywoodCasino data={data} />
+                    ) : null}
+                    {eventId == "10007" || eventId == "10009" ? (
+                      <DragonTiger2020 data={data} />
+                    ) : null}
+                    {eventId == "10010" && <DTL2020 data={data} />}
+                    {eventId == "10008" && <DTOneDay data={data} />}
+                    {eventId == "10014" ||
+                    eventId == "10015" ||
+                    eventId == "10051" ? (
+                      <InstantTeenPatti data={data} />
                     ) : null}
                   </div>
                 </div>

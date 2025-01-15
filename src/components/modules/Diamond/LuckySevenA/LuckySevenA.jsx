@@ -6,12 +6,12 @@ const LuckySevenA = ({ data }) => {
       <div className="casino-box low-high-box">
         <div
           className={`low-odds ${isDiamondSuspended(
-            data[0],
-            data[0]?.runners?.[0]
+            data?.[0],
+            data?.[0]?.runners?.[0]
           )}`}
         >
           <div className="casino-odds">
-            {data[0]?.runners[0]?.back[0]?.price}
+            {data?.[0]?.runners[0]?.back[0]?.price}
           </div>{" "}
           <div className="text-center casino-buttons">
             <span>Low Card</span>
@@ -23,8 +23,8 @@ const LuckySevenA = ({ data }) => {
         </div>{" "}
         <div
           className={`high-odds ${isDiamondSuspended(
-            data[0],
-            data[0]?.runners[1]
+            data?.[0],
+            data?.[0]?.runners?.[1]
           )}`}
         >
           <div className="casino-odds">2</div>{" "}
@@ -33,7 +33,7 @@ const LuckySevenA = ({ data }) => {
           </div>{" "}
           <div className="casino-book book-black">
             {" "}
-            {data[0]?.runners[1]?.back[0]?.price}
+            {data?.[0]?.runners?.[1]?.back[0]?.price}
           </div>
         </div>{" "}
         <div className="casino-min-max text-right">
@@ -51,7 +51,7 @@ const LuckySevenA = ({ data }) => {
             >
               <div className="casino-odds">
                 {" "}
-                {data[1]?.runners[0]?.back[0]?.price}
+                {data?.[1]?.runners?.[0]?.back[0]?.price}
               </div>{" "}
               <div className="casino-buttons">Even</div>{" "}
               <div className="casino-book book-black">0</div>
@@ -87,7 +87,7 @@ const LuckySevenA = ({ data }) => {
             >
               <div className="casino-odds">
                 {" "}
-                {data[2]?.runners[0]?.back[0]?.price}
+                {data?.[2]?.runners?.[0]?.back[0]?.price}
               </div>{" "}
               <div className="casino-buttons">
                 <img src="/src/assets/spade.png" />{" "}
@@ -108,7 +108,7 @@ const LuckySevenA = ({ data }) => {
             >
               <div className="casino-odds">
                 {" "}
-                {data[2]?.runners[1]?.back[0]?.price}
+                {data?.[2]?.runners[1]?.back[0]?.price}
               </div>{" "}
               <div className="casino-buttons">
                 <img src="/src/assets/heart.png" />{" "}
@@ -129,7 +129,7 @@ const LuckySevenA = ({ data }) => {
               <div>
                 <div className="casino-odds">
                   {" "}
-                  {data[3]?.runners[0]?.back[0]?.price}
+                  {data?.[3]?.runners[0]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
                   <div
@@ -165,7 +165,7 @@ const LuckySevenA = ({ data }) => {
               <div>
                 <div className="casino-odds">
                   {" "}
-                  {data[3]?.runners[1]?.back[0]?.price}
+                  {data?.[3]?.runners?.[1]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
                   <div
@@ -201,7 +201,7 @@ const LuckySevenA = ({ data }) => {
               <div>
                 <div className="casino-odds">
                   {" "}
-                  {data[3]?.runners[2]?.back[0]?.price}
+                  {data?.[3]?.runners?.[2]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
                   <div
@@ -237,7 +237,7 @@ const LuckySevenA = ({ data }) => {
               <div>
                 <div className="casino-odds">
                   {" "}
-                  {data[3]?.runners[3]?.back[0]?.price}
+                  {data?.[3]?.runners[3]?.back[0]?.price}
                 </div>{" "}
                 <div className="casino-cards text-center mt-1">
                   <div
@@ -276,10 +276,10 @@ const LuckySevenA = ({ data }) => {
         <div className="w-100">
           <div className="casino-odds">
             {" "}
-            {data[4]?.runners[0]?.back[0]?.price}
+            {data?.[4]?.runners?.[0]?.back[0]?.price}
           </div>{" "}
           <div className="casino-cards text-center mt-1">
-            {data[4]?.runners?.map((runner, i) => {
+            {data?.[4]?.runners?.map((runner, i) => {
               return (
                 <div
                   key={i}
