@@ -5,7 +5,6 @@ import RightSidebar from "./RightSidebar";
 import RecentWinner from "./RecentWinner";
 import ActionButtons from "./ActionButtons";
 import Timer from "./Timer";
-import VideoLeftIcon from "./VideoLeftIcon";
 import Header from "./Header";
 import LuckySevenA from "../../components/modules/Diamond/LuckySevenA/LuckySevenA";
 import AmarAkbarAnthony from "../../components/modules/Diamond/AmarAkbarAnthony/AmarAkbarAnthony";
@@ -16,6 +15,11 @@ import { useEffect } from "react";
 import DTL2020 from "../../components/modules/Diamond/DTL2020/DTL2020";
 import DTOneDay from "../../components/modules/Diamond/DTOneDay/DTOneDay";
 import InstantTeenPatti from "../../components/modules/Diamond/InstantTeenPatti/InstantTeenPatti";
+import Card from "./Card";
+import OneCardOneDay from "../../components/modules/Diamond/OneCardOneDay/OneCardOneDay";
+import OneCard2020 from "../../components/modules/Diamond/OneCard2020/OneCard2020";
+import MaflisTeenPatti from "../../components/modules/Diamond/MaflisTeenPatti/MaflisTeenPatti";
+import TeenPattiTest from "../../components/modules/Diamond/TeenPattiTest/TeenPattiTest";
 
 const OurCasino = () => {
   useEffect(() => {
@@ -23,7 +27,7 @@ const OurCasino = () => {
   }, []);
   const { eventId, eventTypeId } = useParams();
   const { data } = useGetSingleDiamond(eventTypeId, eventId);
-
+  console.log({ data });
   if (!data || data?.length === 0) {
     return null;
   }
@@ -47,9 +51,7 @@ const OurCasino = () => {
                           />
                         </div>
                       </div>{" "}
-                      {data?.[0] && (
-                        <VideoLeftIcon data={data} eventId={eventId} />
-                      )}
+                      {data?.[0] && <Card data={data} eventId={eventId} />}
                       {data?.[0]?.timer > 0 && (
                         <Timer timer={data?.[0]?.timer} />
                       )}
@@ -81,6 +83,10 @@ const OurCasino = () => {
                     eventId == "10051" ? (
                       <InstantTeenPatti data={data} />
                     ) : null}
+                    {eventId == "10012" && <OneCardOneDay data={data} />}
+                    {eventId == "10013" && <OneCard2020 data={data} />}
+                    {eventId == "10020" && <MaflisTeenPatti data={data} />}
+                    {eventId == "10018" && <TeenPattiTest data={data} />}
                   </div>
                 </div>
               </div>

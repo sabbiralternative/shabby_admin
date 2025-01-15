@@ -7,6 +7,7 @@ export const useGetSingleDiamond = (eventTypeId, eventId) => {
     queryKey: [""],
     queryFn: async () => {
       const { data } = await axios.get(`${API.odds}/${eventTypeId}/${eventId}`);
+
       return data?.result;
     },
     refetchInterval: 1000,

@@ -150,7 +150,12 @@ const DragonTiger2020 = ({ data }) => {
                   {/* <span className="casino-book book-black">0</span> */}
                 </div>
               </div>
-              <div className={`casino-bl-box ${data?.[4]?.runners?.[1]}`}>
+              <div
+                className={`casino-bl-box ${isDiamondSuspended(
+                  data?.[4],
+                  data?.[4]?.runners?.[1]
+                )}`}
+              >
                 <div className="back casino-bl-box-item casino-card-img">
                   <span>
                     <img src="https://g1ver.sprintstaticdata.com/v40/static/admin/img/cards/heart.png" />{" "}
@@ -248,9 +253,10 @@ const DragonTiger2020 = ({ data }) => {
                 </div>
               </div>
               <div
-                className={`casino-bl-box ${
-                  (data?.[3], data?.[3]?.runners?.[1])
-                }`}
+                className={`casino-bl-box ${isDiamondSuspended(
+                  data?.[3],
+                  data?.[3]?.runners?.[1]
+                )}`}
               >
                 <div className="back casino-bl-box-item">
                   <span className="casino-box-odd">Odd</span>{" "}
