@@ -20,6 +20,7 @@ import OneCardOneDay from "../../components/modules/Diamond/OneCardOneDay/OneCar
 import OneCard2020 from "../../components/modules/Diamond/OneCard2020/OneCard2020";
 import MaflisTeenPatti from "../../components/modules/Diamond/MaflisTeenPatti/MaflisTeenPatti";
 import TeenPattiTest from "../../components/modules/Diamond/TeenPattiTest/TeenPattiTest";
+import TeenPatti2020 from "../../components/modules/Diamond/TeenPatti2020/TeenPatti2020";
 
 const OurCasino = () => {
   useEffect(() => {
@@ -87,6 +88,11 @@ const OurCasino = () => {
                     {eventId == "10013" && <OneCard2020 data={data} />}
                     {eventId == "10020" && <MaflisTeenPatti data={data} />}
                     {eventId == "10018" && <TeenPattiTest data={data} />}
+                    {eventId == "10017" ||
+                    eventId == "10041" ||
+                    eventId == "10053" ? (
+                      <TeenPatti2020 data={data} />
+                    ) : null}
                   </div>
                 </div>
               </div>

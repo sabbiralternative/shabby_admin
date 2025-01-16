@@ -81,7 +81,10 @@ const Card = ({ data, eventId }) => {
       {eventId == "10014" ||
       eventId == "10015" ||
       eventId == "10051" ||
-      eventId == "10020" ? (
+      eventId == "10020" ||
+      eventId == "10017" ||
+      eventId == "10041" ||
+      eventId == "10053" ? (
         <div
           className={`casino-video-cards
          ${
@@ -315,6 +318,55 @@ const Card = ({ data, eventId }) => {
           </div>
         </div>
       )}
+      {/* {eventId == "10017" && (
+        <div class="casino-video-cards ">
+          <div class="casino-cards-shuffle">
+            <i class="fas fa-grip-lines-vertical"></i>
+          </div>
+          <div class="casino-video-cards-container">
+            <div>
+              <span data-v-79776e43="">
+                <img
+                  data-v-79776e43=""
+                  src="https://g1ver.sprintstaticdata.com/v40/static/admin/img/cards/JSS.png"
+                />
+              </span>{" "}
+              <span data-v-79776e43="">
+                <img
+                  data-v-79776e43=""
+                  src="https://g1ver.sprintstaticdata.com/v40/static/admin/img/cards/1.png"
+                />
+              </span>{" "}
+              <span data-v-79776e43="">
+                <img
+                  data-v-79776e43=""
+                  src="https://g1ver.sprintstaticdata.com/v40/static/admin/img/cards/1.png"
+                />
+              </span>
+            </div>
+            <div>
+              <span data-v-79776e43="">
+                <img
+                  data-v-79776e43=""
+                  src="https://g1ver.sprintstaticdata.com/v40/static/admin/img/cards/3HH.png"
+                />
+              </span>{" "}
+              <span data-v-79776e43="">
+                <img
+                  data-v-79776e43=""
+                  src="https://g1ver.sprintstaticdata.com/v40/static/admin/img/cards/1.png"
+                />
+              </span>{" "}
+              <span data-v-79776e43="">
+                <img
+                  data-v-79776e43=""
+                  src="https://g1ver.sprintstaticdata.com/v40/static/admin/img/cards/1.png"
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      )} */}
     </>
   );
 };
