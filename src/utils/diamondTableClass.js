@@ -34,4 +34,8 @@ export const diamondTableClass = (eventId) => {
   if (eventId == "10017" || eventId == "10041" || eventId == "10053") {
     return "teenpatti20";
   }
+
+  if (eventId == "10039") {
+    return "race20";
+  }
 };

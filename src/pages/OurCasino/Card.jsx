@@ -367,6 +367,52 @@ const Card = ({ data, eventId }) => {
           </div>
         </div>
       )} */}
+      {eventId == "10039" && (
+        <div
+          className={`casino-video-cards   ${
+            data?.[0]?.runners?.[0]?.card == null &&
+            data[0]?.runners?.[1]?.card == null &&
+            data[0]?.runners?.[2]?.card == null &&
+            data[0]?.runners?.[3]?.card == null
+              ? "hide-cards"
+              : ""
+          }`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical" />
+          </div>
+          <div className="casino-video-cards-container">
+            <div>
+              {data?.[0]?.runners?.[0]?.card?.map((c) => (
+                <span key={c}>
+                  <img src={`/src/assets/cards/${c}.jpg`} />
+                </span>
+              ))}
+            </div>
+            <div>
+              {data?.[0]?.runners?.[1]?.card?.map((c) => (
+                <span key={c}>
+                  <img src={`/src/assets/cards/${c}.jpg`} />
+                </span>
+              ))}
+            </div>
+            <div>
+              {data?.[0]?.runners?.[2]?.card?.map((c) => (
+                <span key={c}>
+                  <img src={`/src/assets/cards/${c}.jpg`} />
+                </span>
+              ))}
+            </div>
+            <div>
+              {data?.[0]?.runners?.[3]?.card?.map((c) => (
+                <span key={c}>
+                  <img src={`/src/assets/cards/${c}.jpg`} />
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
