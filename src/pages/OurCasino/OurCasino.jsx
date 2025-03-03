@@ -22,6 +22,8 @@ import MaflisTeenPatti from "../../components/modules/Diamond/MaflisTeenPatti/Ma
 import TeenPattiTest from "../../components/modules/Diamond/TeenPattiTest/TeenPattiTest";
 import TeenPatti2020 from "../../components/modules/Diamond/TeenPatti2020/TeenPatti2020";
 import Race2020 from "../../components/modules/Diamond/Race2020/Race2020";
+import Baccrat29 from "../../components/modules/Diamond/Baccrat29/Baccrat29";
+import Baccrat from "../../components/modules/Diamond/Baccrat/Baccrat";
 
 const OurCasino = () => {
   useEffect(() => {
@@ -42,7 +44,9 @@ const OurCasino = () => {
             <div className="center-main-container">
               <div className="center-content">
                 <div className="casino-container">
-                  <div className={`casino-table ${diamondTableClass(eventId)}`}>
+                  <div
+                    className={`casino-table ${diamondTableClass(eventId)} `}
+                  >
                     <div className="casino-video">
                       <Header data={data?.[0]} />
                       <div className="video-box-container">
@@ -95,6 +99,8 @@ const OurCasino = () => {
                       <TeenPatti2020 data={data} />
                     ) : null}
                     {eventId == "10039" && <Race2020 data={data} />}
+                    {eventId == "10026" && <Baccrat29 data={data} />}
+                    {eventId == "10024" && <Baccrat data={data} />}
                   </div>
                 </div>
               </div>
