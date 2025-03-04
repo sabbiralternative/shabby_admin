@@ -319,11 +319,11 @@ const Card = ({ data, eventId }) => {
         </div>
       )}
       {/* {eventId == "10017" && (
-        <div class="casino-video-cards ">
-          <div class="casino-cards-shuffle">
-            <i class="fas fa-grip-lines-vertical"></i>
+        <div className="casino-video-cards ">
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
           </div>
-          <div class="casino-video-cards-container">
+          <div className="casino-video-cards-container">
             <div>
               <span data-v-79776e43="">
                 <img
@@ -434,7 +434,7 @@ const Card = ({ data, eventId }) => {
               ))}
             </div>
             <div>
-              {data?.[1]?.runners?.[0]?.card?.map((c) => (
+              {data?.[0]?.runners?.[1]?.card?.map((c) => (
                 <span data-v-79776e43 key={c}>
                   <img data-v-79776e43 src={`/src/assets/cards/${c}.jpg`} />
                 </span>
@@ -443,6 +443,160 @@ const Card = ({ data, eventId }) => {
           </div>
         </div>
       )}
+      {eventId === "10045" || eventId == "10046" ? (
+        <div
+          className={`casino-video-cards ${
+            data?.[0]?.runners?.[0]?.card?.length == 0 &&
+            data[0]?.runners?.[1]?.card?.length == 0
+              ? "hide-cards"
+              : ""
+          }`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
+          </div>
+          <div className="casino-video-cards-container">
+            <div>
+              {data?.[0]?.runners?.[0]?.card?.map((c) => (
+                <span data-v-79776e43 key={c}>
+                  <img data-v-79776e43 src={`/src/assets/cards/${c}.jpg`} />
+                </span>
+              ))}
+            </div>
+            <div>
+              {data?.[0]?.runners?.[1]?.card?.map((c) => (
+                <span data-v-79776e43 key={c}>
+                  <img data-v-79776e43 src={`/src/assets/cards/${c}.jpg`} />
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {eventId == "10048" && (
+        <div
+          className={`casino-video-cards  ${
+            data?.[0]?.indexCard?.length > 0 ? "" : "hide-cards"
+          }`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
+          </div>
+          <div className="casino-video-cards-container">
+            <span data-v-79776e43="">
+              <img
+                data-v-79776e43=""
+                src={`/src/assets/cards/${data?.[0]?.indexCard?.[0]}.jpg`}
+              />
+            </span>
+          </div>
+        </div>
+      )}
+      {eventId == "10019" && (
+        <div
+          className={`casino-video-cards ${
+            data?.[0]?.indexCard?.length === 0 ? "hide-cards" : ""
+          }`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
+          </div>
+          <div className="casino-video-cards-container">
+            <div className="dealer-name">Dealer</div>
+            <div>
+              {data?.[0]?.indexCard?.map((card) => (
+                <span key={card} data-v-79776e43="">
+                  <img
+                    data-v-79776e43=""
+                    src={`/src/assets/cards/${card}.jpg`}
+                  />
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+      {eventId == "10042" && (
+        <div className="casino-video-cards">
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
+          </div>
+          <div className="casino-video-cards-container">
+            {data?.[0]?.runners?.map((runner) => (
+              <div key={runner?.id}>
+                {runner?.card?.map((c) => (
+                  <span key={c} data-v-79776e43="">
+                    <img
+                      data-v-79776e43=""
+                      src={`/src/assets/cards/${c}.jpg`}
+                    />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {eventId == "10016" && (
+        <div
+          className={`casino-video-cards  ${
+            data?.[0]?.runners?.some((runner) => runner?.card?.length > 0)
+              ? ""
+              : "hide-cards"
+          }`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical" />
+          </div>
+          <div className="casino-video-cards-container">
+            {data?.[0]?.runners?.map((runner) => (
+              <div key={runner?.id}>
+                {runner?.card?.map((c) => (
+                  <span key={c} data-v-79776e43="">
+                    <img
+                      data-v-79776e43=""
+                      src={`/src/assets/cards/${c}.jpg`}
+                    />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {eventId == "10027" || eventId == "10028" ? (
+        <div
+          className={`casino-video-cards ${
+            data?.[0]?.runners?.some((runner) => runner?.card?.length > 0)
+              ? ""
+              : "hide-cards"
+          }`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
+          </div>
+          <div className="casino-video-cards-container">
+            {data?.[0]?.runners?.map((runner) => (
+              <div key={runner?.id}>
+                <div className="dealer-name w-100 mb-1">
+                  <span className="">{runner?.name}: </span>
+                  <span className="text-warning">{runner?.total}</span>
+                </div>
+                <div>
+                  {runner?.card?.map((c) => (
+                    <span key={c} data-v-79776e43="">
+                      <img
+                        data-v-79776e43=""
+                        src={`/src/assets/cards/${c}.jpg`}
+                      />
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };

@@ -24,6 +24,12 @@ import TeenPatti2020 from "../../components/modules/Diamond/TeenPatti2020/TeenPa
 import Race2020 from "../../components/modules/Diamond/Race2020/Race2020";
 import Baccrat29 from "../../components/modules/Diamond/Baccrat29/Baccrat29";
 import Baccrat from "../../components/modules/Diamond/Baccrat/Baccrat";
+import JackTop from "../../components/modules/Diamond/JackTop/JackTop";
+import CasinoWar from "../../components/modules/Diamond/CasinoWar/CasinoWar";
+import TeenPattiOpen from "../../components/modules/Diamond/TeenPattiOpen/TeenPattiOpen";
+import TeenPattiTwo from "../../components/modules/Diamond/TeenPattiTwo/TeenPattiTwo";
+import TeenPattiOneDay from "../../components/modules/Diamond/TeenPattiOneDay/TeenPattiOneDay";
+import ThirtyTwoCard from "../../components/modules/Diamond/ThirtyTwoCard/ThirtyTwoCard";
 
 const OurCasino = () => {
   useEffect(() => {
@@ -101,6 +107,16 @@ const OurCasino = () => {
                     {eventId == "10039" && <Race2020 data={data} />}
                     {eventId == "10026" && <Baccrat29 data={data} />}
                     {eventId == "10024" && <Baccrat data={data} />}
+                    {eventId == "10045" || eventId == "10046" ? (
+                      <JackTop data={data} />
+                    ) : null}
+                    {eventId == "10048" && <CasinoWar data={data} />}
+                    {eventId == "10019" && <TeenPattiOpen data={data} />}
+                    {eventId == "10042" && <TeenPattiTwo data={data} />}
+                    {eventId == "10016" && <TeenPattiOneDay data={data} />}
+                    {eventId == "10027" || eventId == "10028" ? (
+                      <ThirtyTwoCard data={data} />
+                    ) : null}
                   </div>
                 </div>
               </div>

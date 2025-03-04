@@ -44,4 +44,22 @@ export const diamondTableClass = (eventId) => {
   if (eventId == "10024") {
     return "baccarat";
   }
+  if (eventId == "10045" || eventId == "10046") {
+    return "teenpatti2";
+  }
+  if (eventId == "10048") {
+    return "casino-war";
+  }
+  if (eventId == "10019") {
+    return "teenpattiopen";
+  }
+  if (eventId == "10042") {
+    return "teenpatti2";
+  }
+  if (eventId == "10016") {
+    return "teenpatti1day";
+  }
+  if (eventId == "10027" || eventId == "10028") {
+    return "cards32a";
+  }
 };

@@ -13,22 +13,22 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[0]
+                  data?.[0]?.runners?.[0]
                 )}`}
               >
                 <span className="casino-box-odd">
-                  {data[0]?.runners[0]?.back[0]?.price}
+                  {data?.[0]?.runners?.[0]?.back?.[0]?.price}
                 </span>
               </div>
               <div
                 className={`lay casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[0]
+                  data?.[0]?.runners?.[0]
                 )}`}
               >
                 <span className="casino-box-odd">
                   {" "}
-                  {data[0]?.runners[0]?.lay[0]?.price}
+                  {data?.[0]?.runners?.[0]?.lay?.[0]?.price}
                 </span>
               </div>
             </div>
@@ -44,22 +44,22 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[1]
+                  data?.[0]?.runners?.[1]
                 )}`}
               >
                 <span className="casino-box-odd">
-                  {data[0]?.runners[1]?.back[0]?.price}
+                  {data?.[0]?.runners?.[1]?.back?.[0]?.price}
                 </span>
               </div>
               <div
                 className={`lay casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[1]
+                  data?.[0]?.runners?.[1]
                 )}`}
               >
                 <span className="casino-box-odd">
                   {" "}
-                  {data[0]?.runners[1]?.lay[0]?.price}
+                  {data?.[0]?.runners?.[1]?.lay?.[0]?.price}
                 </span>
               </div>
             </div>
@@ -75,23 +75,23 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[2]
+                  data?.[0]?.runners?.[2]
                 )}`}
               >
                 <span className="casino-box-odd">
                   {" "}
-                  {data[0]?.runners[2]?.back[0]?.price}
+                  {data?.[0]?.runners?.[2]?.back?.[0]?.price}
                 </span>
               </div>
               <div
                 className={`lay casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[2]
+                  data?.[0]?.runners?.[2]
                 )}`}
               >
                 <span className="casino-box-odd">
                   {" "}
-                  {data[0]?.runners[2]?.lay[0]?.price}
+                  {data?.[0]?.runners?.[2]?.lay?.[0]?.price}
                 </span>
               </div>
             </div>
@@ -107,22 +107,22 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[3]
+                  data?.[0]?.runners?.[3]
                 )}`}
               >
                 <span className="casino-box-odd">
-                  {data[0]?.runners[3]?.back[0]?.price}
+                  {data?.[0]?.runners?.[3]?.back?.[0]?.price}
                 </span>
               </div>
               <div
                 className={`lay casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[3]
+                  data?.[0]?.runners?.[3]
                 )}`}
               >
                 <span className="casino-box-odd">
                   {" "}
-                  {data[0]?.runners[3]?.lay[0]?.price}
+                  {data?.[0]?.runners?.[3]?.lay?.[0]?.price}
                 </span>
               </div>
             </div>
@@ -138,22 +138,22 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[4]
+                  data?.[0]?.runners?.[4]
                 )}`}
               >
                 <span className="casino-box-odd">
-                  {data[0]?.runners[4]?.back[0]?.price}
+                  {data?.[0]?.runners?.[4]?.back?.[0]?.price}
                 </span>
               </div>
               <div
                 className={`lay casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[4]
+                  data?.[0]?.runners?.[4]
                 )}`}
               >
                 <span className="casino-box-odd">
                   {" "}
-                  {data[0]?.runners[4]?.lay[0]?.price}
+                  {data?.[0]?.runners?.[4]?.lay?.[0]?.price}
                 </span>
               </div>
             </div>
@@ -169,21 +169,21 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[5]
+                  data?.[0]?.runners?.[5]
                 )}`}
               >
                 <span className="casino-box-odd">
-                  {data[0]?.runners[5]?.back[0]?.price}
+                  {data?.[0]?.runners?.[5]?.back?.[0]?.price}
                 </span>
               </div>
               <div
                 className={`lay casino-bl-box-item ${isDiamondSuspended(
                   data?.[0],
-                  data[0]?.runners[5]
+                  data?.[0]?.runners?.[5]
                 )}`}
               >
                 <span className="casino-box-odd">
-                  {data[0]?.runners[5]?.lay[0]?.price}
+                  {data?.[0]?.runners?.[5]?.lay?.[0]?.price}
                 </span>
               </div>
             </div>
@@ -207,22 +207,22 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[1],
-                  data[1]?.runners[0]
+                  data?.[1]?.runners?.[0]
                 )}`}
               >
                 <span className="casino-box-odd">
-                  {data[1]?.runners[0]?.back[0]?.price}
+                  {data?.[1]?.runners?.[0]?.back?.[0]?.price}
                 </span>
               </div>
               <div
                 className={`lay casino-bl-box-item ${isDiamondSuspended(
                   data?.[1],
-                  data[1]?.runners[0]
+                  data?.[1]?.runners?.[0]
                 )}`}
               >
                 <span className="casino-box-odd">
                   {" "}
-                  {data[1]?.runners[0]?.lay[0]?.price}
+                  {data?.[1]?.runners?.[0]?.lay?.[0]?.price}
                 </span>
               </div>
             </div>
@@ -235,13 +235,13 @@ const BollywoodCasino = ({ data }) => {
         <div className="col-lg-4 col-6 bc-fancy">
           <div className="casino-box-row">
             <div className="casino-nation-name">
-              <b>{data[2]?.runners[0]?.back[0]?.price}</b>
+              <b>{data?.[2]?.runners?.[0]?.back?.[0]?.price}</b>
             </div>
             <div className="casino-bl-box">
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[2],
-                  data[2]?.runners[0]
+                  data?.[2]?.runners?.[0]
                 )}`}
               >
                 <span className="casino-box-odd">Dulha Dulhan K-Q</span>
@@ -256,13 +256,13 @@ const BollywoodCasino = ({ data }) => {
         <div className="col-lg-4 col-6 bc-fancy">
           <div className="casino-box-row">
             <div className="casino-nation-name">
-              <b>{data[2]?.runners[1]?.back[0]?.price}</b>
+              <b>{data?.[2]?.runners?.[1]?.back?.[0]?.price}</b>
             </div>
             <div className="casino-bl-box">
               <div
                 className={`back casino-bl-box-item ${isDiamondSuspended(
                   data?.[2],
-                  data[2]?.runners[1]
+                  data?.[2]?.runners?.[1]
                 )}`}
               >
                 <span className="casino-box-odd">Barati J-A</span>
@@ -279,10 +279,10 @@ const BollywoodCasino = ({ data }) => {
         <div className="col-lg-6 col-12 aaa-oe">
           <div className="casino-box-row">
             <div className="casino-bl-box">
-              <b>{data[3]?.runners[0]?.back[0]?.price}</b>
+              <b>{data?.[3]?.runners?.[0]?.back?.[0]?.price}</b>
             </div>
             <div className="casino-bl-box">
-              <b>{data[3]?.runners[1]?.back[0]?.price}</b>
+              <b>{data?.[3]?.runners?.[1]?.back[0]?.price}</b>
             </div>
           </div>
           <div className="casino-box-row">
@@ -290,7 +290,7 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item casino-card-img ${isDiamondSuspended(
                   data?.[3],
-                  data[3]?.runners[0]
+                  data?.[3]?.runners[0]
                 )}`}
               >
                 <span>
@@ -304,7 +304,7 @@ const BollywoodCasino = ({ data }) => {
               <div
                 className={`back casino-bl-box-item casino-card-img ${isDiamondSuspended(
                   data?.[3],
-                  data[3]?.runners[1]
+                  data?.[3]?.runners?.[1]
                 )}`}
               >
                 <span>
@@ -323,12 +323,12 @@ const BollywoodCasino = ({ data }) => {
           <div className="text-center w-100">
             <div className="casino-bl-box">
               <div className="casino-bl-box-item">
-                <b>Cards {data[4]?.runners[0]?.back[0]?.price}</b>
+                <b>Cards {data?.[4]?.runners?.[0]?.back?.[0]?.price}</b>
               </div>
             </div>
           </div>
           <div className="casino-cards text-center mt-1">
-            {data[4]?.runners?.map((runner, i) => {
+            {data?.[4]?.runners?.map((runner, i) => {
               return (
                 <div
                   key={i}
