@@ -1,6 +1,7 @@
 import assets from "../../assets";
 
 const Card = ({ data, eventId }) => {
+  console.log(data);
   return (
     <>
       {eventId == "10001" ||
@@ -594,6 +595,66 @@ const Card = ({ data, eventId }) => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      ) : null}
+      {eventId == "10037" && (
+        <div
+          className={`casino-video-cards 
+            ${
+              data?.[0]?.runners?.some((runner) => runner?.card?.length > 0)
+                ? ""
+                : "hide-cards"
+            }`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
+          </div>{" "}
+          <div className="casino-video-cards-container">
+            {data?.[0]?.runners?.map((runner) => {
+              return (
+                <div key={runner?.id}>
+                  <div className="dealer-name w-100 mb-1">
+                    <span className="">{runner?.name}: </span>{" "}
+                    <span className="text-warning ml-1">{runner?.hdp}</span>
+                  </div>{" "}
+                  {runner?.card?.length > 0 && (
+                    <div>
+                      <span data-v-79776e43="">
+                        <img
+                          data-v-79776e43=""
+                          src={`/src/assets/cards/${runner?.card?.[0]}.jpg`}
+                        />
+                      </span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      {eventId == "10034" || eventId == "10035" ? (
+        <div
+          className={`casino-video-cards 
+           ${data[0]?.indexCard?.length > 0 ? "" : "hide-cards"}`}
+        >
+          <div className="casino-cards-shuffle">
+            <i className="fas fa-grip-lines-vertical"></i>
+          </div>{" "}
+          <div className="casino-video-cards-container">
+            <div>
+              {data[0]?.indexCard?.map((card, i) => {
+                return (
+                  <span key={i} data-v-79776e43="">
+                    <img
+                      data-v-79776e43=""
+                      src={`/src/assets/cards/${card}.jpg`}
+                    />
+                  </span>
+                );
+              })}{" "}
+            </div>
           </div>
         </div>
       ) : null}

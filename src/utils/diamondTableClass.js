@@ -59,6 +59,9 @@ export const diamondTableClass = (eventId) => {
   if (eventId == "10016") {
     return "teenpatti1day";
   }
+  if (eventId == "10037") {
+    return "casino-queen";
+  }
   if (eventId == "10027" || eventId == "10028") {
     return "cards32a";
   }

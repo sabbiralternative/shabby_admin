@@ -30,6 +30,7 @@ import TeenPattiOpen from "../../components/modules/Diamond/TeenPattiOpen/TeenPa
 import TeenPattiTwo from "../../components/modules/Diamond/TeenPattiTwo/TeenPattiTwo";
 import TeenPattiOneDay from "../../components/modules/Diamond/TeenPattiOneDay/TeenPattiOneDay";
 import ThirtyTwoCard from "../../components/modules/Diamond/ThirtyTwoCard/ThirtyTwoCard";
+import Queen from "../../components/modules/Diamond/Queen/Queen";
 
 const OurCasino = () => {
   useEffect(() => {
@@ -117,6 +118,7 @@ const OurCasino = () => {
                     {eventId == "10027" || eventId == "10028" ? (
                       <ThirtyTwoCard data={data} />
                     ) : null}
+                    {eventId == "10037" ? <Queen data={data} /> : null}
                   </div>
                 </div>
               </div>
