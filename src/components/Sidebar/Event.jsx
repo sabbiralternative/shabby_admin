@@ -11,21 +11,21 @@ const Event = () => {
   const [toggleEvent, setToggleEvent] = useState(false);
   const [menu, setMenu] = useState([]);
 
-
-
   useEffect(() => {
     const getAllMenuApi = async () => {
-      const generatedToken = UseTokenGenerator()
+      const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({
-        token:generatedToken
-      })
-      const res = await axios.post(API.menu,encryptedData, {
+        token: generatedToken,
+      });
+      const res = await axios.post(API.menu, encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = res.data;
-      setMenu(data);
+      const data = res?.data;
+      if (data?.success) {
+        setMenu(data);
+      }
     };
     getAllMenuApi();
   }, []);
@@ -45,15 +45,16 @@ const Event = () => {
       </a>
       {toggleEvent && (
         <ul className={`sub-menu  ${toggleEvent ? "" : "mm-collapse"} `}>
-          {menu?.map((m, i) => (
-            <Menu
-              key={i}
-              eventTypeName={m.eventTypeName}
-              length={m?.competitions}
-              menu={m}
-              singleEvent={m}
-            />
-          ))}
+          {menu?.length > 0 &&
+            menu?.map((m, i) => (
+              <Menu
+                key={i}
+                eventTypeName={m?.eventTypeName}
+                length={m?.competitions}
+                menu={m}
+                singleEvent={m}
+              />
+            ))}
         </ul>
       )}
     </li>
@@ -77,7 +78,7 @@ export const Menu = ({ eventTypeName, menu, singleEvent, length }) => {
       </a>
       {isOpen && (
         <ul className={`sub-menu ${isOpen ? "" : "mm-collapse"}`}>
-          {menu.competitions.map((c, i) => (
+          {menu?.competitions?.map((c, i) => (
             <Competitions
               key={i}
               competitions={c}
@@ -115,7 +116,7 @@ export const Competitions = ({ competitions, menu, singleEvent }) => {
       {showLinks && (
         <ul className={`sub-menu ${showLinks ? "" : "mm-collapse"}`}>
           <li className="text-dark">
-            {links[0].events.map((li, i) => (
+            {links?.[0]?.events?.map((li, i) => (
               <Links
                 key={i}
                 eventName={li.eventName}
@@ -134,11 +135,11 @@ export const Links = ({ eventName, singleEvent, competitions }) => {
   const navigate = useNavigate();
   const { sidebarMobile, setSidebarMobile } = UseContextState();
   const getSingleGame = (name) => {
-    const filter = competitions.events.find((ev) => ev.eventName === name);
-    const evenTypeId = singleEvent.eventTypeId;
-    const eventId = filter.eventId;
+    const filter = competitions?.events?.find((ev) => ev?.eventName === name);
+    const evenTypeId = singleEvent?.eventTypeId;
+    const eventId = filter?.eventId;
     navigate(`/game-details/${evenTypeId}/${eventId}`);
-    setSidebarMobile(!sidebarMobile)
+    setSidebarMobile(!sidebarMobile);
   };
 
   return (

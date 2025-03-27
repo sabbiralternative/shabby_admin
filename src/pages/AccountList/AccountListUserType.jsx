@@ -21,6 +21,7 @@ const AccountListUserType = () => {
         searchId: searchId,
         token: generatedToken,
       });
+
       const res = await axios.post(API.downline, encryptedData, {
         headers: {
           Authorization: `Bearer ${token}`,

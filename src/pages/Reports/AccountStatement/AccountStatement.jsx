@@ -42,13 +42,14 @@ const AccountStatement = () => {
       statement: statement,
       token: generatedToken,
     });
+
     const res = await axios.post(API.accountStatement, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     const data = res.data;
-
+    console.log(data);
     if (data?.success) {
       setStatementData(data?.result);
     }
@@ -131,7 +132,6 @@ const AccountStatement = () => {
                                     position: "absolute",
                                     padding: "0px",
                                   }}
-                                  
                                   value={searchUser}
                                 />
                                 {/*   <!----> */}
@@ -159,12 +159,11 @@ const AccountStatement = () => {
                                       showSearchId &&
                                       users?.result?.length > 0 &&
                                       users?.result?.map((user, i) => {
-                                      
                                         return (
                                           <span
                                             onClick={() => {
                                               setSearchId(user);
-                                              setSearchUser(user)
+                                              setSearchUser(user);
                                               setShowSearchId(false);
                                             }}
                                             key={i}
@@ -198,7 +197,7 @@ const AccountStatement = () => {
                           <div className="mb-3 mx-datepicker mx-datepicker-range">
                             <div className="mx-input-wrapper">
                               <DateRangePicker
-                              format="dd-MM-yyyy"
+                                format="dd-MM-yyyy"
                                 editable
                                 onChange={onChange}
                                 defaultValue={[

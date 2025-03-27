@@ -30,17 +30,18 @@ const OurCasino = () => {
         <h4 className="sport-list-title pl-2">Our Live Casino</h4>
         <div>
           <div className="casino-banners">
-            {casino_list?.map((casino, idx) => {
-              return (
-                <div key={idx} className="casino-banner-item">
-                  <Link
-                    to={`/our-casino/${casino?.eventId}/${casino?.eventTypeId}`}
-                  >
-                    <img className="img-fluid" src={casino?.image} />
-                  </Link>
-                </div>
-              );
-            })}
+            {casino_list?.length > 0 &&
+              casino_list?.map((casino, idx) => {
+                return (
+                  <div key={idx} className="casino-banner-item">
+                    <Link
+                      to={`/our-casino/${casino?.eventId}/${casino?.eventTypeId}`}
+                    >
+                      <img className="img-fluid" src={casino?.image} />
+                    </Link>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>

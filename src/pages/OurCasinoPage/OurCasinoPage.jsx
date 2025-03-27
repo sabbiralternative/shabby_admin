@@ -113,32 +113,34 @@ const OurCasinoPage = () => {
 
             {settings.casino == "diamond" && (
               <div className="casino-banners">
-                {casino_list.map((casino, i) => {
-                  return (
-                    <div key={i} className="casino-banner-item">
-                      <Link
-                        to={`/our-casino/${casino?.eventId}/${casino?.eventTypeId}`}
-                        className=""
-                      >
-                        <img className="img-fluid" src={casino.image} />
-                      </Link>
-                    </div>
-                  );
-                })}
+                {casino_list?.length > 0 &&
+                  casino_list?.map((casino, i) => {
+                    return (
+                      <div key={i} className="casino-banner-item">
+                        <Link
+                          to={`/our-casino/${casino?.eventId}/${casino?.eventTypeId}`}
+                          className=""
+                        >
+                          <img className="img-fluid" src={casino.image} />
+                        </Link>
+                      </div>
+                    );
+                  })}
               </div>
             )}
 
             {settings.casino == "aura" && (
               <div className="casino-banners">
-                {casino_list.map((casino, i) => {
-                  return (
-                    <div key={i} className="casino-banner-item">
-                      <Link className="">
-                        <img className="img-fluid" src={casino.image} />
-                      </Link>
-                    </div>
-                  );
-                })}
+                {casino_list?.length > 0 &&
+                  casino_list?.map((casino, i) => {
+                    return (
+                      <div key={i} className="casino-banner-item">
+                        <Link className="">
+                          <img className="img-fluid" src={casino.image} />
+                        </Link>
+                      </div>
+                    );
+                  })}
               </div>
             )}
           </div>

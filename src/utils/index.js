@@ -1,7 +1,5 @@
 export const API = {
   changePassword: "",
-
-
   liveCasinoIframe: "",
   accessToken: "",
   notification: "",
@@ -36,20 +34,19 @@ export const API = {
   slotsWolf: "",
   withdrawIframe: "",
   assets: "",
-  downLineEdit:"",
-  downLineEditForm:"",
-  qrValidate:"",
-  downline:"",
-  adminExposure:"",
-  qrCode:"",
-  searchUser:"",
-  Bank:"",
-  createDownLine:"",
-  marketAnalysis:"",
-  partyWinLoss:"",
-  userAuthentication:"",
-  userHistory:"",
-
+  downLineEdit: "",
+  downLineEditForm: "",
+  qrValidate: "",
+  downline: "",
+  adminExposure: "",
+  qrCode: "",
+  searchUser: "",
+  Bank: "",
+  createDownLine: "",
+  marketAnalysis: "",
+  partyWinLoss: "",
+  userAuthentication: "",
+  userHistory: "",
 };
 
 export const settings = {
@@ -65,5 +62,5 @@ export const settings = {
   disabledDevtool: "",
   casinoCurrency: "",
   interval: "",
-  URL:""
+  URL: "",
 };
