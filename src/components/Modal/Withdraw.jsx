@@ -14,6 +14,7 @@ const Withdraw = ({
   withdrawAccountType,
 }) => {
   const modalRef = useRef();
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
   const [amountOne, setAmountOne] = useState(null);
@@ -24,24 +25,20 @@ const Withdraw = ({
   const [inputIsValid, setInputIsValid] = useState(false);
   const [, refetchDownLine] = UseDownLineData();
   const [, refetchBalance] = UseBalance();
- 
+
   useEffect(() => {
     const getReferenceData = async () => {
-      const generatedToken = UseTokenGenerator()
+      const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({
         downlineId: withdrawAccountType,
         type: "balance",
         token: generatedToken,
-      })
-      const res = await axios.post(
-        API.downLineEditForm,
-        encryptedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      });
+      const res = await axios.post(API.downLineEditForm, encryptedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = res.data;
 
       setData(data.result);
@@ -56,7 +53,6 @@ const Withdraw = ({
     setAmountTwo(userTwo);
   };
 
-
   const handleWithdrawSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,7 +64,7 @@ const Withdraw = ({
       setInputIsValid(true);
       return;
     }
-
+    setLoading(true);
 
     const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
@@ -87,11 +83,13 @@ const Withdraw = ({
     const data = res.data;
 
     if (data.success) {
+      setLoading(false);
       refetchBalance();
       setWithdrawSuccessNotify(data?.result?.message);
       setWithdrawModal(!withdrawModal);
       refetchDownLine();
     } else {
+      setLoading(false);
       setWithdrawErrorNotify(data?.error?.status[0]?.description);
     }
   };
@@ -208,7 +206,6 @@ const Withdraw = ({
                             </div>
                             <div className="col-6">
                               <input
-                                
                                 placeholder="Amount"
                                 type="text"
                                 readOnly="readonly"
@@ -216,8 +213,8 @@ const Withdraw = ({
                                 className="form-control txt-right"
                                 defaultValue={
                                   amountOne !== null && !isNaN(amountOne)
-                              ? amountOne
-                              : data?.amount
+                                    ? amountOne
+                                    : data?.amount
                                 }
                               />
                             </div>
@@ -242,10 +239,10 @@ const Withdraw = ({
                             </div>
                             <div className="col-6">
                               <input
-                                 onChange={(e) => {
-                              handleAmount(e.target.value);
-                              SetWithdrawAmount(e.target.value);
-                            }}
+                                onChange={(e) => {
+                                  handleAmount(e.target.value);
+                                  SetWithdrawAmount(e.target.value);
+                                }}
                                 placeholder="Amount"
                                 type="text"
                                 readOnly="readonly"
@@ -253,8 +250,8 @@ const Withdraw = ({
                                 className="form-control txt-right"
                                 defaultValue={
                                   amountTwo !== null && !isNaN(amountTwo)
-                                  ? amountTwo
-                                  : data?.amount2
+                                    ? amountTwo
+                                    : data?.amount2
                                 }
                               />
                             </div>
@@ -322,7 +319,11 @@ const Withdraw = ({
                       </div>
                       <div className="form-group row">
                         <div className="col-12 text-right">
-                          <button type="submit" className="btn btn-danger">
+                          <button
+                            disabled={loading}
+                            type="submit"
+                            className="btn btn-danger"
+                          >
                             submit
                             <i className="fas fa-sign-in-alt ml-1"></i>
                           </button>

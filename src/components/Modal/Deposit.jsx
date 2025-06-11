@@ -14,6 +14,7 @@ const Deposit = ({
   depositAccountType,
 }) => {
   const modalRef = useRef();
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("adminToken");
   const [transactionCode, setTransactionCode] = useState("");
   const [amountOne, setAmountOne] = useState(null);
@@ -53,6 +54,7 @@ const Deposit = ({
 
   const handleDepositSubmit = async (e) => {
     e.preventDefault();
+
     const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
       downlineId: depositAccountType,
@@ -70,6 +72,7 @@ const Deposit = ({
       setInputIsValid(true);
       return;
     }
+    setLoading(true);
     const res = await axios.post(API.downLineEdit, encryptedData, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -78,11 +81,13 @@ const Deposit = ({
     const data = res.data;
 
     if (data.success) {
+      setLoading(false);
       refetchBalance();
       setDepositSuccessNotify(data?.result?.message);
       setDepositModal(!depositModal);
       refetchDownLine();
     } else {
+      setLoading(false);
       setDepositErrorNotify(data?.error?.status[0]?.description);
     }
   };
@@ -203,8 +208,8 @@ const Deposit = ({
                                 className="form-control txt-right"
                                 defaultValue={
                                   amountOne !== null && !isNaN(amountOne)
-                                  ? amountOne
-                                  : data?.amount
+                                    ? amountOne
+                                    : data?.amount
                                 }
                               />
                             </div>
@@ -236,8 +241,8 @@ const Deposit = ({
                                 className="form-control txt-right"
                                 defaultValue={
                                   amountTwo !== null && !isNaN(amountTwo)
-                              ? amountTwo
-                              : data?.amount2
+                                    ? amountTwo
+                                    : data?.amount2
                                 }
                               />
                             </div>
@@ -305,7 +310,11 @@ const Deposit = ({
                       </div>
                       <div className="form-group row">
                         <div className="col-12 text-right">
-                          <button type="submit" className="btn btn-success">
+                          <button
+                            type="submit"
+                            disabled={loading}
+                            className="btn btn-success"
+                          >
                             submit
                             <i className="fas fa-sign-in-alt ml-1"></i>
                           </button>
