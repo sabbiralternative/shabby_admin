@@ -10,16 +10,18 @@ const OurCasino = () => {
 
   useEffect(() => {
     const getAuraCasino = async () => {
-      const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData({ token: generatedToken });
-      const res = await axios.post(
-        `${settings.casino == "aura" ? API.auraCasino : ""} ${
-          settings.casino == "diamond" ? API.diamondCasino : ""
-        }`,
-        encryptedData
-      );
-      const data = res.data;
-      setCasino_list(data);
+      if (settings.casino === "aura" || settings.casino === "diamond") {
+        const generatedToken = UseTokenGenerator();
+        const encryptedData = UseEncryptData({ token: generatedToken });
+        const res = await axios.post(
+          `${settings.casino == "aura" ? API.auraCasino : ""} ${
+            settings.casino == "diamond" ? API.diamondCasino : ""
+          }`,
+          encryptedData
+        );
+        const data = res.data;
+        setCasino_list(data);
+      }
     };
     getAuraCasino();
   }, []);

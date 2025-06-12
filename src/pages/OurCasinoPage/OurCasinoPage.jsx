@@ -13,18 +13,21 @@ const OurCasinoPage = () => {
 
   useEffect(() => {
     const getAuraCasino = async () => {
-      const generatedToken = UseTokenGenerator();
-      const encryptedData = UseEncryptData({ token: generatedToken });
-      const res = await axios.get(
-        `${settings.casino == "aura" ? API.auraCasino : ""} ${
-          settings.casino == "diamond" ? API.diamondCasino : ""
-        }`,
-        encryptedData
-      );
-      const data = res.data;
-      const sort = data.sort((Link, b) => Link.sort - b.sort);
-      setData(sort);
-      setCasino_list(sort);
+      if (settings.casino === "aura" || settings.casino === "diamond") {
+        const generatedToken = UseTokenGenerator();
+        const encryptedData = UseEncryptData({ token: generatedToken });
+
+        const res = await axios.get(
+          `${settings.casino == "aura" ? API.auraCasino : ""} ${
+            settings.casino == "diamond" ? API.diamondCasino : ""
+          }`,
+          encryptedData
+        );
+        const data = res.data;
+        const sort = data.sort((Link, b) => Link.sort - b.sort);
+        setData(sort);
+        setCasino_list(sort);
+      }
     };
     getAuraCasino();
   }, [filterGames]);
