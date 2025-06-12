@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Event from "./Event";
+// import Event from "./Event";
 import UseContextState from "../../hooks/UseContextState";
 
 const Sidebar = () => {
@@ -224,7 +224,7 @@ const Sidebar = () => {
                       </li>
 
                       {/* Event */}
-                      <Event />
+                      {/* <Event /> */}
                     </ul>
                   </div>
                 </div>
