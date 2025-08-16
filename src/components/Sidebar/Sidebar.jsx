@@ -78,7 +78,7 @@ const Sidebar = () => {
                             <li className="">
                               <Link
                                 onClick={() => setSidebarMobile(!sidebarMobile)}
-                                to="/admin/user"
+                                to="/user"
                                 className="side-nav-link-ref"
                               >
                                 Account List
