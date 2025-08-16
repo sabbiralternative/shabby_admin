@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UseContextState from "../../hooks/UseContextState";
 import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
@@ -9,11 +9,12 @@ import { API } from "../../utils";
 const AccountListUserType = () => {
   const { downLineId, setDownLineId, searchId, setSearchId } =
     UseContextState();
+  const navigate = useNavigate();
   const token = localStorage.getItem("adminToken");
   const { userType } = useParams();
 
   const { data = [], refetch } = useQuery({
-    queryKey: ["downLineData"],
+    queryKey: ["downLineData", userType],
     queryFn: async () => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({
@@ -35,7 +36,7 @@ const AccountListUserType = () => {
 
   const handleRefetchDownLine = (downLine) => {
     if (downLine.hasDownline) {
-      window.open(`/admin/user/${downLine?.username}`, "_blank");
+      navigate(`/user/${downLine?.username}`, "_blank");
       setDownLineId(downLine?.username);
       setSearchId("");
     }
@@ -43,7 +44,7 @@ const AccountListUserType = () => {
 
   useEffect(() => {
     refetch();
-  }, [searchId, downLineId]);
+  }, [searchId, downLineId, userType, refetch]);
 
   const sortedAccounts =
     Array.isArray(data) &&

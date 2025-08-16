@@ -5,7 +5,7 @@ import Deposit from "../../components/Modal/Deposit";
 import Withdraw from "../../components/Modal/Withdraw";
 import Success from "../../components/Notification/Success";
 import Error from "../../components/Notification/Error";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UseDownLineData from "../../hooks/UseDownlineData";
 import MoreModal from "../../components/Modal/MoreModal";
 import UseExportToPdf from "../../hooks/UseExportToPdf";
@@ -38,12 +38,13 @@ const AccountList = () => {
   const [data, refetchDownLine, setSearchUser, searchUser] = UseDownLineData();
   const [creditRefAccountType, setCreditRefAccountType] = useState("");
   const { exportPdf } = UseExportToPdf();
+  const navigate = useNavigate();
 
   const handleRefetchDownLine = (downLine) => {
     if (downLine.hasDownline) {
       setDownLineId(downLine?.username);
       setSearchId("");
-      window.open(`/admin/user/${downLine?.username}`, "_blank");
+      navigate(`/user/${downLine?.username}`, "_blank");
     }
   };
 
