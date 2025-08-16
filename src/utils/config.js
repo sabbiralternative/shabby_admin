@@ -3,7 +3,7 @@ import { API, settings } from "./index";
 
 export const getSetApis = (setNoticeLoaded) => {
   axios
-    .get("/notice.json")
+    .get("/admin/notice.json")
     .then((res) => {
       const data = res.data;
       if (data?.result?.endpoint) {
@@ -23,7 +23,6 @@ export const getSetApis = (setNoticeLoaded) => {
         API.partyWinLoss = endPoints?.partyWinLoss;
         API.userAuthentication = endPoints?.userAuthentication;
         API.userHistory = endPoints?.userHistory;
-
 
         API.liveCasinoIframe = endPoints?.liveCasinoIframe;
         API.accessToken = endPoints?.accessToken;
