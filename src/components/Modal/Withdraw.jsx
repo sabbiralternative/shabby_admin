@@ -11,7 +11,7 @@ const Withdraw = ({
   setWithdrawModal,
   setWithdrawSuccessNotify,
   setWithdrawErrorNotify,
-  withdrawAccountType,
+  modalPayload,
 }) => {
   const modalRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ const Withdraw = ({
     const getReferenceData = async () => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({
-        downlineId: withdrawAccountType,
+        ...modalPayload,
         type: "balance",
         token: generatedToken,
       });
@@ -44,7 +44,7 @@ const Withdraw = ({
       setData(data.result);
     };
     getReferenceData();
-  }, [token, withdrawAccountType]);
+  }, [token, modalPayload]);
 
   const handleAmount = (e) => {
     const userOne = data?.amount + parseFloat(e);
@@ -68,7 +68,7 @@ const Withdraw = ({
 
     const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
-      downlineId: withdrawAccountType,
+      ...modalPayload,
       type: "withdraw",
       mpassword: transactionCode,
       amount: withdrawAmount,

@@ -6,19 +6,17 @@ import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 import { API } from "../../utils";
 
-const UserLock = ({ profileData, moreModalAccountType }) => {
+const UserLock = ({ profileData, modalPayload }) => {
   const token = localStorage.getItem("adminToken");
   const [betLock, setBetLock] = useState(false);
   const [userLock, setUserLock] = useState(false);
   const [transactionCode, setTransactionCode] = useState("");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify} =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
     UseContextState();
   const [, refetchDownLine] = UseDownLineData();
   useEffect(() => {
     profileData?.length > 0 &&
       profileData.map(({ betLock, userLock }) => {
-   
-
         if (betLock === 0) {
           setBetLock(false);
         } else {
@@ -35,25 +33,20 @@ const UserLock = ({ profileData, moreModalAccountType }) => {
 
   const handleChangeUserLock = async (e) => {
     e.preventDefault();
-    const generatedToken = UseTokenGenerator()
-      const encryptedData = UseEncryptData( {
-        downlineId: moreModalAccountType,
-        type: "userLock",
-        betLock: betLock ? 1 : 0,
-        userLock: userLock ? 1 : 0,
-        mpassword: transactionCode,
-        token:generatedToken
-
-      })
-    const res = await axios.post(
-      API.downLineEdit,encryptedData
-     ,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      ...modalPayload,
+      type: "userLock",
+      betLock: betLock ? 1 : 0,
+      userLock: userLock ? 1 : 0,
+      mpassword: transactionCode,
+      token: generatedToken,
+    });
+    const res = await axios.post(API.downLineEdit, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = res.data;
 
     if (data?.success) {

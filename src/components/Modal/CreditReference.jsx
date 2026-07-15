@@ -10,7 +10,7 @@ const CreditReference = ({
   setCreditRefModal,
   setCreditErrorNotify,
   setCreditSuccessNotify,
-  creditRefAccountType,
+  modalPayload,
 }) => {
   const modalRef = useRef();
   const token = localStorage.getItem("adminToken");
@@ -24,7 +24,7 @@ const CreditReference = ({
     const getReferenceData = async () => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({
-        downlineId: creditRefAccountType,
+        ...modalPayload,
         type: "creditReferance",
         token: generatedToken,
       });
@@ -38,7 +38,7 @@ const CreditReference = ({
       setData(data.result);
     };
     getReferenceData();
-  }, [token, creditRefAccountType]);
+  }, [token, modalPayload]);
 
   const handleReferenceSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +48,7 @@ const CreditReference = ({
     }
     const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
-      downlineId: creditRefAccountType,
+      ...modalPayload,
       type: "creditReference",
       mpassword: transactionCode,
       amount: newCredit,

@@ -6,13 +6,13 @@ import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 import { API } from "../../utils";
 
-const EditProfile = ({ profileData, moreModalAccountType }) => {
+const EditProfile = ({ profileData, modalPayload }) => {
   const token = localStorage.getItem("adminToken");
   const [changePasswordLock, setChangePasswordLock] = useState(false);
   const [favoriteMaster, setFavoriteMaster] = useState(false);
   const [name, setName] = useState("");
   const [transactionCode, setTransactionCode] = useState("");
-  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify} =
+  const { setMoreModalSuccessNotify, setMoreModal, setMoreModalErrNotify } =
     UseContextState();
   const [, refetchDownLine] = UseDownLineData();
 
@@ -36,25 +36,21 @@ const EditProfile = ({ profileData, moreModalAccountType }) => {
 
   const handleChangeUserLock = async (e) => {
     e.preventDefault();
-    const generatedToken = UseTokenGenerator()
-      const encryptedData = UseEncryptData({
-        downlineId: moreModalAccountType,
-        type: "editProfile",
-        name: name,
-        changePasswordLock: changePasswordLock ? 1 : 0,
-        favoriteMaster: favoriteMaster ? 1 : 0,
-        mpassword: transactionCode,
-        token:generatedToken
-      })
-    const res = await axios.post(
-      API.downLineEdit,encryptedData
-      ,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const generatedToken = UseTokenGenerator();
+    const encryptedData = UseEncryptData({
+      ...modalPayload,
+      type: "editProfile",
+      name: name,
+      changePasswordLock: changePasswordLock ? 1 : 0,
+      favoriteMaster: favoriteMaster ? 1 : 0,
+      mpassword: transactionCode,
+      token: generatedToken,
+    });
+    const res = await axios.post(API.downLineEdit, encryptedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = res.data;
     if (data?.success) {
       setMoreModalSuccessNotify(data?.result?.message);

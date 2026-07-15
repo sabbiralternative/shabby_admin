@@ -25,20 +25,13 @@ const AccountList = () => {
   } = UseContextState();
   const [creditRefModal, setCreditRefModal] = useState(false);
   const [depositModal, setDepositModal] = useState(false);
-  const [depositAccountType, setDepositAccountType] = useState("");
   const [withdrawModal, setWithdrawModal] = useState(false);
-  const [withdrawAccountType, setWithdrawAccountType] = useState(false);
-  const [depositSuccessNotify, setDepositSuccessNotify] = useState(false);
-  const [depositErrorNotify, setDepositErrorNotify] = useState(false);
-  const [withdrawSuccessNotify, setWithdrawSuccessNotify] = useState(false);
-  const [withdrawErrorNotify, setWithdrawErrorNotify] = useState(false);
-  const [creditSuccessNotify, setCreditSuccessNotify] = useState(false);
-  const [creditErrorNotify, setCreditErrorNotify] = useState(false);
-  const [moreModalAccountType, setMoreModalAccountType] = useState("");
   const [data, refetchDownLine, setSearchUser, searchUser] = UseDownLineData();
-  const [creditRefAccountType, setCreditRefAccountType] = useState("");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const { exportPdf } = UseExportToPdf();
   const navigate = useNavigate();
+  const [modalPayload, setModalPayload] = useState({});
 
   const handleRefetchDownLine = (downLine) => {
     if (downLine.hasDownline) {
@@ -456,9 +449,11 @@ const AccountList = () => {
                                     <button
                                       onClick={() => {
                                         setCreditRefModal(!creditRefModal);
-                                        setCreditRefAccountType(
-                                          downLineData?.username
-                                        );
+                                        setModalPayload({
+                                          downlineId: downLineData?.username,
+                                          user_id: downLineData?.user_id,
+                                          role: downLineData?.role,
+                                        });
                                       }}
                                       type="button"
                                       className="btn btn-warning"
@@ -469,9 +464,11 @@ const AccountList = () => {
                                     <button
                                       onClick={() => {
                                         setDepositModal(!depositModal);
-                                        setDepositAccountType(
-                                          downLineData?.username
-                                        );
+                                        setModalPayload({
+                                          downlineId: downLineData?.username,
+                                          user_id: downLineData?.user_id,
+                                          role: downLineData?.role,
+                                        });
                                       }}
                                       type="button"
                                       className="btn btn-success"
@@ -481,9 +478,11 @@ const AccountList = () => {
                                     <button
                                       onClick={() => {
                                         setWithdrawModal(!withdrawModal);
-                                        setWithdrawAccountType(
-                                          downLineData?.username
-                                        );
+                                        setModalPayload({
+                                          downlineId: downLineData?.username,
+                                          user_id: downLineData?.user_id,
+                                          role: downLineData?.role,
+                                        });
                                       }}
                                       type="button"
                                       className="btn btn-danger"
@@ -494,9 +493,11 @@ const AccountList = () => {
                                       onClick={() => {
                                         setMoreModal(!moreModal);
                                         setMoreModalCount("profile");
-                                        setMoreModalAccountType(
-                                          downLineData?.username
-                                        );
+                                        setModalPayload({
+                                          downlineId: downLineData?.username,
+                                          user_id: downLineData?.user_id,
+                                          role: downLineData?.role,
+                                        });
                                       }}
                                       type="button"
                                       className="btn btn-info"
@@ -630,69 +631,13 @@ const AccountList = () => {
         <CreditReference
           creditRefModal={creditRefModal}
           setCreditRefModal={setCreditRefModal}
-          setCreditSuccessNotify={setCreditSuccessNotify}
-          setCreditErrorNotify={setCreditErrorNotify}
-          creditRefAccountType={creditRefAccountType}
+          setCreditSuccessNotify={setSuccess}
+          setCreditErrorNotify={setError}
+          modalPayload={modalPayload}
         />
       )}
-      {creditSuccessNotify && (
-        <Success
-          message={creditSuccessNotify}
-          setMessage={setCreditSuccessNotify}
-        />
-      )}
-      {creditErrorNotify && (
-        <Error message={creditErrorNotify} setMessage={setCreditErrorNotify} />
-      )}
-
-      {/* deposit */}
-      {depositModal && (
-        <Deposit
-          depositModal={depositModal}
-          setDepositModal={setDepositModal}
-          depositSuccessNotify={depositSuccessNotify}
-          setDepositSuccessNotify={setDepositSuccessNotify}
-          depositErrorNotify={depositErrorNotify}
-          setDepositErrorNotify={setDepositErrorNotify}
-          depositAccountType={depositAccountType}
-        />
-      )}
-      {depositSuccessNotify && (
-        <Success
-          message={depositSuccessNotify}
-          setMessage={setDepositSuccessNotify}
-        />
-      )}
-      {depositErrorNotify && (
-        <Error
-          message={depositErrorNotify}
-          setMessage={setDepositErrorNotify}
-        />
-      )}
-      {/* Withdraw */}
-      {withdrawModal && (
-        <Withdraw
-          withdrawModal={withdrawModal}
-          setWithdrawModal={setWithdrawModal}
-          setWithdrawSuccessNotify={setWithdrawSuccessNotify}
-          setWithdrawErrorNotify={setWithdrawErrorNotify}
-          withdrawAccountType={withdrawAccountType}
-        />
-      )}
-      {withdrawSuccessNotify && (
-        <Success
-          message={withdrawSuccessNotify}
-          setMessage={setWithdrawSuccessNotify}
-        />
-      )}
-      {withdrawErrorNotify && (
-        <Error
-          message={withdrawErrorNotify}
-          setMessage={setWithdrawErrorNotify}
-        />
-      )}
-
-      {moreModal && <MoreModal moreModalAccountType={moreModalAccountType} />}
+      {success && <Success message={success} setMessage={setSuccess} />}
+      {error && <Error message={error} setMessage={setError} />}
       {moreModalSuccessNotify && (
         <Success
           message={moreModalSuccessNotify}
@@ -705,6 +650,30 @@ const AccountList = () => {
           setMessage={setMoreModalErrNotify}
         />
       )}
+
+      {/* deposit */}
+      {depositModal && (
+        <Deposit
+          depositModal={depositModal}
+          setDepositModal={setDepositModal}
+          setDepositSuccessNotify={setSuccess}
+          setDepositErrorNotify={setError}
+          modalPayload={modalPayload}
+        />
+      )}
+
+      {/* Withdraw */}
+      {withdrawModal && (
+        <Withdraw
+          withdrawModal={withdrawModal}
+          setWithdrawModal={setWithdrawModal}
+          setWithdrawSuccessNotify={setSuccess}
+          setWithdrawErrorNotify={setError}
+          modalPayload={modalPayload}
+        />
+      )}
+
+      {moreModal && <MoreModal modalPayload={modalPayload} />}
     </div>
   );
 };

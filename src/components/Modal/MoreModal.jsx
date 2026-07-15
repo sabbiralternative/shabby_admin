@@ -11,13 +11,9 @@ import UseTokenGenerator from "../../hooks/UseTokenGenerator";
 import UseEncryptData from "../../hooks/UseEncryptData";
 import { API } from "../../utils";
 
-const MoreModal = ({ moreModalAccountType }) => {
-  const {
-    moreModalCount,
-    setMoreModalCount,
-    moreModal,
-    setMoreModal
-  } = UseContextState();
+const MoreModal = ({ modalPayload }) => {
+  const { moreModalCount, setMoreModalCount, moreModal, setMoreModal } =
+    UseContextState();
   const modalRef = useRef();
   const token = localStorage.getItem("adminToken");
   const [profileData, setProfileData] = useState();
@@ -33,7 +29,7 @@ const MoreModal = ({ moreModalAccountType }) => {
       const getProfileData = async () => {
         const generatedToken = UseTokenGenerator();
         const encryptedData = UseEncryptData({
-          downlineId: moreModalAccountType,
+          ...modalPayload,
           type: moreModalCount,
           token: generatedToken,
         });
@@ -43,14 +39,14 @@ const MoreModal = ({ moreModalAccountType }) => {
           },
         });
         const data = res.data;
-        
+
         if (data.success) {
           setProfileData(data?.result);
         }
       };
       getProfileData();
     }
-  }, [moreModalAccountType, token, moreModalCount]);
+  }, [modalPayload, token, moreModalCount]);
 
   /* Close modalRef modal click outside the modal */
   useEffect(() => {
@@ -92,7 +88,7 @@ const MoreModal = ({ moreModalAccountType }) => {
               className="modal-header bg-primary"
             >
               <h5 className="modal-title text-uppercase text-white">
-                {moreModalAccountType}
+                {modalPayload.downlineId}
               </h5>
               <button
                 onClick={() => {
@@ -118,24 +114,21 @@ const MoreModal = ({ moreModalAccountType }) => {
                   <Profile profileData={profileData} />
                 )}
                 {moreModalCount === "changePass" && (
-                  <ChangePassword moreModalAccountType={moreModalAccountType} />
+                  <ChangePassword modalPayload={modalPayload} />
                 )}
                 {moreModalCount === "userLock" && (
                   <UserLock
                     profileData={profileData}
-                    moreModalAccountType={moreModalAccountType}
+                    modalPayload={modalPayload}
                   />
                 )}
                 {moreModalCount === "accountHistory" && (
-                  <AccountHistory
-                    profileData={profileData}
-                    moreModalAccountType={moreModalAccountType}
-                  />
+                  <AccountHistory profileData={profileData} />
                 )}
                 {moreModalCount === "editProfile" && (
                   <EditProfile
                     profileData={profileData}
-                    moreModalAccountType={moreModalAccountType}
+                    modalPayload={modalPayload}
                   />
                 )}
               </div>

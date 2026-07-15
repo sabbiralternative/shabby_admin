@@ -11,7 +11,7 @@ const Deposit = ({
   setDepositModal,
   setDepositSuccessNotify,
   setDepositErrorNotify,
-  depositAccountType,
+  modalPayload,
 }) => {
   const modalRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const Deposit = ({
     const getReferenceData = async () => {
       const generatedToken = UseTokenGenerator();
       const encryptedData = UseEncryptData({
-        downlineId: depositAccountType,
+        ...modalPayload,
         type: "balance",
         token: generatedToken,
       });
@@ -43,7 +43,7 @@ const Deposit = ({
       setData(data.result);
     };
     getReferenceData();
-  }, [token, depositAccountType]);
+  }, [token, modalPayload]);
 
   const handleAmount = (e) => {
     const userOne = data?.amount - parseFloat(e);
@@ -57,13 +57,14 @@ const Deposit = ({
 
     const generatedToken = UseTokenGenerator();
     const encryptedData = UseEncryptData({
-      downlineId: depositAccountType,
+      ...modalPayload,
       type: "deposit",
       mpassword: transactionCode,
       amount: depositAmount,
       remark: remark,
       token: generatedToken,
     });
+
     if (
       remark.length === 0 ||
       transactionCode.length === 0 ||
