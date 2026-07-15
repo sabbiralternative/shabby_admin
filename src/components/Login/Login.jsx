@@ -11,7 +11,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
-  const { setLoginSuccess, logo } = UseContextState();
+  // logo
+  const { setLoginSuccess } = UseContextState();
 
   useEffect(() => {
     document.title = settings.siteTitle;
@@ -74,7 +75,7 @@ const Login = () => {
     <>
       <div className="vertical-collpsed login">
         <section className="login-mn">
-          <div className="log-logo m-b-20">
+          {/* <div className="log-logo m-b-20">
             <img
               src={logo}
               style={{
@@ -82,7 +83,7 @@ const Login = () => {
                 maxHeight: "100px",
               }}
             />
-          </div>
+          </div> */}
           <div className="log-fld">
             <h2 className="text-center">Sign In</h2>
             {/*  <!----> */}

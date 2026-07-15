@@ -115,7 +115,7 @@ const CreateAccount = () => {
                       </Link>
                     </li>
                     <li className="breadcrumb-item">
-                      <Link to="/admin/user" className="router-link-active">
+                      <Link to="/user" className="router-link-active">
                         Users
                       </Link>
                     </li>
